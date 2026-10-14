@@ -1,0 +1,458 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a2b"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Mi Finanzas IA"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png"><title>Mi Finanzas IA · 2.3</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#edf3fc;background:#0c1422}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}header{padding:22px 20px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:22px;font-weight:800}.sub{color:#9cacc5;font-size:12px}main{max-width:1050px;margin:auto;padding:0 16px 105px}.hero{background:linear-gradient(130deg,#1b354a,#172239);padding:20px;border-radius:22px;margin:12px 0 18px}.hero h2{margin:8px 0;font-size:30px}.muted{color:#a6b6ce}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{background:#18253a;border:1px solid #293a50;border-radius:17px;padding:16px;margin-bottom:12px}.card h3{margin:0 0 10px;font-size:16px}.stat{font-size:21px;font-weight:750;margin-top:8px;overflow-wrap:anywhere}.green{color:#79e4b4}.red{color:#ff9e9e}.pill{display:inline-block;border-radius:30px;padding:5px 10px;background:#254257;color:#9ae7cc;font-size:12px}.btn{border:0;border-radius:12px;padding:12px 15px;background:#64d6aa;color:#10251f;font-weight:750}.btn.secondary{background:#2a3a52;color:#ecf3fb}.btn.danger{background:#532d3c;color:#ffc2c2}.btn.tiny{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.listitem{padding:13px 0;border-bottom:1px solid #2b3b51;display:flex;justify-content:space-between;gap:10px;align-items:center}.listitem:last-child{border:0}.listitem strong{display:block}.listitem small{display:block;color:#a6b6ce;margin-top:5px}.empty{color:#aab9ce;padding:12px 0}.nav{position:fixed;bottom:0;left:0;right:0;background:#101b2c;border-top:1px solid #304056;display:flex;justify-content:space-around;padding:9px 3px calc(10px + env(safe-area-inset-bottom));z-index:10}.nav button{background:none;border:0;color:#a5b5cb;font-size:11px;min-width:54px;padding:5px}.nav button.active{color:#79e4b4;font-weight:800}.nav span{display:block;font-size:21px;margin-bottom:4px}.sectiontitle{margin:18px 0 12px;font-size:23px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field.full{grid-column:1/-1}label{color:#c3d0e2;font-size:13px}input,select,textarea{background:#0e1a2b;color:#fff;border:1px solid #3c5069;border-radius:10px;padding:12px;min-width:0;width:100%}textarea{resize:vertical}dialog{border:1px solid #41556c;border-radius:18px;background:#17263a;color:#fff;width:min(95vw,540px);max-height:85vh;overflow:auto;padding:20px}dialog::backdrop{background:#020813bb}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.notice{font-size:13px;color:#b8c9db;line-height:1.5}.progress{height:9px;background:#304056;border-radius:9px;overflow:hidden;margin-top:10px}.progress>div{background:#70dcb0;height:100%}.tag{font-size:11px;color:#a8c8d8}.hide{display:none!important}@media(min-width:720px){.grid{grid-template-columns:repeat(4,1fr)}.nav{position:static;max-width:1050px;margin:0 auto 20px;border:0;border-radius:14px}.nav button{font-size:13px}.nav span{font-size:17px;display:inline;margin-right:7px}main{padding-bottom:30px}}
+
+/* Mejoras 1.1 para iPhone */
+html{scroll-padding-bottom:115px}body{min-height:100dvh}header{padding-top:calc(18px + env(safe-area-inset-top));padding-left:18px;padding-right:18px}.brand{font-size:21px}.nav{padding:8px 4px calc(10px + env(safe-area-inset-bottom));gap:2px;box-shadow:0 -8px 24px #050b1688}.nav button{flex:1;min-width:0;min-height:53px;border-radius:12px;padding:5px 1px;font-size:10px}.nav button.active{background:#203849}.nav span{font-size:21px}.btn{min-height:43px}.btn.tiny{min-height:37px}.topline{flex-wrap:wrap}.listitem{align-items:flex-start}.listitem>div:first-child{min-width:0;overflow-wrap:anywhere}.stat{font-size:clamp(17px,5vw,23px)}.card{padding:15px}.hero h2{font-size:clamp(26px,8vw,38px)}dialog{max-height:86dvh;padding:17px}dialog::backdrop{backdrop-filter:blur(4px)}.field input,.field select{min-height:46px;font-size:16px}.hint{color:#9fb2cb;font-size:12px;line-height:1.55}.uber-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.uber-summary .card{margin:0}.uber-summary .stat{font-size:19px}.kpi{color:#8ddfbf}.callout{border:1px solid #355569;background:#162f3d;border-radius:13px;padding:13px;margin:12px 0}.work-actions{margin:12px 0}.work-actions .btn{flex:1}.shift-title{font-weight:750}.shift-meta{color:#a6b6ce;font-size:12px;margin-top:5px}.shift-buttons{display:flex;gap:7px;flex-wrap:wrap}.shift-buttons button{font-size:12px}#app{min-height:65vh}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #88e3c1;outline-offset:2px}@media(max-width:440px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.nav button{font-size:10px}.nav span{font-size:20px}}@media(min-width:720px){.nav button{min-height:44px}}
+
+/* v1.4.1: mobile overflow and dialog usability */
+html,body{width:100%;max-width:100%;overflow-x:clip;overscroll-behavior-x:none}
+#app,main,header,.card,.hero,.grid,.formgrid,.field,.topline,.actions,.listitem{min-width:0;max-width:100%}
+.card,.hero,.listitem,.topline,.notice,.hint{overflow-wrap:anywhere}
+.grid>*,.formgrid>*,.topline>*,.actions>*{min-width:0}
+button{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+input,select,textarea{max-width:100%;min-width:0}
+dialog{box-sizing:border-box;width:min(540px,calc(100% - 24px));max-width:calc(100% - 24px);min-width:0;max-height:calc(100dvh - 32px);overflow-x:hidden;overflow-y:auto;overscroll-behavior-x:none;overscroll-behavior-y:contain;padding:16px;margin:auto;scroll-padding-bottom:28px}
+dialog[open]{display:block}
+dialog .formgrid{width:100%;min-width:0}
+dialog .field{min-width:0}
+dialog input,dialog select,dialog textarea{width:100%;max-width:100%;min-width:0;font-size:16px}
+dialog form{width:100%;min-width:0;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+dialog .topline{position:relative;align-items:flex-start}
+dialog .topline h3{min-width:0;flex:1;margin-top:5px;overflow-wrap:anywhere}
+dialog .topline button{flex:0 0 auto}
+@media(max-width:600px){dialog .formgrid{grid-template-columns:minmax(0,1fr)}dialog .field.full{grid-column:auto}dialog{max-height:calc(100dvh - 24px);padding:14px}}
+@supports not (height:100dvh){dialog{max-height:calc(100vh - 32px)}}
+
+/* v1.4.2: iOS Safari date inputs stay inside their field boxes */
+input[type="date"], input[type="datetime-local"], input[type="time"] {
+  display:block;
+  box-sizing:border-box;
+  inline-size:100%;
+  width:100%;
+  max-inline-size:100%;
+  max-width:100%;
+  min-inline-size:0;
+  min-width:0;
+  margin:0;
+  padding-inline:12px;
+  -webkit-appearance:none;
+  appearance:none;
+  text-align:center;
+  overflow:hidden;
+}
+input[type="date"]::-webkit-date-and-time-value,
+input[type="datetime-local"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  display:block;
+  min-width:0;
+  width:100%;
+  text-align:center;
+}
+input[type="date"]::-webkit-datetime-edit,
+input[type="datetime-local"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit {
+  display:inline-block;
+  max-width:100%;
+  padding:0;
+}
+.field, .formgrid, dialog form, dialog .field { min-width:0; width:100%; }
+/* 2.3: respetar zona de estado y permitir desplazar todos los formularios */
+dialog[open]{
+ position:fixed!important;
+ inset:auto!important;
+ top:max(65px, calc(env(safe-area-inset-top, 0px) + 18px))!important;
+ left:12px!important;
+ right:12px!important;
+ bottom:max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px))!important;
+ margin:0 auto!important;
+ width:min(540px,calc(100% - 24px))!important;
+ max-height:none!important;
+ overflow-y:auto!important;
+ -webkit-overflow-scrolling:touch;
+}
+dialog .topline{position:sticky;top:-16px;z-index:2;background:#17263a;padding:12px 0}
+dialog form{padding-bottom:35px}
+
+/* 2.4.1: modal owns vertical scroll; prevent iOS background scroll chaining */
+html:has(dialog[open]), body:has(dialog[open]) {
+ overflow: hidden !important;
+ overscroll-behavior: none !important;
+ height: 100% !important;
+}
+body:has(dialog[open]) #app, body:has(dialog[open]) header, body:has(dialog[open]) nav {
+ touch-action: none;
+}
+dialog[open] {
+ height: auto !important;
+ max-height: calc(100dvh - 105px) !important;
+ overflow-x: hidden !important;
+ overflow-y: scroll !important;
+ overscroll-behavior: contain !important;
+ touch-action: pan-y !important;
+ -webkit-overflow-scrolling: touch !important;
+}
+dialog[open] form, dialog[open] input, dialog[open] textarea, dialog[open] select {touch-action: pan-y !important;}
+
+/* 2.5 — Rentabilidad real */
+.profit-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.profit-toolbar button{padding:10px 14px;border-radius:12px;border:1px solid #3b5067;background:#23374f;color:#e5eefb;font-weight:650}
+.profit-toolbar button.selected{background:#60d6aa;color:#092c26;border-color:#60d6aa}
+.profit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.profit-metric{border:1px solid #344963;border-radius:16px;padding:14px;min-width:0}
+.profit-metric .value{font-size:clamp(19px,5vw,29px);font-weight:750;overflow-wrap:anywhere}
+.profit-metric .sub{font-size:13px}
+.profit-bar{height:12px;background:#293b50;border-radius:9px;overflow:hidden;margin:8px 0}
+.profit-bar>div{height:100%;background:#60d6aa;border-radius:9px}
+.profit-row{border-top:1px solid #35455c;padding:13px 0}
+.profit-row:first-child{border-top:0}
+.profit-row strong{display:block}
+.profit-row small{display:block;color:#9aaec7;line-height:1.5}
+.profit-tag{font-size:12px;color:#a7bcd4}
+</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.5</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
+<div class="field"><label for="u_date">Fecha</label><input id="u_date" name="date" type="date" required></div>
+<div class="field"><label for="u_hours">Horas trabajadas</label><input id="u_hours" name="hours" type="number" min="0" max="48" step="1" required placeholder="Ej. 10"></div>
+<div class="field"><label for="u_minutes">Minutos trabajados</label><input id="u_minutes" name="minutes" type="number" min="0" max="59" step="1" value="0" required></div>
+<div class="field"><label for="u_uberhours">Horas en viajes según Uber (opcional)</label><input id="u_uberhours" name="uberHours" type="number" min="0" max="48" step="1" placeholder="Ej. 7"></div>
+<div class="field"><label for="u_uberminutes">Minutos en viajes Uber</label><input id="u_uberminutes" name="uberMinutes" type="number" min="0" max="59" step="1" value="0"></div>
+<div class="field"><label for="u_km">Kilómetros recorridos</label><input id="u_km" name="km" type="number" min="0" step="0.1" required placeholder="Ej. 145"></div>
+<div class="field"><label for="u_gross">Recaudación Uber (ARS)</label><input id="u_gross" name="gross" type="number" min="0" step="0.01" required placeholder="Ej. 85000"></div>
+<div class="field"><label for="u_private">Viajes particulares (ARS)</label><input id="u_private" name="privateIncome" type="number" min="0" step="0.01" value="0" required></div>
+<div class="field"><label for="u_fuel">Combustible (ARS)</label><input id="u_fuel" name="fuel" type="number" min="0" step="0.01" value="0" required></div>
+<div class="field"><label for="u_tolls">Peajes (ARS)</label><input id="u_tolls" name="tolls" type="number" min="0" step="0.01" value="0" required></div>
+<div class="field"><label for="u_other">Otros gastos (ARS)</label><input id="u_other" name="other" type="number" min="0" step="0.01" value="0" required></div>
+<div class="field full"><label for="u_note">Notas (opcional)</label><input id="u_note" name="note" maxlength="160" placeholder="Turno mañana, zona, etc."></div>
+</div><button class="btn" style="width:100%" type="submit">Guardar jornada y movimientos</button></form></dialog><dialog id="clockEditModal"><div class="topline"><h3>✎ Corregir jornada del reloj</h3><button class="btn secondary tiny" onclick="document.getElementById('clockEditModal').close()">✕</button></div><p class="hint">Editá los horarios de inicio, pausas, reanudaciones y finalización. Los tramos deben ser consecutivos y no superponerse.</p><form id="clockEditForm"><input type="hidden" id="ce_id"><div id="clockEditFields"></div><button type="submit" class="btn" style="width:100%">Guardar correcciones</button></form></dialog><dialog id="uberSettingsModal"><div class="topline"><h3>⚙ Plan semanal Uber</h3><button type="button" class="btn secondary tiny" onclick="document.getElementById('uberSettingsModal').close()">✕</button></div><form id="uberSettingsForm"><div class="field"><label>Objetivo de recaudación semanal (ARS)</label><input id="settingsGoal" name="weeklyGoal" type="number" min="0" step="1" required></div><div class="field"><label>Alquiler semanal del auto (ARS)</label><input id="settingsRent" name="weeklyRent" type="number" min="0" step="1" required></div><div class="field"><label>Otros costos fijos semanales (ARS)</label><input id="settingsOther" name="weeklyOther" type="number" min="0" step="1" required></div><div class="field"><label>Odómetro de referencia (km, opcional)</label><input id="settingsKm" name="startKm" type="number" min="0" step="1"></div><p class="hint">Estas cifras se usan para planificar, no generan movimientos contables. Evitá duplicar costos ya cargados en jornadas.</p><button class="btn" type="submit" style="width:100%">Guardar planificación</button></form></dialog><dialog id="carModal"><div class="topline"><h3 id="carModalTitle">🚗 Control del vehículo</h3><button class="btn secondary tiny" onclick="document.getElementById('carModal').close()">✕</button></div><form id="carForm"><div id="carFields"></div><button class="btn" type="submit" style="width:100%;margin-top:14px">Guardar registro</button></form></dialog><dialog id="modal"><div class="topline"><h3 id="modalTitle">Nuevo registro</h3><button class="btn secondary tiny" onclick="closeModal()">✕</button></div><form id="entryForm"></form></dialog><script>
+'use strict';const KEY='mfia-v1';const kinds=['movements','tasks','goals','vehicle'];const tabs=[['home','⌂','Inicio'],['money','＄','Finanzas'],['work','🚗','Trabajo'],['family','♡','Familia'],['agenda','▦','Agenda'],['more','☰','Más']];let tab='home';const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,9);const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const money=n=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(Number(n)||0);const defaults=()=>({movements:[],tasks:[],goals:[],vehicle:[],settings:{vehicleName:'Mi vehículo',km:0}});let db=load();if(!Array.isArray(db.uberShifts))db.uberShifts=[];if(!Array.isArray(db.weeklyClosures))db.weeklyClosures=[];if(!Array.isArray(db.weeklyPayments))db.weeklyPayments=[];if(!db.workClock||typeof db.workClock!=='object')db.workClock={sessions:[],active:null};if(!Array.isArray(db.workClock.sessions))db.workClock.sessions=[];if(!db.savings||typeof db.savings!=='object')db.savings={opening:200000,openingDate:'2026-10-14',transactions:[]};if(!Array.isArray(db.savings.transactions))db.savings.transactions=[];if(!db.settings||typeof db.settings!=="object")db.settings={};function load(){try{let x=JSON.parse(localStorage.getItem(KEY));if(!x||!kinds.every(k=>Array.isArray(x[k])))return defaults();return x}catch{return defaults()}}function save(){try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){alert('No se pudo guardar. Revisá el almacenamiento disponible del navegador.');return false}}function sum(items){return items.reduce((a,x)=>a+Number(x.amount||0),0)}const movements=()=>db.movements;const incoming=()=>sum(movements().filter(x=>x.type==='income'));const outgoing=()=>sum(movements().filter(x=>x.type==='expense'));const balance=()=>incoming()-outgoing();const workEntries=()=>movements().filter(x=>x.area==='Trabajo');const workNet=()=>sum(workEntries().filter(x=>x.type==='income'))-sum(workEntries().filter(x=>x.type==='expense'));function render(){document.getElementById('nav').innerHTML=tabs.map(([id,icon,name])=>`<button class="${tab===id?'active':''}" onclick="navigate('${id}')"><span>${icon}</span>${name}</button>`).join('');document.getElementById('app').innerHTML=({home:homeView,money:moneyView,work:workView,family:familyView,agenda:agendaView,more:moreView})[tab]()}function navigate(t){tab=t;render();window.scrollTo(0,0)}function stats(items){return `<div class="grid">${items.map(([label,value,cls])=>`<div class="card"><div class="sub">${label}</div><div class="stat ${cls||''}">${value}</div></div>`).join('')}</div>`}function header(t,action,kind){return `<div class="topline"><h2 class="sectiontitle">${t}</h2>${action?`<button class="btn tiny" onclick="openModal('${kind}')">＋ ${action}</button>`:''}</div>`}function list(items,kind,fn){return items.length?items.map(x=>`<div class="listitem"><div>${fn(x)}</div><button class="btn danger tiny" onclick="removeItem('${kind}','${x.id}')" aria-label="Eliminar">Eliminar</button></div>`).join(''):'<p class="empty">Todavía no hay registros.</p>'}function movementList(arr){return list([...arr].sort((a,b)=>b.date.localeCompare(a.date)), 'movements',x=>`<strong>${escapeHtml(x.description||x.category)} · <span class="${x.type==='income'?'green':'red'}">${x.type==='income'?'+':'−'}${money(x.amount)}</span></strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.area)} · ${escapeHtml(x.category)}</small>`)}function homeView(){let due=db.tasks.filter(x=>!x.done).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);return `<div class="hero"><div class="muted">Tu dinero disponible según movimientos registrados</div><h2>${money(balance())}</h2><div class="notice">Saldo calculado, no conectado a bancos. Actualizá tus registros para mantenerlo al día.</div><div class="actions" style="margin-top:14px"><button class="btn" onclick="openModal('movements')">＋ Registrar movimiento</button><button class="btn secondary" onclick="openModal('tasks')">＋ Tarea</button></div></div>${foodBudgetView()}${savingsView()}${weeklyPaymentsView()}${weeklyClosureView()}${stats([['Ingresos',money(incoming()),'green'],['Gastos',money(outgoing()),'red'],['Trabajo neto',money(workNet())],['Tareas pendientes',db.tasks.filter(x=>!x.done).length]])}<div class="card"><h3>🔔 Avisos del vehículo</h3>${carAlerts().length?carAlerts().map(a=>`<p class="notice">${escapeHtml(a)}</p>`).join(''):'<p class="empty">No hay avisos urgentes. Revisá las fechas y el kilometraje en Trabajo.</p>'}</div><div class="card"><h3>🔔 Centro de recordatorios</h3>${reminderView()}</div><div class="card"><h3>📅 Próximos compromisos</h3>${due.length?due.map(x=>`<div class="listitem"><div><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)}</small></div><button class="btn secondary tiny" onclick="toggleTask('${x.id}')">Completar</button></div>`).join(''):'<p class="empty">No tenés tareas pendientes.</p>'}</div><div class="card"><h3>✦ Análisis automático básico</h3><p class="notice">${insight()}</p><small class="muted">Reglas locales, todavía no es un asistente conversacional con IA.</small></div>`}function insight(){if(!movements().length)return 'Empezá registrando tus ingresos y gastos. Así podremos calcular tu situación y detectar patrones.';if(balance()<0)return 'Tus gastos registrados superan tus ingresos. Revisá los movimientos y priorizá tus compromisos.';if(outgoing()>incoming()*.8)return 'Los gastos representan más del 80% de tus ingresos registrados. Conviene revisar tu margen disponible.';return 'Tus ingresos registrados superan los gastos. Revisá tus tareas y objetivos para planificar el dinero disponible.'}
+
+function savingsProjectionView(){const start=weekStart(today()),work=db.movements.filter(x=>x.date&&weekStart(x.date)===start&&x.area==='Trabajo'),workNetWeek=sum(work.filter(x=>x.type==='income'))-sum(work.filter(x=>x.type==='expense'));const rent=Math.max(0,Number(db.settings.weeklyRent)||0),child=Math.max(0,Number(db.settings.weeklyChild)||100000),food=foodBudgetLimit();const obligations=db.movements.filter(x=>x.date&&weekStart(x.date)===start&&x.type==='expense'&&x.area!=='Trabajo'&&!foodBudgetEntries(start).some(f=>f.id===x.id));const other=sum(obligations);const potential=workNetWeek-rent-child-food-other;return `<div class="card"><div class="topline"><h3>💚 Ahorro potencial semanal</h3><button class="btn secondary tiny" onclick="editWeeklyChild()">⚙ Aporte familiar</button></div><p class="hint">Estimación basada en los ingresos y gastos laborales registrados esta semana. No representa dinero efectivamente ahorrado. El alquiler es una reserva, no un gasto duplicado.</p>${stats([['Neto laboral registrado',money(workNetWeek)],['Alquiler reservado',money(rent)],['Aporte hijo previsto',money(child)],['Comida presupuestada',money(food)],['Otros gastos no laborales',money(other)],['Ahorro potencial',money(potential),potential>=0?'green':'red']])}<p class="hint">Si registraste el alquiler o el aporte familiar como movimientos, ajustá las reservas para evitar contarlos dos veces. El ahorro efectivo debe registrarse aparte.</p></div>`}
+function editWeeklyChild(){const v=prompt('Aporte semanal previsto para tu hijo (ARS):',String(Number(db.settings.weeklyChild)||100000));if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0||!Number.isSafeInteger(n))return alert('Importe inválido');db.settings.weeklyChild=n;if(save())render()}
+function foodBudgetLimit(){const n=Number(db.settings.foodBudgetWeekly);return db.settings.foodBudgetWeekly!==undefined&&Number.isFinite(n)&&n>=0?n:100000}
+function foodBudgetEntries(start){return db.movements.filter(x=>x.type==='expense'&&x.date&&weekStart(x.date)===start&&(x.foodBudget==='yes'||(x.foodBudget===undefined&&x.area==='Personal'&&['Comida','Supermercado','Almacén','Almuerzo','Bebidas'].includes(x.category))))}
+function foodBudgetView(){const start=weekStart(today()),limit=foodBudgetLimit(),entries=foodBudgetEntries(start),spent=sum(entries),left=limit-spent,pct=limit>0?Math.min(100,100*spent/limit):100;const notice=left<0?'⚠️ Superaste el presupuesto de comida por '+money(-left):limit>0&&spent>=limit*.8?'⚠️ Ya utilizaste el 80 % o más de tu presupuesto de comida.':'';return `<div class="card"><div class="topline"><h3>🥗 Mi presupuesto semanal de comida</h3><button class="btn secondary tiny" onclick="editFoodBudget()">⚙ Configurar</button></div><p class="hint">Semana de lunes a domingo · desde ${dateLocal(start)}. No incluye celular, impuestos, servicios, alquiler ni GNC.</p><div class="sub">Disponible para comida</div><div class="stat ${left>=0?'green':'red'}">${money(left)}</div><div class="progress"><div style="width:${pct}%;background:${left<=limit*.2?'#dc756b':'#57b99d'}"></div></div>${stats([['Límite semanal',money(limit)],['Gastado en comida',money(spent),'red']])}${notice?`<p class="notice">${notice}</p>`:''}<div class="actions"><button class="btn" onclick="openFoodExpense()">＋ Gasto de comida</button></div><p class="hint">Los gastos de comida se descuentan automáticamente al registrarlos en Finanzas. Podés elegir manualmente si un movimiento cuenta para este presupuesto. El sobrante no se acumula automáticamente: cada lunes empieza un nuevo límite.</p>${entries.length?`<h4>Gastos de comida de esta semana</h4>${movementList(entries)}`:''}</div>`}
+function editFoodBudget(){const old=foodBudgetLimit(),v=prompt('Presupuesto semanal de comida en pesos:',String(old));if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0||!Number.isSafeInteger(n)){alert('Ingresá un importe válido.');return}db.settings.foodBudgetWeekly=n;if(save())render()}
+function openFoodExpense(){openModal('movements');document.getElementById('f_type').value='expense';document.getElementById('f_area').value='Personal';document.getElementById('f_category').value='Comida';document.getElementById('f_foodBudget').value='yes'}
+function closureData(start){
+ const entries=db.movements.filter(x=>x.date&&weekStart(x.date)===start),expenses=entries.filter(x=>x.type==='expense');
+ const work=entries.filter(x=>x.area==='Trabajo');
+ const workNet=sum(work.filter(x=>x.type==='income'))-sum(work.filter(x=>x.type==='expense'));
+ const foodSpent=sum(foodBudgetEntries(start));
+ // Los pagos reales clasificados se excluyen de las reservas previstas.
+ const isRent=x=>x.type==='expense'&&(/alquiler|autonomy/i.test((x.category||'')+' '+(x.description||'')))&&!x.carIncident;
+ const isChild=x=>x.type==='expense'&&(/aporte.*hijo|transferencia familiar|cuota alimentaria/i.test((x.category||'')+' '+(x.description||'')));
+ const paidRent=sum(expenses.filter(isRent)),paidChild=sum(expenses.filter(isChild));
+ const rent=Math.max(0,Number(db.settings.weeklyRent)||0),child=Math.max(0,db.settings.weeklyChild===undefined?100000:Number(db.settings.weeklyChild)||0);
+ const foodIds=new Set(foodBudgetEntries(start).map(x=>x.id));
+ const other=sum(expenses.filter(x=>x.area!=='Trabajo'&&!foodIds.has(x.id)&&!isRent(x)&&!isChild(x)));
+ const actualFood=foodSpent,foodReserve=Math.max(0,foodBudgetLimit()-actualFood);
+ const additionalRent=Math.max(0,rent-paidRent),additionalChild=Math.max(0,child-paidChild);
+ // Neto laboral ya incluye gastos laborales; restamos solamente reservas pendientes.
+ const potential=workNet-additionalRent-additionalChild-actualFood-foodReserve-other-sum(expenses.filter(x=>isChild(x)&&x.area!=='Trabajo'));
+ // Si el alquiler se pagó fuera del área Trabajo, restarlo como pago real.
+ const rentOutside=sum(expenses.filter(x=>isRent(x)&&x.area!=='Trabajo'));
+ return {start,workNet,rent,child,foodLimit:foodBudgetLimit(),foodSpent,other,paidRent,paidChild,additionalRent,additionalChild,foodReserve,potential:potential-rentOutside};
+}
+
+function savingsBalance(){return Number(db.savings.opening||0)+db.savings.transactions.reduce((n,x)=>n+(x.kind==='deposit'?Number(x.amount):-Number(x.amount)),0)}
+function savingsView(){const s=db.savings,tx=[...s.transactions].sort((a,b)=>b.date.localeCompare(a.date));return `<div class="card"><div class="topline"><h3>🐷 Mis ahorros</h3><button class="btn secondary tiny" onclick="editSavingsOpening()">⚙ Saldo inicial</button></div><p class="hint">Un solo fondo. Saldo inicial declarado el ${dateLocal(s.openingDate||'2026-10-14')}: ${money(s.opening)}. No se suma a los ingresos ni se resta del dinero disponible: es un registro independiente.</p><div class="sub">AHORRO ACUMULADO</div><div class="stat ${savingsBalance()>=0?'green':'red'}">${money(savingsBalance())}</div><div class="actions" style="margin-top:12px"><button class="btn" onclick="addSavings('deposit')">＋ Agregar ahorro</button><button class="btn secondary" onclick="addSavings('withdrawal')">− Retirar ahorro</button></div><div class="divider"></div><h4>Historial de ahorro</h4>${tx.length?tx.map(x=>`<div class="listitem"><div><strong class="${x.kind==='deposit'?'green':'red'}">${x.kind==='deposit'?'+':'−'}${money(x.amount)}</strong><small>${dateLocal(x.date)} · ${escapeHtml(x.note||'Sin descripción')}${x.closureId?' · Cierre semanal':''}</small></div><button class="btn danger tiny" onclick="removeSavings('${x.id}')">Eliminar</button></div>`).join(''):'<p class="empty">Todavía no registraste depósitos ni retiros. El saldo inicial ya está incluido arriba.</p>'}<p class="hint">Registro manual: no mueve dinero en Naranja X. Los movimientos entre tu cuenta y este fondo no son nuevos ingresos ni gastos.</p></div>`}
+function editSavingsOpening(){const raw=prompt('Saldo inicial de ahorros al 14/10/2026 (pesos). Modificarlo cambia el saldo acumulado.',''+db.savings.opening);if(raw===null)return;const n=Number(raw);if(!Number.isSafeInteger(n)||n<0)return alert('Ingresá un monto válido.');if(!confirm('¿Confirmás cambiar el saldo inicial a '+money(n)+'?'))return;db.savings.opening=n;if(save())render()}
+function addSavings(kind){const raw=prompt(kind==='deposit'?'¿Cuánto dinero separaste efectivamente para ahorrar?':'¿Cuánto dinero retiraste de tus ahorros?','');if(raw===null)return;const amount=Number(raw);if(!Number.isSafeInteger(amount)||amount<=0)return alert('Ingresá un importe positivo válido.');if(kind==='withdrawal'&&amount>savingsBalance())return alert('El retiro supera el saldo del fondo.');const note=prompt('Descripción opcional:','');if(note===null)return;const entry={id:uid(),date:today(),kind,amount,note:note.slice(0,180)};db.savings.transactions.push(entry);if(!save())db.savings.transactions.pop();else render()}
+function removeSavings(id){const x=db.savings.transactions.find(y=>y.id===id);if(!x||!confirm('¿Eliminar este movimiento del fondo de ahorros?'))return;const before=db.savings.transactions;db.savings.transactions=before.filter(y=>y.id!==id);if(savingsBalance()<0){db.savings.transactions=before;return alert('No se puede eliminar: el saldo quedaría negativo.')}if(!save())db.savings.transactions=before;else render()}
+
+function paymentWeekInfo(start){const d=new Date(start+'T12:00:00');d.setDate(d.getDate()+7);const due=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');return {due,records:db.weeklyPayments.filter(p=>p.week===start)};}
+function paymentAmount(kind){return kind==='rent'?Math.max(0,Number(db.settings.weeklyRent)||0):Math.max(0,db.settings.weeklyChild===undefined?100000:Number(db.settings.weeklyChild)||0);}
+function weeklyPaymentsView(){const current=weekStart(today());const prevDate=new Date(current+'T12:00:00');prevDate.setDate(prevDate.getDate()-7);const prev=[prevDate.getFullYear(),String(prevDate.getMonth()+1).padStart(2,'0'),String(prevDate.getDate()).padStart(2,'0')].join('-');const starts=[prev,current];return `<div class="card"><h3>📅 Pagos semanales · lunes</h3><p class="hint">Los pagos de cada lunes corresponden a la semana que terminó el domingo. Marcar como pagado solo confirma el pago: no genera otro gasto en Finanzas ni descuenta dos veces del cierre. El dinero reservado en el cierre sigue siendo una previsión.</p>${starts.map(start=>{const {due,records}=paymentWeekInfo(start);return `<div class="divider"></div><h4>Semana ${dateLocal(start)} · vence ${dateLocal(due)}</h4>${[['rent','Alquiler Autonomy'],['child','Aporte para tu hijo']].map(([kind,name])=>{const rec=records.find(p=>p.kind===kind),amount=paymentAmount(kind);return `<div class="listitem"><div><strong>${escapeHtml(name)} · ${money(rec?rec.amount:amount)}</strong><small>${rec?'✅ Pagado el '+dateLocal(rec.paidDate):'⏳ Pendiente · vence '+dateLocal(due)}</small></div><button class="btn ${rec?'secondary':'tiny'} tiny" onclick="${rec?`undoWeeklyPayment('${rec.id}')`:`payWeeklyObligation('${start}','${kind}')`}">${rec?'Deshacer':'Marcar pagado'}</button></div>`}).join('')}`}).join('')}<p class="hint">No registres el mismo pago nuevamente como gasto de la semana siguiente. Si ya lo registraste manualmente en Finanzas, revisá su fecha y categoría antes de cerrar la semana.</p></div>`;}
+function payWeeklyObligation(start,kind){if(db.weeklyPayments.some(p=>p.week===start&&p.kind===kind))return alert('Ya está marcado como pagado.');const amount=paymentAmount(kind);const raw=prompt('Importe efectivamente pagado en pesos:',String(amount));if(raw===null)return;const n=Number(raw);if(!Number.isSafeInteger(n)||n<=0)return alert('Ingresá un importe válido.');const paidDate=prompt('Fecha del pago (AAAA-MM-DD):',today());if(paidDate===null)return;if(!/^\d{4}-\d{2}-\d{2}$/.test(paidDate)||isNaN(new Date(paidDate+'T12:00:00').getTime()))return alert('Fecha inválida.');if(!confirm('¿Confirmás el pago de '+money(n)+'?\n\nSe vincula a la semana de '+dateLocal(start)+'. No se agregará un gasto a Finanzas ni se moverá dinero bancario.'))return;const entry={id:uid(),week:start,kind,amount:n,paidDate};db.weeklyPayments.push(entry);if(!save())db.weeklyPayments.pop();else render();}
+function undoWeeklyPayment(id){const x=db.weeklyPayments.find(p=>p.id===id);if(!x||!confirm('¿Deshacer la confirmación de este pago?'))return;const prev=db.weeklyPayments;db.weeklyPayments=prev.filter(p=>p.id!==id);if(!save())db.weeklyPayments=prev;else render();}
+function weeklyClosureView(){
+ const start=weekStart(today()),current=closureData(start),existing=db.weeklyClosures.find(x=>x.start===start);
+ const records=[...db.weeklyClosures].sort((a,b)=>b.start.localeCompare(a.start));
+ return `<div class="card"><div class="topline"><h3>💚 Cierre semanal manual</h3><button class="btn secondary tiny" onclick="openWeeklyClose()">${existing?'Ver cierre':'Cerrar semana'}</button></div><p class="hint">Semana de ${dateLocal(start)}. No se cierra sola. Revisá los movimientos antes de confirmar. El cálculo reserva el límite completo de comida y evita descontar dos veces pagos identificados de alquiler y aporte familiar.</p>${stats([['Neto laboral registrado',money(current.workNet)],['Ahorro potencial',money(current.potential),current.potential>=0?'green':'red']])}${existing?'<p class="notice">✅ Esta semana ya tiene un cierre guardado. Podés consultar su resumen en el historial.</p>':''}<div class="actions"><button class="btn secondary tiny" onclick="openWeeklyClose('previous')">Cerrar semana anterior</button></div><div class="divider"></div><h4>Historial de cierres</h4>${records.length?records.map(x=>`<div class="listitem"><div><strong>${dateLocal(x.start)} · ${money(x.potential)}</strong><small>Ahorrado realmente: ${money(x.savedActual)} · ${escapeHtml(x.notes||'Sin observaciones')}</small></div><button class="btn secondary tiny" onclick="showWeeklyClose('${x.id}')">Ver</button></div>`).join(''):'<p class="empty">Todavía no cerraste ninguna semana.</p>'}<p class="hint">El cierre es una fotografía de los registros de ese momento. Si corregís un movimiento después, el cierre guardado no cambia.</p></div>`;
+}
+function openWeeklyClose(period){
+ const current=weekStart(today());const d=new Date(current+'T12:00:00');if(period==='previous')d.setDate(d.getDate()-7);const start=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');if(db.weeklyClosures.some(x=>x.start===start))return alert('Esta semana ya está cerrada. Consultá el historial.');
+ const x=closureData(start);
+ if(!confirm('¿Revisaste todos los ingresos y gastos de la semana desde '+dateLocal(start)+'?\n\nNeto laboral: '+money(x.workNet)+'\nAlquiler previsto: '+money(x.rent)+'\nAporte familiar previsto: '+money(x.child)+'\nComida presupuestada: '+money(x.foodLimit)+'\nOtros gastos: '+money(x.other)+'\n\nAhorro potencial: '+money(x.potential)+'\n\nEste cierre no mueve dinero del banco ni elimina registros. El ahorro real que confirmes se añadirá a Mis ahorros.'))return;
+ const raw=prompt('¿Cuánto dinero separaste realmente para el ahorro EN ESTE CIERRE? Se sumará al fondo Mis ahorros. Si ya lo registraste allí manualmente, ingresá 0 para evitar duplicarlo.','0');if(raw===null)return;
+ const savedActual=Number(raw);if(!Number.isSafeInteger(savedActual)||savedActual<0)return alert('Ingresá un importe válido mayor o igual a cero.');
+ const notes=prompt('Observación opcional (por ejemplo: frasco Naranja X):','');if(notes===null)return;
+ const item={...x,id:uid(),savedActual,notes:notes.slice(0,300),closedAt:new Date().toISOString()};
+ db.weeklyClosures.push(item);
+ if(savedActual>0){db.savings.transactions.push({id:uid(),date:today(),kind:'deposit',amount:savedActual,note:'Ahorro registrado en cierre semanal desde '+dateLocal(start),closureId:item.id});}
+ if(save()){render();alert('Cierre semanal guardado.'+(savedActual>0?' Se sumaron '+money(savedActual)+' a Mis ahorros.':' No se registraron ahorros.')+' No se realizaron transferencias bancarias.')}else{db.weeklyClosures=db.weeklyClosures.filter(y=>y.id!==item.id);db.savings.transactions=db.savings.transactions.filter(y=>y.closureId!==item.id)};
+}
+function showWeeklyClose(id){const x=db.weeklyClosures.find(y=>y.id===id);if(!x)return;alert('Cierre desde '+dateLocal(x.start)+'\nNeto laboral: '+money(x.workNet)+'\nAlquiler previsto: '+money(x.rent)+'\nAporte familiar: '+money(x.child)+'\nPresupuesto comida: '+money(x.foodLimit)+'\nOtros gastos: '+money(x.other)+'\nAhorro potencial: '+money(x.potential)+'\nAhorro realmente transferido: '+money(x.savedActual)+'\nObservaciones: '+(x.notes||'—')+'\n\nRegistro histórico, sin transferencia bancaria.');}
+function moneyView(){return header('Mis finanzas','Movimiento','movements')+foodBudgetView()+savingsView()+weeklyPaymentsView()+weeklyClosureView()+stats([['Ingresos',money(incoming()),'green'],['Gastos',money(outgoing()),'red'],['Balance',money(balance())]])+`<div class="card"><h3>Historial de movimientos</h3>${movementList(movements())}</div>`}function oldWorkView(){let w=workEntries(),fuel=w.filter(x=>x.category==='Combustible');return header('Mi trabajo','Movimiento','movements')+stats([['Ingresos trabajo',money(sum(w.filter(x=>x.type==='income'))),'green'],['Gastos trabajo',money(sum(w.filter(x=>x.type==='expense'))),'red'],['Ganancia neta',money(workNet())],['Combustible',money(sum(fuel))]])+`<div class="card"><h3>Movimientos del trabajo</h3><p class="notice">Al registrar un movimiento, elegí el área Trabajo. Se reflejará automáticamente también en Finanzas.</p>${movementList(w)}</div>`}function familyView(){let a=movements().filter(x=>x.area==='Familia');return header('Mi familia','Movimiento','movements')+stats([['Gastos familiares',money(sum(a.filter(x=>x.type==='expense'))),'red'],['Movimientos',a.length]])+`<div class="card"><h3>Historial familiar</h3>${movementList(a)}</div>`}function agendaView(){return header('Mi agenda','Tarea','tasks')+stats([['Pendientes',db.tasks.filter(x=>!x.done).length],['Completadas',db.tasks.filter(x=>x.done).length]])+`<div class="card"><h3>🚗 Próximas revisiones</h3><p class="notice">${carState().nextInspection?'Próxima revisión Autonomy: '+dateLocal(carState().nextInspection):'Configurá la revisión en Trabajo.'}</p>${carAlerts().map(a=>`<p class="notice">${escapeHtml(a)}</p>`).join('')}</div><div class="card"><h3>Mis tareas y vencimientos</h3>${db.tasks.length?[...db.tasks].sort((a,b)=>a.date.localeCompare(b.date)).map(x=>`<div class="listitem"><div><strong style="${x.done?'text-decoration:line-through;opacity:.6':''}">${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.category)}</small></div><div class="actions"><button class="btn secondary tiny" onclick="toggleTask('${x.id}')">${x.done?'Reabrir':'Hecha'}</button><button class="btn danger tiny" onclick="removeItem('tasks','${x.id}')">✕</button></div></div>`).join(''):'<p class="empty">Sin tareas registradas.</p>'}</div>`}function moreView(){return header('Más herramientas')+`<div class="card">${header('🎯 Mis objetivos','Objetivo','goals')}${list(db.goals,'goals',x=>`<strong>${escapeHtml(x.title)}</strong><small>${money(x.saved)} de ${money(x.target)}</small><div class="progress"><div style="width:${Math.min(100,100*x.saved/x.target||0)}%"></div></div>`)}</div><div class="card">${header('🔧 Mantenimiento del vehículo','Servicio','vehicle')}${list(db.vehicle,'vehicle',x=>`<strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.km||'—')} km · ${money(x.amount)}</small>`)}</div><div class="card"><h3>🔔 Recordatorios y respaldos</h3>${reminderView()}<p class="hint">Los avisos aparecen al abrir la aplicación. Las notificaciones push con la app cerrada todavía no están activadas.</p></div><div class="card"><h3>📲 Notificaciones del iPhone · prueba</h3><p class="hint">Esta prueba permite comprobar los permisos y mostrar una notificación mientras usás la app instalada. No activa todavía alertas automáticas con la app cerrada.</p><p class="notice" id="pushStatus">${notificationStatus()}</p><div class="actions"><button class="btn secondary" onclick="enableNotifications()">Activar permisos</button><button class="btn secondary" onclick="testNotification()">Enviar notificación de prueba</button></div></div><div class="card"><h3>💾 Tus datos</h3><p class="notice">Antes de actualizar o importar, exportá un respaldo. Los registros se guardan en este navegador y dispositivo. No hay sincronización automática. Exportá copias con frecuencia.</p><p class="notice" id="backupStatus">${backupStatus()}</p><div class="actions"><button class="btn secondary" onclick="exportData()">Exportar copia JSON</button><button class="btn secondary" onclick="document.getElementById('importFile').click()">Importar copia JSON</button><button class="btn secondary" onclick="document.getElementById('verifyFile').click()">Verificar copia JSON</button></div><input class="hide" type="file" id="importFile" accept="application/json,.json" onchange="importData(this)"><input class="hide" type="file" id="verifyFile" accept="application/json,.json" onchange="verifyBackup(this)"><p class="notice" id="verifyStatus">La verificación revisa el archivo sin reemplazar tus datos.</p></div><div class="card"><h3>🔒 Estado de seguridad</h3><p class="notice">Prototipo de uso personal: sin contraseña ni cifrado de datos en el navegador. No cargues números de cuenta, contraseñas ni información financiera sensible. No publiques datos reales en un dispositivo compartido.</p></div>`}const fields={movements:[['date','Fecha','date'],['type','Tipo','select','income:Ingreso|expense:Gasto'],['amount','Importe en ARS','number'],['area','Área','select','Personal:Personal|Trabajo:Trabajo|Familia:Familia|Otros ingresos:Otros ingresos'],['category','Categoría','select','Uber:Uber|Combustible:Combustible|Peajes:Peajes|Mantenimiento:Mantenimiento|Comida:Comida|Hogar:Hogar|Transferencia familiar:Transferencia familiar|Salud:Salud|Servicios:Servicios|Agencia:Agencia|Otros:Otros'],['description','Descripción','text'],['foodBudget','¿Descontar del presupuesto de comida?','select','no:No|yes:Sí']],tasks:[['title','Tarea o compromiso','text'],['date','Fecha','date'],['category','Tipo','select','Personal:Personal|Familia:Familia|Trabajo:Trabajo|Pago:Pago|Otro:Otro']],goals:[['title','Objetivo','text'],['target','Meta en ARS','number'],['saved','Ahorrado en ARS','number']],vehicle:[['title','Servicio o mantenimiento','text'],['date','Fecha','date'],['km','Kilometraje','number'],['amount','Costo en ARS','number']]};let currentKind='movements';function openModal(kind){currentKind=kind;document.getElementById('modalTitle').textContent=({movements:'Nuevo movimiento',tasks:'Nueva tarea',goals:'Nuevo objetivo',vehicle:'Nuevo mantenimiento'})[kind];document.getElementById('entryForm').innerHTML=`<div class="formgrid">${fields[kind].map(([id,label,type,opts])=>`<div class="field ${id==='description'||id==='title'?'full':''}"><label for="f_${id}">${label}</label>${type==='select'?`<select id="f_${id}" name="${id}">${opts.split('|').map(p=>{let [v,l]=p.split(':');return `<option value="${v}">${l}</option>`}).join('')}</select>`:`<input id="f_${id}" name="${id}" type="${type}" ${type==='number'?'min="0" step="any"':''} ${type==='date'?`value="${today()}"`:''} ${['title','amount','target'].includes(id)?'required':''}>`}</div>`).join('')}</div><button type="submit" class="btn" style="width:100%">Guardar</button>`;if(kind==='movements'){const cat=document.getElementById('f_category'),flag=document.getElementById('f_foodBudget'),typ=document.getElementById('f_type');const sync=()=>{flag.value=typ.value==='expense'&&['Comida','Supermercado','Almacén','Almuerzo','Bebidas'].includes(cat.value)?'yes':'no'};cat.addEventListener('change',sync);typ.addEventListener('change',sync);sync()}document.getElementById('modal').showModal()}function closeModal(){document.getElementById('modal').close()}document.getElementById('entryForm').addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.currentTarget));for(let k of ['amount','target','saved','km'])if(k in data)data[k]=Number(data[k]||0);if(('amount'in data&&(!Number.isFinite(data.amount)||data.amount<0))||('target'in data&&data.target<=0)){alert('Revisá el importe o la meta.');return}if(currentKind==='movements'&&data.type!=='expense')data.foodBudget='no';data.id=uid();if(currentKind==='tasks')data.done=false;db[currentKind].push(data);if(save()){closeModal();render()}});function removeItem(kind,id){if(kind==='movements'&&db.movements.some(x=>x.id===id&&x.uberShiftId)){alert('Este movimiento pertenece a una jornada Uber. Eliminá la jornada desde Trabajo para mantener los cálculos correctos.');return}if(!confirm('¿Eliminar este registro?'))return;db[kind]=db[kind].filter(x=>x.id!==id);save();render()}function toggleTask(id){let t=db.tasks.find(x=>x.id===id);if(t){t.done=!t.done;save();render()}}function exportData(){const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mi-finanzas-ia-respaldo-'+today()+'.json';a.click();try{localStorage.setItem('mfia-last-backup',new Date().toISOString())}catch{}setTimeout(()=>URL.revokeObjectURL(url),1500);render()}async function verifyBackup(input){
+const file=input.files?.[0];if(!file)return;
+try{
+ if(file.size>20*1024*1024)throw Error('El archivo supera el límite de 20 MB para esta verificación.');
+ const parsed=JSON.parse(await file.text());const x=parsed.data;
+ if(!x||typeof x!=='object'||!kinds.every(k=>Array.isArray(x[k])))throw Error('No tiene el formato de respaldo esperado.');
+ if(x.settings!==undefined&&(typeof x.settings!=='object'||x.settings===null))throw Error('La configuración no es válida.');
+ const shifts=Array.isArray(x.uberShifts)?x.uberShifts.length:0;
+ const car=x.settings?.car||x.settings?.carMaintenance||null;
+ const lines=['Archivo válido: '+file.name,'Movimientos: '+x.movements.length,'Tareas: '+x.tasks.length,'Objetivos: '+x.goals.length,'Mantenimientos anteriores: '+x.vehicle.length,'Jornadas Uber: '+shifts,'Cierres semanales: '+(Array.isArray(x.weeklyClosures)?x.weeklyClosures.length:0),'Pagos semanales: '+(Array.isArray(x.weeklyPayments)?x.weeklyPayments.length:0),'Fondo de ahorros: '+(x.savings?'incluido':'no incluido'),'Configuración: '+(x.settings?'incluida':'ausente')];
+ const el=document.getElementById('verifyStatus');if(el)el.textContent='✅ '+lines.join(' · ')+'. Tus datos actuales NO se modificaron.';
+ alert('✅ Respaldo legible y con estructura válida.\n\n'+lines.join('\n')+'\n\nEsta comprobación no restaura ni modifica tus registros.');
+}catch(e){const msg='❌ No se pudo validar la copia: '+e.message;const el=document.getElementById('verifyStatus');if(el)el.textContent=msg;alert(msg)}finally{input.value=''}
+}
+async function importData(input){let file=input.files?.[0];if(!file)return;try{let parsed=JSON.parse(await file.text()),x=parsed.data;if(!x||!kinds.every(k=>Array.isArray(x[k])))throw Error('Formato no válido');if(!confirm('Esto reemplazará todos los registros actuales. ¿Continuar?'))return;db=x;if(!Array.isArray(db.uberShifts))db.uberShifts=[];if(!Array.isArray(db.weeklyClosures))db.weeklyClosures=[];if(!Array.isArray(db.weeklyPayments))db.weeklyPayments=[];if(!db.workClock||typeof db.workClock!=='object')db.workClock={sessions:[],active:null};if(!Array.isArray(db.workClock.sessions))db.workClock.sessions=[];if(!db.savings||typeof db.savings!=='object')db.savings={opening:200000,openingDate:'2026-10-14',transactions:[]};if(!Array.isArray(db.savings.transactions))db.savings.transactions=[];if(save()){render();alert('Copia importada correctamente')}}catch(e){alert('No se pudo importar: '+e.message)}finally{input.value=''}}
+function weekStart(date){const d=new Date(date+'T12:00:00');d.setDate(d.getDate()-(d.getDay()+6)%7);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function uberSettings(){return {weeklyGoal:Math.max(0,Number(db.settings.weeklyGoal)||0),weeklyRent:Math.max(0,Number(db.settings.weeklyRent)||0),weeklyOther:Math.max(0,Number(db.settings.weeklyOther)||0),startKm:Math.max(0,Number(db.settings.startKm)||0)}}
+function editUberSettings(){const x=uberSettings();document.getElementById('settingsGoal').value=x.weeklyGoal;document.getElementById('settingsRent').value=x.weeklyRent;document.getElementById('settingsOther').value=x.weeklyOther;document.getElementById('settingsKm').value=x.startKm||'';document.getElementById('uberSettingsModal').showModal()}
+document.getElementById('uberSettingsForm').addEventListener('submit',e=>{e.preventDefault();const x=Object.fromEntries(new FormData(e.currentTarget));for(const k of Object.keys(x)){x[k]=Number(x[k]||0);if(!Number.isFinite(x[k])||x[k]<0){alert('Ingresá valores válidos.');return}}const previous=JSON.stringify(db);Object.assign(db.settings,{weeklyGoal:x.weeklyGoal,weeklyRent:x.weeklyRent,weeklyOther:x.weeklyOther,startKm:x.startKm});if(save()){document.getElementById('uberSettingsModal').close();render()}else db=JSON.parse(previous)});
+
+function carState(){if(!db.car||typeof db.car!=='object')db.car={};if(!Array.isArray(db.car.services))db.car.services=[];if(!Array.isArray(db.car.inspections))db.car.inspections=[];return db.car}
+function carKm(){const c=carState();return Math.max(0,Number(c.odometer)||Number(db.settings.startKm)||0)}
+function dateLocal(v){if(!v)return 'Sin configurar';const [y,m,d]=v.split('-');return `${d}/${m}/${y}`}
+function plusDays(v,n){const d=new Date(v+'T12:00:00');d.setDate(d.getDate()+n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function daysUntil(v){return Math.round((new Date(v+'T12:00:00')-new Date(today()+'T12:00:00'))/86400000)}
+function carAlerts(){const c=carState(),alerts=[];const last=c.services[0];if(last){const left=Number(last.km)+10000-carKm();if(left<=0)alerts.push('🔴 Service pendiente: superaste el kilometraje previsto.');else if(left<=500)alerts.push('🟠 Service próximo: faltan '+left.toLocaleString('es-AR')+' km.');else if(left<=1000)alerts.push('🟡 Faltan '+left.toLocaleString('es-AR')+' km para el service.')}if(c.nextInspection){const d=daysUntil(c.nextInspection);if(d<0)alerts.push('🔴 Revisión Autonomy vencida: '+dateLocal(c.nextInspection));else if(d<=3)alerts.push('📋 Revisión Autonomy '+(d===0?'hoy':d===1?'mañana':'en '+d+' días')+' ('+dateLocal(c.nextInspection)+').')}return alerts}
+function carView(){const c=carState(),last=c.services[0],km=carKm(),nextKm=last?Number(last.km)+10000:null,left=nextKm===null?null:nextKm-km;return `<div class="card"><div class="topline"><h3>🚗 Control del vehículo</h3><button class="btn secondary tiny" onclick="openCar('odometer')">✎ Odómetro</button></div>${stats([['Odómetro actual',km?km.toLocaleString('es-AR')+' km':'Sin registrar'],['Kilómetros hasta service',left===null?'Registrar service':Math.max(0,left).toLocaleString('es-AR')+' km'],['Próximo service',nextKm===null?'Por configurar':nextKm.toLocaleString('es-AR')+' km'],['Próxima revisión',dateLocal(c.nextInspection)]])}${carAlerts().map(a=>`<p class="notice">${escapeHtml(a)}</p>`).join('')}<div class="divider"></div><h3>🔧 Service por kilometraje · Autonomy</h3><p class="hint">Cada 10.000 km desde el último service registrado. Cubierto por Autonomy: no genera gastos personales ni laborales.</p><button class="btn secondary" onclick="openCar('service')">＋ Registrar service</button>${c.services.length?c.services.slice(0,5).map(x=>`<div class="listitem"><div><strong>${dateLocal(x.date)} · ${Number(x.km).toLocaleString('es-AR')} km</strong><small>${escapeHtml(x.details||'Service')} · Cubierto por Autonomy</small></div></div>`).join(''):'<p class="empty">Todavía no hay services registrados.</p>'}<div class="divider"></div><h3>💸 Gastos excepcionales a tu cargo</h3><p class="hint">Pinchazos, choques u otros daños de tu responsabilidad. Se registran una sola vez como gasto de Trabajo y también aparecen en Finanzas.</p><button class="btn secondary" onclick="openCar('incident')">＋ Registrar gasto excepcional</button>${db.movements.filter(x=>x.carIncident).length?db.movements.filter(x=>x.carIncident).slice().reverse().slice(0,5).map(x=>`<div class="listitem"><div><strong>${dateLocal(x.date)} · ${money(x.amount)}</strong><small>${escapeHtml(x.description)}</small></div><button class="btn danger tiny" onclick="removeItem('movements','${x.id}')">Eliminar</button></div>`).join(''):'<p class="empty">Sin gastos excepcionales registrados.</p>'}<div class="divider"></div><h3>📋 Revisión Autonomy</h3><p class="hint">Control cada 14 días. La próxima fecha inicial se puede ajustar.</p><div class="actions"><button class="btn secondary" onclick="openCar('inspectionDate')">⚙ Programar fecha</button><button class="btn secondary" onclick="openCar('inspection')">✓ Registrar revisión</button></div>${c.inspections.length?c.inspections.slice(0,5).map(x=>`<div class="listitem"><div><strong>${dateLocal(x.date)}</strong><small>${escapeHtml(x.notes||'Revisión realizada')}</small></div></div>`).join(''):'<p class="empty">Todavía no hay revisiones registradas.</p>'}</div>`}
+let carMode='';function openCar(mode){carMode=mode;const c=carState();const title={odometer:'Actualizar odómetro',service:'Registrar service',inspectionDate:'Programar revisión',inspection:'Registrar revisión realizada',incident:'Registrar gasto excepcional'}[mode];document.getElementById('carModalTitle').textContent=title;const field=(name,label,type,value,required=true)=>`<div class="field"><label>${label}</label><input name="${name}" type="${type}" value="${escapeHtml(value??'')}" ${type==='number'?'min="0" step="1"':''} ${required?'required':''}></div>`;let h='';if(mode==='odometer')h=field('km','Odómetro actual (km)','number',carKm());if(mode==='service')h=field('date','Fecha del service','date',today())+field('km','Kilometraje del service','number',carKm())+field('details','Trabajos realizados / taller','text','',false);if(mode==='incident')h=field('date','Fecha del incidente','date',today())+'<div class="field"><label>Tipo de incidente</label><select name="kind"><option value="Pinchazo">Pinchazo o cubierta</option><option value="Choque">Choque o daño</option><option value="Otro">Otro gasto excepcional</option></select></div>'+field('amount','Monto pagado por vos (ARS)','number',0)+field('details','Descripción / observaciones','text','',false);if(mode==='inspectionDate')h=field('date','Próxima revisión','date',c.nextInspection||'2026-10-19');if(mode==='inspection')h=field('date','Fecha de revisión realizada','date',today())+field('notes','Observaciones','text','',false);document.getElementById('carFields').innerHTML=h;document.getElementById('carModal').showModal()}
+document.getElementById('carForm').addEventListener('submit',e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.currentTarget)),c=carState();if(carMode==='odometer'){if(Number(v.km)<0)return;c.odometer=Number(v.km)}if(carMode==='service'){if(!v.date||Number(v.km)<=0)return alert('Revisá fecha y kilometraje.');c.services.unshift({id:uid(),date:v.date,km:Number(v.km),cost:0,coveredBy:'Autonomy',details:v.details});c.services.sort((a,b)=>b.date.localeCompare(a.date));c.odometer=Math.max(carKm(),Number(v.km))}if(carMode==='incident'){const amount=Number(v.amount);if(!v.date||!Number.isFinite(amount)||amount<=0)return alert('Ingresá una fecha y un importe mayor a cero.');db.movements.push({id:uid(),date:v.date,type:'expense',amount,area:'Trabajo',category:'Mantenimiento',description:'Vehículo · '+v.kind+(v.details?' · '+v.details:'') ,carIncident:true});}if(carMode==='inspectionDate')c.nextInspection=v.date;if(carMode==='inspection'){c.inspections.unshift({id:uid(),date:v.date,notes:v.notes});c.inspections.sort((a,b)=>b.date.localeCompare(a.date));c.nextInspection=plusDays(v.date,14)}if(save()){document.getElementById('carModal').close();render()}});
+
+function durationLabel(minutes){const n=Math.max(0,Math.round(Number(minutes)||0));return Math.floor(n/60)+' h '+String(n%60).padStart(2,'0')+' min'}
+function clockState(){if(!db.workClock||typeof db.workClock!=='object')db.workClock={sessions:[],active:null};if(!Array.isArray(db.workClock.sessions))db.workClock.sessions=[];return db.workClock}
+function clockTotals(c,end){const periods=(c.sessions||[]).concat(c.active?[{kind:c.active.kind,start:c.active.start,end:end||new Date().toISOString()}]:[]);let work=0,rest=0;for(const p of periods){const ms=new Date(p.end).getTime()-new Date(p.start).getTime();if(Number.isFinite(ms)&&ms>=0){if(p.kind==='rest')rest+=ms;else work+=ms}}return {work:Math.floor(work/60000),rest:Math.floor(rest/60000)}}
+function clockView(){
+ const c=clockState(),t=clockTotals(c),active=c.active;
+ const state=active?(active.kind==='rest'?'En descanso':'Trabajando'):'Sin iniciar';
+ const history=(db.clockHistory||[]).slice().sort((a,b)=>String(b.end).localeCompare(String(a.end)));
+ return `<div class="card"><div class="topline"><h3>⏱️ Reloj de jornada</h3><span class="pill">${state}</span></div>
+ <p class="hint">El reloj usa la hora del iPhone. Podés cerrar la aplicación y volver después.</p>
+ ${stats([['Jornada total',durationLabel(t.work+t.rest)],['Trabajo efectivo',durationLabel(t.work)],['Descansos',durationLabel(t.rest)]])}
+ <p class="hint">${c.startedAt?'Inicio: '+new Date(c.startedAt).toLocaleString('es-AR'):'Sin jornada en curso'}</p>
+ <div class="actions">${!active?'<button class="btn" onclick="clockAction(\'start\')">▶ Iniciar jornada</button>':active.kind==='work'?'<button class="btn secondary" onclick="clockAction(\'pause\')">☕ Iniciar descanso</button>':'<button class="btn" onclick="clockAction(\'resume\')">▶ Reanudar</button>'}
+ ${active?'<button class="btn danger" onclick="clockAction(\'finish\')">■ Finalizar jornada</button><button class="btn secondary" onclick="editClock()">✎ Corregir inicio</button>':''}</div>
+ <h3 style="margin-top:22px">Historial del reloj</h3><p class="hint">Podés corregir o eliminar jornadas del reloj sin modificar ingresos ni gastos.</p>
+ ${history.length?history.map(x=>`<div class="listitem"><div><strong>${escapeHtml(x.date)}</strong><small>Total ${durationLabel(x.total)} · Trabajo ${durationLabel(x.work)} · Pausas ${durationLabel(x.rest)}</small></div><div class="actions">${db.uberShifts.some(u=>u.date===x.date)?'<span class="pill">Ingresos cargados</span>':`<button class="btn tiny" onclick="openUber('${x.date}')">Cargar ingresos</button>`}<button class="btn secondary tiny" onclick="openClockEdit('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteClockRecord('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no hay jornadas finalizadas.</p>'}
+ </div>`;
+}
+function clockAction(action){
+ const c=clockState(),now=new Date().toISOString();
+ if(action==='start'){
+  if(c.active)return;
+  c.startedAt=now;c.sessions=[];c.active={kind:'work',start:now};
+ }else{
+  if(!c.active)return;
+  if(action==='finish'&&!confirm('¿Finalizar la jornada? Los tiempos quedarán guardados.'))return;
+  c.sessions.push({kind:c.active.kind,start:c.active.start,end:now});c.active=null;
+  if(action==='pause')c.active={kind:'rest',start:now};
+  if(action==='resume')c.active={kind:'work',start:now};
+  if(action==='finish'){
+   const t=clockTotals(c);
+   if(!Array.isArray(db.clockHistory))db.clockHistory=[];
+   db.clockHistory.push({id:uid(),date:localDateOf(c.startedAt),start:c.startedAt,end:now,work:t.work,rest:t.rest,total:t.work+t.rest,sessions:c.sessions});
+   db.workClock={sessions:[],active:null};
+  }
+ }
+ save();render();
+}
+function editClock(){
+ const c=clockState();if(!c.startedAt||!c.active)return;
+ const old=new Date(c.startedAt);
+ const v=prompt('Corregir hora de inicio (HH:MM)',old.toTimeString().slice(0,5));
+ if(v===null)return;
+ if(!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(v))return alert('Ingresá una hora válida, por ejemplo 07:30');
+ const d=new Date(old),[h,m]=v.split(':').map(Number);d.setHours(h,m,0,0);
+ const limit=c.sessions.length?new Date(c.sessions[0].end).getTime():Date.now();
+ if(d.getTime()>limit)return alert('El inicio no puede ser posterior al primer tramo.');
+ c.startedAt=d.toISOString();if(c.sessions.length)c.sessions[0].start=c.startedAt;else c.active.start=c.startedAt;
+ save();render();
+}
+function deleteClockRecord(id){
+ const r=(db.clockHistory||[]).find(x=>x.id===id);if(!r)return;
+ const linked=db.uberShifts.some(x=>x.date===r.date);
+ if(!confirm('¿Eliminar la jornada del reloj del '+r.date+'? '+(linked?'La jornada financiera de esa fecha se conservará sin cambios.':'Esta acción no afecta tus movimientos financieros.')))return;
+ const old=JSON.stringify(db);
+ db.clockHistory=db.clockHistory.filter(x=>x.id!==id);
+ if(!save())db=JSON.parse(old);render();
+}
+function localInputDate(iso){
+ const d=new Date(iso);if(!Number.isFinite(d.getTime()))return '';
+ const p=n=>String(n).padStart(2,'0');
+ return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes());
+}
+function openClockEdit(id){
+ const r=(db.clockHistory||[]).find(x=>x.id===id);if(!r)return;
+ const periods=Array.isArray(r.sessions)&&r.sessions.length?r.sessions:[{kind:'work',start:r.start,end:r.end}];
+ document.getElementById('ce_id').value=id;
+ let html='<div class="field"><label>Inicio de jornada</label><input type="datetime-local" name="boundary0" required value="'+localInputDate(periods[0].start)+'"></div>';
+ for(let i=0;i<periods.length;i++){
+  const label=i===periods.length-1?'Fin de jornada':periods[i].kind==='work'?'Inicio de descanso':'Reanudación del trabajo';
+  html+='<div class="field"><label>'+label+'</label><input type="datetime-local" name="boundary'+(i+1)+'" required value="'+localInputDate(periods[i].end)+'"></div>';
+ }
+ document.getElementById('clockEditFields').innerHTML=html;
+ document.getElementById('clockEditModal').showModal();
+}
+document.getElementById('clockEditForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const id=document.getElementById('ce_id').value,r=(db.clockHistory||[]).find(x=>x.id===id);if(!r)return;
+ const original=Array.isArray(r.sessions)&&r.sessions.length?r.sessions:[{kind:'work',start:r.start,end:r.end}];
+ const boundaries=[];
+ for(let i=0;i<=original.length;i++){
+  const el=e.currentTarget.elements['boundary'+i],ms=new Date(el.value).getTime();
+  if(!Number.isFinite(ms)||i&&ms<=boundaries[i-1])return alert('Los horarios deben estar ordenados y cada tramo debe durar más de cero minutos.');
+  boundaries.push(ms);
+ }
+ if(boundaries.at(-1)>Date.now()+60000)return alert('El fin no puede estar en el futuro.');
+ if(boundaries.at(-1)-boundaries[0]>48*3600000)return alert('La jornada no puede superar 48 horas.');
+ const old=JSON.stringify(db);
+ r.sessions=original.map((p,i)=>({kind:p.kind,start:new Date(boundaries[i]).toISOString(),end:new Date(boundaries[i+1]).toISOString()}));
+ r.start=r.sessions[0].start;r.end=r.sessions.at(-1).end;r.date=localDateOf(r.start);
+ const t=clockTotals({sessions:r.sessions,active:null});r.work=t.work;r.rest=t.rest;r.total=t.work+t.rest;
+ if(!save()){db=JSON.parse(old);return}
+ document.getElementById('clockEditModal').close();render();
+});
+let profitPeriod='week';
+function profitSetPeriod(period){
+ if(!['week','all'].includes(period))return;
+ profitPeriod=period;render();
+}
+function profitView(){
+ const all=Array.isArray(db.uberShifts)?db.uberShifts:[];
+ const first=weekStart(today());
+ const selected=all.filter(x=>profitPeriod==='all'||weekStart(x.date)===first).sort((a,b)=>b.date.localeCompare(a.date));
+ const n=x=>Number(x)||0;
+ const data=selected.map(x=>{
+  const gross=n(x.gross),expenses=n(x.fuel)+n(x.tolls)+n(x.other);
+  return {date:x.date,gross,expenses,net:gross-expenses,hours:n(x.hours),km:n(x.km),privateIncome:n(x.privateIncome)};
+ });
+ const sumKey=k=>data.reduce((a,x)=>a+x[k],0);
+ const gross=sumKey('gross'),expenses=sumKey('expenses'),net=sumKey('net'),hours=sumKey('hours'),km=sumKey('km');
+ const perHour=hours>0?net/hours:null,perKm=km>0?net/km:null;
+ const grossHour=hours>0?gross/hours:null,grossKm=km>0?gross/km:null;
+ const margin=gross>0?net/gross*100:null;
+ const fmt=n=>n===null?'—':money(n);
+ const metrics=[
+  ['Recaudación bruta',money(gross)],['Gastos operativos',money(expenses)],
+  ['Ganancia neta operativa',money(net)],['Tiempo trabajado',durationLabel(Math.round(hours*60))],
+  ['Neto por hora',fmt(perHour)],['Neto por km',fmt(perKm)],
+  ['Bruto por hora',fmt(grossHour)],['Bruto por km',fmt(grossKm)]
+ ];
+ const best=[...data].filter(x=>x.hours>0).sort((a,b)=>b.net/b.hours-a.net/a.hours)[0];
+ const maxHourly=Math.max(0,...data.filter(x=>x.hours>0).map(x=>Math.max(0,x.net/x.hours)));
+ return `<section class="card" id="profitDashboard">
+  <h3>📈 Rentabilidad real</h3>
+  <p class="hint">Compará tus jornadas registradas según el tiempo efectivo, los kilómetros y los gastos. El período semanal va de lunes a domingo.</p>
+  <div class="profit-toolbar" role="group" aria-label="Período del análisis">
+   <button type="button" class="${profitPeriod==='week'?'selected':''}" aria-pressed="${profitPeriod==='week'}" onclick="profitSetPeriod('week')">Esta semana</button>
+   <button type="button" class="${profitPeriod==='all'?'selected':''}" aria-pressed="${profitPeriod==='all'}" onclick="profitSetPeriod('all')">Todo el historial</button>
+  </div>
+  <p class="profit-tag">${profitPeriod==='week'?'Semana desde '+escapeHtml(first):'Todas las fechas'} · ${data.length} ${data.length===1?'jornada':'jornadas'} · ${km.toLocaleString('es-AR',{maximumFractionDigits:1})} km</p>
+  ${data.length?`<div class="profit-grid">${metrics.map(([label,value])=>`<div class="profit-metric"><div class="sub">${label}</div><div class="value">${value}</div></div>`).join('')}</div>
+  <p class="hint">Margen operativo: ${margin===null?'—':margin.toLocaleString('es-AR',{maximumFractionDigits:1})+'%'} de la recaudación. Ingresos particulares incluidos: ${money(sumKey('privateIncome'))}.</p>
+  <h4>Comparación por jornada</h4>
+  ${data.map(x=>{
+   const hourly=x.hours>0?x.net/x.hours:null;
+   const ratio=hourly===null||maxHourly===0?0:Math.max(0,Math.min(100,hourly/maxHourly*100));
+   return `<div class="profit-row">
+     <strong>${escapeHtml(x.date)} · ${money(x.net)} netos</strong>
+     <small>${durationLabel(Math.round(x.hours*60))} · ${x.km.toLocaleString('es-AR',{maximumFractionDigits:1})} km · Bruto ${money(x.gross)} · Gastos ${money(x.expenses)}</small>
+     <div class="profit-bar" aria-label="Rentabilidad relativa por hora"><div style="width:${ratio.toFixed(2)}%"></div></div>
+     <small>Neto/h: ${hourly===null?'—':money(hourly)} · Neto/km: ${x.km>0?money(x.net/x.km):'—'}</small>
+    </div>`;
+  }).join('')}
+  ${best?`<p class="notice">Mayor rendimiento neto por hora: ${escapeHtml(best.date)} (${money(best.net/best.hours)}/h), entre las jornadas con horas registradas.</p>`:''}
+  `:`<p class="empty">Todavía no hay jornadas Uber en este período. Cuando cargues una, vas a ver tus indicadores acá.</p>`}
+  <p class="hint">La ganancia neta operativa resta combustible, peajes y otros gastos de cada jornada. No descuenta alquiler semanal del auto, aporte familiar, comida, impuestos ni costos no registrados. Las transferencias a ahorros tampoco se descuentan acá. No sumes dos veces los peajes reembolsados por Uber.</p>
+ </section>`;
+}
+function workView(){
+const shifts=[...db.uberShifts].sort((a,b)=>b.date.localeCompare(a.date));
+const gross=shifts.reduce((a,x)=>a+x.gross,0),cost=shifts.reduce((a,x)=>a+x.fuel+x.tolls+x.other,0),hours=shifts.reduce((a,x)=>a+x.hours,0),km=shifts.reduce((a,x)=>a+x.km,0);
+const cfg=uberSettings(),start=weekStart(today()),weekly=shifts.filter(x=>weekStart(x.date)===start),weekGross=weekly.reduce((a,x)=>a+x.gross,0),weekCosts=weekly.reduce((a,x)=>a+x.fuel+x.tolls+x.other,0),weekNet=weekGross-weekCosts,weekKm=weekly.reduce((a,x)=>a+x.km,0),weekHours=weekly.reduce((a,x)=>a+x.hours,0),reserve=cfg.weeklyRent+cfg.weeklyOther,available=weekNet-reserve,remaining=Math.max(0,cfg.weeklyGoal-weekGross),todayDate=new Date(today()+'T12:00:00'),weekDay=(todayDate.getDay()+6)%7,daysLeft=7-weekDay;
+const linked=new Set(shifts.flatMap(x=>x.movementIds||[]));
+const otherWork=workEntries().filter(x=>!linked.has(x.id));
+return header('🚗 Mi trabajo')+clockView()+`<div class="callout"><strong>Uber · Control de jornadas</strong><p class="hint">Registrá cada jornada una sola vez. Sus ingresos y costos se reflejan automáticamente en Finanzas.</p><div class="actions work-actions"><button class="btn" onclick="openUber()">＋ Jornada Uber</button><button class="btn secondary" onclick="openModal('movements')">＋ Otro movimiento</button></div></div>`+
+`<div class="card"><div class="topline"><h3>📊 Semana actual · desde ${start}</h3><button class="btn secondary tiny" onclick="editUberSettings()">⚙ Configurar</button></div><p class="hint">Semana de lunes a domingo. Objetivos y costos fijos son estimaciones: no generan gastos adicionales en Finanzas.</p>${stats([['Recaudado esta semana',money(weekGross),'green'],['Objetivo semanal',cfg.weeklyGoal?money(cfg.weeklyGoal):'Sin definir'],['Falta para objetivo',cfg.weeklyGoal?money(remaining):'—'],['Meta diaria restante',cfg.weeklyGoal?money(remaining/daysLeft):'—']])}${cfg.weeklyGoal?`<div class="progress"><div style="width:${Math.min(100,100*weekGross/cfg.weeklyGoal)}%"></div></div>`:''}<div class="divider"></div>${stats([['Neto operativo semanal',money(weekNet)],['Reserva alquiler + fijos',money(reserve),'red'],['Disponible estimado',money(available),available>=0?'green':'red'],['Horas / km',weekHours.toLocaleString('es-AR')+' h · '+weekKm.toLocaleString('es-AR')+' km']])}<p class="hint">Disponible estimado = recaudación semanal − gastos de jornadas − reserva semanal configurada. Si ya registraste el alquiler u otros fijos como gasto de una jornada, no vuelvas a incluirlos en la reserva.</p></div>`+
+profitView()+stats([['Uber recaudado',money(gross),'green'],['Costos Uber',money(cost),'red'],['Uber neto',money(gross-cost)],['Neto por hora',hours?money((gross-cost)/hours):'—']])+`<div class="card"><h3>Indicadores Uber</h3><div class="uber-summary"><div><span class="muted">Horas registradas</span><div class="stat">${hours.toLocaleString('es-AR',{maximumFractionDigits:1})} h</div></div><div><span class="muted">Kilómetros</span><div class="stat">${km.toLocaleString('es-AR',{maximumFractionDigits:1})} km</div></div><div><span class="muted">Neto por km</span><div class="stat">${km?money((gross-cost)/km):'—'}</div></div><div><span class="muted">Jornadas</span><div class="stat">${shifts.length}</div></div></div><p class="hint">Ganancia neta estimada = recaudación − combustible − peajes − otros gastos ingresados. No incluye depreciación, impuestos ni costos no registrados. Los costos fijos configurados se muestran aparte y no se restan de estos indicadores operativos.</p></div>`+
+carView()+
+`<div class="card"><h3>Historial de jornadas</h3>${shifts.length?shifts.map(x=>`<div class="listitem"><div><div class="shift-title">${escapeHtml(x.date)} · <span class="green">${money(x.gross-x.fuel-x.tolls-x.other)} netos</span></div><div class="shift-meta">${money(x.gross)} recaudados · ${money(x.fuel+x.tolls+x.other)} gastos</div><div class="shift-meta">${durationLabel(Math.round(x.hours*60))} · ${x.km} km${x.note?' · '+escapeHtml(x.note):''}</div></div><div class="shift-buttons"><button class="btn secondary tiny" onclick="editUber('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteUber('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no registraste jornadas Uber.</p>'}</div>`+
+`<div class="card"><h3>Otros movimientos laborales</h3>${movementList(otherWork)}</div>`+
+`<div class="card"><h3>Resultado total del trabajo</h3>${stats([['Ingresos laborales',money(sum(workEntries().filter(x=>x.type==='income'))),'green'],['Gastos laborales',money(sum(workEntries().filter(x=>x.type==='expense'))),'red'],['Resultado registrado',money(workNet())]])}</div>`;
+}
+function localDateOf(iso){const d=new Date(iso);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function clockForDate(date){return (db.clockHistory||[]).filter(x=>x.date===date).sort((a,b)=>String(b.end).localeCompare(String(a.end)))[0]||null}
+function autofillClockTime(){
+ const date=document.getElementById('u_date').value,record=clockForDate(date),msg=document.getElementById('uberClockNotice');
+ if(record){
+  const mins=Math.max(0,Number(record.work)||0);
+  document.getElementById('u_hours').value=Math.floor(mins/60);
+  document.getElementById('u_minutes').value=mins%60;
+  msg.textContent='✓ Horas precargadas desde el reloj: '+durationLabel(mins)+'. Podés corregirlas manualmente.';
+ }else{
+  document.getElementById('u_hours').value='';
+  document.getElementById('u_minutes').value='0';
+  msg.textContent='No hay una jornada finalizada en el reloj para esta fecha. Podés ingresar las horas manualmente.';
+ }
+}
+
+function openUber(date){
+ const f=document.getElementById('uberForm');f.reset();
+ document.getElementById('u_editingId').value='';
+ document.getElementById('u_date').value=typeof date==='string'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(date)?date:today();
+ document.querySelector('#uberModal h3').textContent='🚗 Registrar jornada Uber';
+ document.querySelector('#uberForm button[type="submit"]').textContent='Guardar jornada y movimientos';
+ autofillClockTime();document.getElementById('uberModal').showModal();
+}
+function editUber(id){
+ const r=db.uberShifts.find(x=>x.id===id);if(!r)return;
+ const f=document.getElementById('uberForm');f.reset();
+ document.getElementById('u_editingId').value=id;
+ const fields={date:r.date,hours:Math.floor(r.hours||0),minutes:Math.round(((r.hours||0)%1)*60),uberHours:Math.floor(r.uberHours||0),uberMinutes:Math.round(((r.uberHours||0)%1)*60),km:r.km,gross:(r.gross||0)-(r.privateIncome||0),privateIncome:r.privateIncome||0,fuel:r.fuel||0,tolls:r.tolls||0,other:r.other||0,note:r.note||''};
+ for(const [k,v] of Object.entries(fields)){const el=f.elements[k];if(el)el.value=v}
+ document.querySelector('#uberModal h3').textContent='✎ Corregir jornada Uber';
+ document.querySelector('#uberForm button[type="submit"]').textContent='Guardar correcciones';
+ document.getElementById('uberClockNotice').textContent='Estás editando una jornada existente. Se actualizarán también sus movimientos vinculados, sin duplicarlos.';
+ document.getElementById('uberModal').showModal();
+}
+document.getElementById('u_date').addEventListener('change',()=>{
+ if(document.getElementById('u_editingId').value){
+  document.getElementById('uberClockNotice').textContent='Fecha modificada. Revisá las horas antes de guardar la corrección.';
+ }else autofillClockTime();
+});
+document.getElementById('uberForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data=Object.fromEntries(new FormData(e.currentTarget)),editingId=data.editingId;delete data.editingId;
+ const numbers=['hours','minutes','uberHours','uberMinutes','km','gross','privateIncome','fuel','tolls','other'];
+ for(const k of numbers)data[k]=Number(data[k]||0);
+ if(numbers.some(k=>!Number.isFinite(data[k])||data[k]<0)||data.minutes>=60||data.uberMinutes>=60)return alert('Revisá los importes, horas y minutos.');
+ data.hours=data.hours+data.minutes/60;data.uberHours=data.uberHours+data.uberMinutes/60;data.gross=data.gross+data.privateIncome;
+ delete data.minutes;delete data.uberMinutes;
+ if(data.hours<=0||data.hours>48||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(data.date))return alert('Revisá la fecha y las horas trabajadas.');
+ if(db.uberShifts.some(x=>x.date===data.date&&x.id!==editingId))return alert('Ya existe una jornada financiera para esa fecha. No se guardó para evitar duplicaciones.');
+ const old=JSON.stringify(db),id=editingId||uid();
+ const existing=editingId?db.uberShifts.find(x=>x.id===editingId):null;
+ if(editingId&&!existing)return alert('No se encontró la jornada que querés corregir.');
+ if(existing){
+  db.movements=db.movements.filter(x=>x.uberShiftId!==id);
+  db.uberShifts=db.uberShifts.filter(x=>x.id!==id);
+ }
+ const movementIds=[];
+ const add=(type,amount,category)=>{
+  if(amount<=0)return;
+  const mid=uid();movementIds.push(mid);
+  db.movements.push({id:mid,date:data.date,type,amount,area:'Trabajo',category,description:'Uber · '+data.date,uberShiftId:id});
+ };
+ add('income',data.gross-data.privateIncome,'Uber');
+ add('income',data.privateIncome,'Viajes particulares');
+ add('expense',data.fuel,'Combustible');
+ add('expense',data.tolls,'Peajes');
+ add('expense',data.other,'Otros');
+ db.uberShifts.push({...data,id,movementIds});
+ if(!save()){db=JSON.parse(old);return}
+ document.getElementById('uberModal').close();e.currentTarget.reset();render();
+});
+function deleteUber(id){if(!confirm('¿Eliminar la jornada y todos sus movimientos vinculados en Finanzas?'))return;const previous=JSON.stringify(db);db.uberShifts=db.uberShifts.filter(x=>x.id!==id);db.movements=db.movements.filter(x=>x.uberShiftId!==id);if(!save())db=JSON.parse(previous);render()}
+
+
+function backupStatus(){const raw=localStorage.getItem('mfia-last-backup');if(!raw)return '⚠️ No hay una exportación registrada desde esta instalación. Guardá una copia JSON en Archivos.';const days=Math.floor((Date.now()-new Date(raw).getTime())/86400000);if(!Number.isFinite(days)||days<0)return 'Revisá la fecha del último respaldo.';return days>=7?'⚠️ Hace '+days+' días de la última exportación. Conviene crear otra copia.':'Último intento de exportación hace '+days+' día(s). Comprobá que el archivo se haya guardado en Archivos.'}
+function reminderView(){const now=today();const pending=db.tasks.filter(x=>!x.done&&x.date&&x.date<=now).sort((a,b)=>a.date.localeCompare(b.date));const upcoming=db.tasks.filter(x=>!x.done&&x.date&&x.date>now&&daysUntil(x.date)<=3).sort((a,b)=>a.date.localeCompare(b.date));const items=[...carAlerts(),...pending.slice(0,5).map(x=>'📌 Tarea pendiente: '+x.title+' ('+dateLocal(x.date)+')'),...upcoming.slice(0,5).map(x=>'📅 Próxima tarea: '+x.title+' ('+dateLocal(x.date)+')')];const raw=localStorage.getItem('mfia-last-backup');if(!raw||Date.now()-new Date(raw).getTime()>7*86400000)items.push('💾 Recordá exportar una copia JSON de tus datos.');return items.length?items.map(x=>'<p class="notice">'+escapeHtml(x)+'</p>').join(''):'<p class="empty">No hay recordatorios próximos.</p>'}
+
+function notificationStatus(){if(!('Notification' in window))return 'Este navegador no ofrece notificaciones web aquí. Abrí la app desde el ícono de inicio del iPhone.';return Notification.permission==='granted'?'Permiso concedido. Podés probar una notificación.':Notification.permission==='denied'?'Permiso bloqueado. Revisá Ajustes del iPhone → Notificaciones → Mi Finanzas IA.':'Permiso pendiente. Tocá Activar permisos desde la aplicación instalada.'}
+async function enableNotifications(){if(!('Notification' in window)){alert(notificationStatus());return}try{const result=await Notification.requestPermission();alert(result==='granted'?'Permiso concedido. Ahora probá la notificación.':result==='denied'?'Las notificaciones quedaron bloqueadas. Podés revisar Ajustes del iPhone.':'El permiso no se concedió.');render()}catch(e){alert('No se pudo solicitar el permiso: '+e.message)}}
+async function testNotification(){if(!('Notification' in window)||Notification.permission!=='granted'){alert('Primero activá los permisos de notificación.');return}try{if(!('serviceWorker' in navigator))throw Error('El dispositivo no admite service workers.');const reg=await navigator.serviceWorker.ready;await reg.showNotification('Mi Finanzas IA · Prueba',{body:'¡Las notificaciones están habilitadas en tu iPhone! Esta es una prueba manual.',icon:'./icon.png',badge:'./icon.png',tag:'mfia-test-'+Date.now()});alert('Notificación de prueba enviada. Si no aparece, revisá los ajustes de notificaciones del iPhone.')}catch(e){alert('No se pudo mostrar la notificación: '+e.message)}}
+
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();
+</script></body></html>
