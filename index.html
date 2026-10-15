@@ -108,13 +108,13 @@ dialog[open] form, dialog[open] input, dialog[open] textarea, dialog[open] selec
 .profit-row strong{display:block}
 .profit-row small{display:block;color:#9aaec7;line-height:1.5}
 .profit-tag{font-size:12px;color:#a7bcd4}
-</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.6</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
+</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.7</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
 <div class="field"><label for="u_date">Fecha</label><input id="u_date" name="date" type="date" required></div>
 <div class="field"><label for="u_hours">Horas trabajadas</label><input id="u_hours" name="hours" type="number" min="0" max="48" step="1" required placeholder="Ej. 10"></div>
 <div class="field"><label for="u_minutes">Minutos trabajados</label><input id="u_minutes" name="minutes" type="number" min="0" max="59" step="1" value="0" required></div>
 <div class="field"><label for="u_uberhours">Horas en viajes según Uber (opcional)</label><input id="u_uberhours" name="uberHours" type="number" min="0" max="48" step="1" placeholder="Ej. 7"></div>
 <div class="field"><label for="u_uberminutes">Minutos en viajes Uber</label><input id="u_uberminutes" name="uberMinutes" type="number" min="0" max="59" step="1" value="0"></div>
-<div class="field"><label for="u_km">Kilómetros recorridos</label><input id="u_km" name="km" type="number" min="0" step="0.1" required placeholder="Ej. 145"></div>
+<div class="field"><label for="u_km">Kilómetros recorridos</label><input id="u_km" name="km" type="number" min="0" step="0.1" required placeholder="Ej. 145"></div><div class="field"><label for="u_odometerEnd">Odómetro final real (opcional)</label><input id="u_odometerEnd" name="odometerEnd" type="number" min="0" step="1" placeholder="Ej. 70805"><small class="muted">Recomendado para mantener el control del service.</small></div>
 <div class="field"><label for="u_gross">Recaudación Uber (ARS)</label><input id="u_gross" name="gross" type="number" min="0" step="0.01" required placeholder="Ej. 85000"></div>
 <div class="field"><label for="u_private">Viajes particulares (ARS)</label><input id="u_private" name="privateIncome" type="number" min="0" step="0.01" value="0" required></div>
 <div class="field"><label for="u_fuel">Combustible (ARS)</label><input id="u_fuel" name="fuel" type="number" min="0" step="0.01" value="0" required></div>
@@ -202,7 +202,19 @@ function editUberSettings(){const x=uberSettings();document.getElementById('sett
 document.getElementById('uberSettingsForm').addEventListener('submit',e=>{e.preventDefault();const x=Object.fromEntries(new FormData(e.currentTarget));for(const k of Object.keys(x)){x[k]=Number(x[k]||0);if(!Number.isFinite(x[k])||x[k]<0){alert('Ingresá valores válidos.');return}}const previous=JSON.stringify(db);Object.assign(db.settings,{weeklyGoal:x.weeklyGoal,weeklyRent:x.weeklyRent,weeklyOther:x.weeklyOther,startKm:x.startKm});if(save()){document.getElementById('uberSettingsModal').close();render()}else db=JSON.parse(previous)});
 
 function carState(){if(!db.car||typeof db.car!=='object')db.car={};if(!Array.isArray(db.car.services))db.car.services=[];if(!Array.isArray(db.car.inspections))db.car.inspections=[];return db.car}
-function carKm(){const c=carState();return Math.max(0,Number(c.odometer)||Number(db.settings.startKm)||0)}
+function carKm(){
+ const c=carState(),shifts=Array.isArray(db.uberShifts)?db.uberShifts:[];
+ const baseline=Number(c.weekOdometerBaseline)||70071;
+ const relevant=shifts.filter(x=>x.date>='2026-10-12').sort((a,b)=>a.date.localeCompare(b.date));
+ const estimated=baseline+relevant.reduce((n,x)=>n+(Number(x.km)||0),0);
+ const readings=relevant.filter(x=>Number(x.odometerEnd)>0);
+ let calculated=estimated;
+ if(readings.length){
+  const last=readings[readings.length-1];
+  calculated=Number(last.odometerEnd)+relevant.filter(x=>x.date>last.date).reduce((n,x)=>n+(Number(x.km)||0),0);
+ }
+ return Math.max(0,Number(c.odometer)||0,calculated);
+}
 function dateLocal(v){if(!v)return 'Sin configurar';const [y,m,d]=v.split('-');return `${d}/${m}/${y}`}
 function plusDays(v,n){const d=new Date(v+'T12:00:00');d.setDate(d.getDate()+n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
 function daysUntil(v){return Math.round((new Date(v+'T12:00:00')-new Date(today()+'T12:00:00'))/86400000)}
@@ -391,7 +403,7 @@ function weeklyIntelligenceView(){
  const otherCosts=outside.filter(x=>!foodIds.has(x.id)&&!isRent(x)&&!isChild(x));
  const unclassified=expenses.filter(x=>x.area==='Trabajo'&&!linked.has(x.id)&&(isRent(x)||isChild(x)));
  const note=unclassified.length?'Revisá los pagos fijos anotados en Trabajo: se contemplan como pagos registrados y no como reservas pendientes.':'';
- return `<div class="card" id="weeklyIntelligence"><div class="topline"><h3>🧭 Control semanal inteligente · 2.6</h3><button class="btn secondary tiny" onclick="editUberSettings()">⚙ Meta y alquiler</button></div>
+ return `<div class="card" id="weeklyIntelligence"><div class="topline"><h3>🧭 Control semanal inteligente · 2.7</h3><button class="btn secondary tiny" onclick="editUberSettings()">⚙ Meta y alquiler</button></div>
  <p class="hint">Semana del ${escapeHtml(start)} al domingo. Valores en pesos argentinos; planificación estimada, sin generar movimientos nuevos.</p>
  ${stats([['Recaudación de jornadas',money(gross),'green'],['Meta semanal',money(goal)],['Falta recaudar',money(remaining)],['Avance',pct.toLocaleString('es-AR',{maximumFractionDigits:1})+' %']])}
  <div class="progress" role="progressbar" aria-valuenow="${pct.toFixed(1)}" aria-valuemin="0" aria-valuemax="100" aria-label="Avance de meta semanal"><div style="width:${pct}%"></div></div>
@@ -451,7 +463,7 @@ function editUber(id){
  const r=db.uberShifts.find(x=>x.id===id);if(!r)return;
  const f=document.getElementById('uberForm');f.reset();
  document.getElementById('u_editingId').value=id;
- const fields={date:r.date,hours:Math.floor(r.hours||0),minutes:Math.round(((r.hours||0)%1)*60),uberHours:Math.floor(r.uberHours||0),uberMinutes:Math.round(((r.uberHours||0)%1)*60),km:r.km,gross:(r.gross||0)-(r.privateIncome||0),privateIncome:r.privateIncome||0,fuel:r.fuel||0,tolls:r.tolls||0,other:r.other||0,note:r.note||''};
+ const fields={date:r.date,hours:Math.floor(r.hours||0),minutes:Math.round(((r.hours||0)%1)*60),uberHours:Math.floor(r.uberHours||0),uberMinutes:Math.round(((r.uberHours||0)%1)*60),km:r.km,odometerEnd:r.odometerEnd||'',gross:(r.gross||0)-(r.privateIncome||0),privateIncome:r.privateIncome||0,fuel:r.fuel||0,tolls:r.tolls||0,other:r.other||0,note:r.note||''};
  for(const [k,v] of Object.entries(fields)){const el=f.elements[k];if(el)el.value=v}
  document.querySelector('#uberModal h3').textContent='✎ Corregir jornada Uber';
  document.querySelector('#uberForm button[type="submit"]').textContent='Guardar correcciones';
@@ -466,11 +478,12 @@ document.getElementById('u_date').addEventListener('change',()=>{
 document.getElementById('uberForm').addEventListener('submit',e=>{
  e.preventDefault();
  const data=Object.fromEntries(new FormData(e.currentTarget)),editingId=data.editingId;delete data.editingId;
- const numbers=['hours','minutes','uberHours','uberMinutes','km','gross','privateIncome','fuel','tolls','other'];
+ const numbers=['hours','minutes','uberHours','uberMinutes','km','odometerEnd','gross','privateIncome','fuel','tolls','other'];
  for(const k of numbers)data[k]=Number(data[k]||0);
  if(numbers.some(k=>!Number.isFinite(data[k])||data[k]<0)||data.minutes>=60||data.uberMinutes>=60)return alert('Revisá los importes, horas y minutos.');
  data.hours=data.hours+data.minutes/60;data.uberHours=data.uberHours+data.uberMinutes/60;data.gross=data.gross+data.privateIncome;
  delete data.minutes;delete data.uberMinutes;
+ if(data.odometerEnd>0&&data.odometerEnd<data.km)return alert('Revisá el odómetro final.');
  if(data.hours<=0||data.hours>48||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(data.date))return alert('Revisá la fecha y las horas trabajadas.');
  if(db.uberShifts.some(x=>x.date===data.date&&x.id!==editingId))return alert('Ya existe una jornada financiera para esa fecha. No se guardó para evitar duplicaciones.');
  const old=JSON.stringify(db),id=editingId||uid();
