@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a2b"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Mi Finanzas IA"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png"><title>Mi Finanzas IA · 2.3</title><style>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a2b"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Mi Finanzas IA"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png"><title>Mi Finanzas IA · 2.9</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#edf3fc;background:#0c1422}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}header{padding:22px 20px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:22px;font-weight:800}.sub{color:#9cacc5;font-size:12px}main{max-width:1050px;margin:auto;padding:0 16px 105px}.hero{background:linear-gradient(130deg,#1b354a,#172239);padding:20px;border-radius:22px;margin:12px 0 18px}.hero h2{margin:8px 0;font-size:30px}.muted{color:#a6b6ce}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{background:#18253a;border:1px solid #293a50;border-radius:17px;padding:16px;margin-bottom:12px}.card h3{margin:0 0 10px;font-size:16px}.stat{font-size:21px;font-weight:750;margin-top:8px;overflow-wrap:anywhere}.green{color:#79e4b4}.red{color:#ff9e9e}.pill{display:inline-block;border-radius:30px;padding:5px 10px;background:#254257;color:#9ae7cc;font-size:12px}.btn{border:0;border-radius:12px;padding:12px 15px;background:#64d6aa;color:#10251f;font-weight:750}.btn.secondary{background:#2a3a52;color:#ecf3fb}.btn.danger{background:#532d3c;color:#ffc2c2}.btn.tiny{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.listitem{padding:13px 0;border-bottom:1px solid #2b3b51;display:flex;justify-content:space-between;gap:10px;align-items:center}.listitem:last-child{border:0}.listitem strong{display:block}.listitem small{display:block;color:#a6b6ce;margin-top:5px}.empty{color:#aab9ce;padding:12px 0}.nav{position:fixed;bottom:0;left:0;right:0;background:#101b2c;border-top:1px solid #304056;display:flex;justify-content:space-around;padding:9px 3px calc(10px + env(safe-area-inset-bottom));z-index:10}.nav button{background:none;border:0;color:#a5b5cb;font-size:11px;min-width:54px;padding:5px}.nav button.active{color:#79e4b4;font-weight:800}.nav span{display:block;font-size:21px;margin-bottom:4px}.sectiontitle{margin:18px 0 12px;font-size:23px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field.full{grid-column:1/-1}label{color:#c3d0e2;font-size:13px}input,select,textarea{background:#0e1a2b;color:#fff;border:1px solid #3c5069;border-radius:10px;padding:12px;min-width:0;width:100%}textarea{resize:vertical}dialog{border:1px solid #41556c;border-radius:18px;background:#17263a;color:#fff;width:min(95vw,540px);max-height:85vh;overflow:auto;padding:20px}dialog::backdrop{background:#020813bb}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.notice{font-size:13px;color:#b8c9db;line-height:1.5}.progress{height:9px;background:#304056;border-radius:9px;overflow:hidden;margin-top:10px}.progress>div{background:#70dcb0;height:100%}.tag{font-size:11px;color:#a8c8d8}.hide{display:none!important}@media(min-width:720px){.grid{grid-template-columns:repeat(4,1fr)}.nav{position:static;max-width:1050px;margin:0 auto 20px;border:0;border-radius:14px}.nav button{font-size:13px}.nav span{font-size:17px;display:inline;margin-right:7px}main{padding-bottom:30px}}
 
 /* Mejoras 1.1 para iPhone */
@@ -108,7 +108,76 @@ dialog[open] form, dialog[open] input, dialog[open] textarea, dialog[open] selec
 .profit-row strong{display:block}
 .profit-row small{display:block;color:#9aaec7;line-height:1.5}
 .profit-tag{font-size:12px;color:#a7bcd4}
-</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.8.1</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
+/* 2.9 navegación compacta, menú lateral y pantallas individuales */
+#app{padding-top:4px}
+.page-heading29{margin:18px 0 16px}
+.page-heading29 h2,.home-title29 h2{font-size:23px;margin:0 0 5px}
+.page-heading29 .hint,.home-title29 .hint{margin:0}
+.home-title29{display:flex;align-items:start;justify-content:space-between;gap:12px;margin:16px 0 15px}
+.home-values29{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:11px}
+.simple-stat29{background:linear-gradient(132deg,#19344a,#172339);border:1px solid #344e61;border-radius:18px;padding:17px}
+.simple-label29{font-size:13px;color:#a9bdd4}
+.simple-number29{font-size:clamp(25px,8vw,36px);font-weight:800;line-height:1.3;overflow-wrap:anywhere;margin:7px 0}
+.simple-detail29{color:#afc2d2;font-size:12px;line-height:1.4}
+.simple-stat29.negative .simple-number29{color:#ffadad}
+.simple-stat29.positive .simple-number29{color:#82e1b8}
+.home-reserves29{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:10px}
+.home-reserves29 button{background:#182b3d;color:#f0f5fc;border:1px solid #31465d;border-radius:15px;padding:14px;text-align:left;min-width:0;display:flex;flex-direction:column;gap:7px}
+.home-reserves29 button span{font-size:12px;color:#b6c8da}
+.home-reserves29 button strong{font-size:17px;overflow-wrap:anywhere}
+.home-reserves29 button small{font-size:11px;color:#abc1d3;line-height:1.3}
+.clock-strip29,.goal-strip29{width:100%;border-radius:14px;border:1px solid #3c675b;background:#183b37;color:#e9f8f3;display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;padding:14px;margin-bottom:12px}
+.clock-strip29.paused{background:#423524;border-color:#786144}
+.clock-strip29 small,.goal-strip29 small{display:block;font-size:12px;color:#bdcfdd;margin-top:5px;line-height:1.4}
+.clock-strip29>span,.goal-strip29>span{font-size:27px}
+.goal-strip29{background:#1b2b40;border-color:#3a4e62}
+.home-actions29{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0}
+.home-actions29 button{padding:12px 8px}
+.footnote29{font-size:12px;color:#9fb2c9;line-height:1.5;margin:14px 0 6px}
+.footnote29 button{color:#82e1b8;border:0;background:none;font-size:12px;padding:0;text-decoration:underline}
+.alerts-link29{background:#192940;border:1px solid #31465a;color:#d5e4ef;border-radius:12px;text-align:left;width:100%;display:flex;justify-content:space-between;gap:12px;padding:11px;margin-top:8px;font-size:12px}
+.jump-grid29{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:15px}
+.jump-card29{display:flex;flex-direction:column;gap:8px;position:relative;min-height:137px;background:#18283d;color:#e9f3fb;border:1px solid #344861;border-radius:16px;text-align:left;padding:14px;min-width:0}
+.jump-card29:active,.drawer-item:active{background:#27455b}
+.jump-icon29{font-size:23px}
+.jump-card29 strong{font-size:15px}
+.jump-card29 small{font-size:11px;color:#a6bbd0;line-height:1.35;max-width:95%}
+.jump-arrow29{position:absolute;right:12px;top:12px;font-size:22px;color:#88bfae}
+.mini-summary29{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#183244;border-radius:15px;padding:14px;margin:14px 0 20px}
+.mini-summary29>div{min-width:0;display:flex;flex-direction:column;gap:4px}
+.mini-summary29 span{font-size:12px;color:#c2cfdf}
+.mini-summary29 strong{font-size:23px;overflow-wrap:anywhere}
+.page-back29{display:flex;align-items:center;gap:12px;position:relative;margin:14px 0 10px;min-width:0}
+.page-back29 span{font-size:14px;color:#b8c9dc;font-weight:650;overflow-wrap:anywhere}
+.commitment-row29{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #32465d;padding:15px 0}
+.commitment-row29:first-of-type{border-top:0}
+.commitment-row29>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.commitment-row29 strong{font-size:14px}
+.commitment-row29 small{color:#adc1d7;font-size:12px}
+.commitment-row29 button{flex:0 0 auto;max-width:41%}
+.calc-line29{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #32465d;font-size:13px}
+.calc-line29 strong{white-space:nowrap}
+.calc-line29.total{font-weight:800;font-size:16px;border:0}
+#appDrawer29{position:fixed;inset:0;z-index:90;display:none;align-items:stretch}
+#appDrawer29.open{display:flex}
+.drawer-overlay29{background:#030913b8;flex:1;border:0;border-radius:0;padding:0;min-width:0;touch-action:auto}
+.drawer-panel29{width:min(85vw,360px);height:100%;display:flex;flex-direction:column;background:#132238;color:#edf5fc;border-right:1px solid #395069;box-shadow:10px 0 40px #0009;padding:calc(18px + env(safe-area-inset-top)) 15px calc(18px + env(safe-area-inset-bottom));overflow:hidden}
+.drawer-title29{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.drawer-title29 strong{font-size:18px}
+.drawer-title29 button{border:0;border-radius:10px;background:#293e55;color:#fff;padding:8px 11px}
+#drawerSearch29{height:44px;margin:0 0 12px;flex:0 0 auto}
+#drawerItems29{overflow-y:auto;overscroll-behavior:contain;min-height:0;flex:1;padding-bottom:16px}
+.drawer-group{margin:14px 0 18px}
+.drawer-label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#9eb2c9;margin:9px 7px}
+.drawer-item{width:100%;background:none;border:0;color:#eaf4fc;display:flex;align-items:center;gap:10px;padding:11px 7px;border-radius:10px;text-align:left}
+.drawer-item span:nth-child(2){flex:1;font-size:14px}
+.drawer-item span:last-child{color:#a5bacf;font-size:20px}
+.drawer-emoji{font-size:20px;min-width:28px;text-align:center}
+body.drawer-open29{overflow:hidden}
+@media(min-width:720px){.home-values29{grid-template-columns:1fr 1fr}.jump-grid29{grid-template-columns:repeat(3,minmax(0,1fr))}.drawer-panel29{width:360px}}
+@media(max-width:380px){.home-reserves29{gap:7px}.home-reserves29 button{padding:11px}.home-reserves29 button strong{font-size:15px}.mini-summary29{flex-wrap:wrap}.jump-card29{padding:11px}}
+
+</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.9</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
 <div class="field"><label for="u_date">Fecha</label><input id="u_date" name="date" type="date" required></div>
 <div class="field"><label for="u_hours">Horas trabajadas</label><input id="u_hours" name="hours" type="number" min="0" max="48" step="1" required placeholder="Ej. 10"></div>
 <div class="field"><label for="u_minutes">Minutos trabajados</label><input id="u_minutes" name="minutes" type="number" min="0" max="59" step="1" value="0" required></div>
@@ -121,11 +190,11 @@ dialog[open] form, dialog[open] input, dialog[open] textarea, dialog[open] selec
 <div class="field"><label for="u_tolls">Peajes (ARS)</label><input id="u_tolls" name="tolls" type="number" min="0" step="0.01" value="0" required></div>
 <div class="field"><label for="u_other">Otros gastos (ARS)</label><input id="u_other" name="other" type="number" min="0" step="0.01" value="0" required></div>
 <div class="field full"><label for="u_note">Notas (opcional)</label><input id="u_note" name="note" maxlength="160" placeholder="Turno mañana, zona, etc."></div>
-</div><button class="btn" style="width:100%" type="submit">Guardar jornada y movimientos</button></form></dialog><dialog id="shiftDetailModal"><div class="topline"><h3>🚗 Detalle de jornada</h3><button class="btn secondary tiny" type="button" onclick="closeShiftDetail()">✕</button></div><div id="shiftDetailBody"></div></dialog><dialog id="clockEditModal"><div class="topline"><h3>✎ Corregir jornada del reloj</h3><button class="btn secondary tiny" onclick="document.getElementById('clockEditModal').close()">✕</button></div><p class="hint">Editá los horarios de inicio, pausas, reanudaciones y finalización. Los tramos deben ser consecutivos y no superponerse.</p><form id="clockEditForm"><input type="hidden" id="ce_id"><div id="clockEditFields"></div><button type="submit" class="btn" style="width:100%">Guardar correcciones</button></form></dialog><dialog id="uberSettingsModal"><div class="topline"><h3>⚙ Plan semanal Uber</h3><button type="button" class="btn secondary tiny" onclick="document.getElementById('uberSettingsModal').close()">✕</button></div><form id="uberSettingsForm"><div class="field"><label>Objetivo de recaudación semanal (ARS)</label><input id="settingsGoal" name="weeklyGoal" type="number" min="0" step="1" required></div><div class="field"><label>Alquiler semanal del auto (ARS)</label><input id="settingsRent" name="weeklyRent" type="number" min="0" step="1" required></div><div class="field"><label>Otros costos fijos semanales (ARS)</label><input id="settingsOther" name="weeklyOther" type="number" min="0" step="1" required></div><div class="field"><label>Odómetro de referencia (km, opcional)</label><input id="settingsKm" name="startKm" type="number" min="0" step="1"></div><p class="hint">Estas cifras se usan para planificar, no generan movimientos contables. Evitá duplicar costos ya cargados en jornadas.</p><button class="btn" type="submit" style="width:100%">Guardar planificación</button></form></dialog><dialog id="carModal"><div class="topline"><h3 id="carModalTitle">🚗 Control del vehículo</h3><button class="btn secondary tiny" onclick="document.getElementById('carModal').close()">✕</button></div><form id="carForm"><div id="carFields"></div><button class="btn" type="submit" style="width:100%;margin-top:14px">Guardar registro</button></form></dialog><dialog id="modal"><div class="topline"><h3 id="modalTitle">Nuevo registro</h3><button class="btn secondary tiny" onclick="closeModal()">✕</button></div><form id="entryForm"></form></dialog><script>
+</div><button class="btn" style="width:100%" type="submit">Guardar jornada y movimientos</button></form></dialog><dialog id="shiftDetailModal"><div class="topline"><h3>🚗 Detalle de jornada</h3><button class="btn secondary tiny" type="button" onclick="closeShiftDetail()">✕</button></div><div id="shiftDetailBody"></div></dialog><dialog id="clockEditModal"><div class="topline"><h3>✎ Corregir jornada del reloj</h3><button class="btn secondary tiny" onclick="document.getElementById('clockEditModal').close()">✕</button></div><p class="hint">Editá los horarios de inicio, pausas, reanudaciones y finalización. Los tramos deben ser consecutivos y no superponerse.</p><form id="clockEditForm"><input type="hidden" id="ce_id"><div id="clockEditFields"></div><button type="submit" class="btn" style="width:100%">Guardar correcciones</button></form></dialog><dialog id="uberSettingsModal"><div class="topline"><h3>⚙ Plan semanal Uber</h3><button type="button" class="btn secondary tiny" onclick="document.getElementById('uberSettingsModal').close()">✕</button></div><form id="uberSettingsForm"><div class="field"><label>Objetivo de recaudación semanal (ARS)</label><input id="settingsGoal" name="weeklyGoal" type="number" min="0" step="1" required></div><div class="field"><label>Alquiler semanal del auto (ARS)</label><input id="settingsRent" name="weeklyRent" type="number" min="0" step="1" required></div><div class="field"><label>Otros costos fijos semanales (ARS)</label><input id="settingsOther" name="weeklyOther" type="number" min="0" step="1" required></div><div class="field"><label>Odómetro de referencia (km, opcional)</label><input id="settingsKm" name="startKm" type="number" min="0" step="1"></div><p class="hint">Estas cifras se usan para planificar, no generan movimientos contables. Evitá duplicar costos ya cargados en jornadas.</p><button class="btn" type="submit" style="width:100%">Guardar planificación</button></form></dialog><dialog id="carModal"><div class="topline"><h3 id="carModalTitle">🚗 Control del vehículo</h3><button class="btn secondary tiny" onclick="document.getElementById('carModal').close()">✕</button></div><form id="carForm"><div id="carFields"></div><button class="btn" type="submit" style="width:100%;margin-top:14px">Guardar registro</button></form></dialog><dialog id="modal"><div class="topline"><h3 id="modalTitle">Nuevo registro</h3><button class="btn secondary tiny" onclick="closeModal()">✕</button></div><form id="entryForm"></form></dialog><div id="appDrawer29" role="dialog" aria-label="Menú principal" aria-modal="true" hidden><aside class="drawer-panel29"><div class="drawer-title29"><strong>☰ Mi Finanzas IA</strong><button type="button" onclick="closeDrawer29()" aria-label="Cerrar menú">✕</button></div><input id="drawerSearch29" placeholder="Buscar una función..." autocomplete="off" aria-label="Buscar función" oninput="drawerItems29()"><div id="drawerItems29"></div></aside><button type="button" class="drawer-overlay29" onclick="closeDrawer29()" aria-label="Cerrar menú"></button></div><script>
 'use strict';const KEY='mfia-v1';const kinds=['movements','tasks','goals','vehicle'];const tabs=[['home','⌂','Inicio'],['money','＄','Finanzas'],['work','🚗','Trabajo'],['family','♡','Familia'],['agenda','▦','Agenda'],['more','☰','Más']];let tab='home';const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,9);const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const money=n=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(Number(n)||0);const defaults=()=>({movements:[],tasks:[],goals:[],vehicle:[],settings:{vehicleName:'Mi vehículo',km:0}});let db=load();if(!Array.isArray(db.uberShifts))db.uberShifts=[];if(!Array.isArray(db.weeklyClosures))db.weeklyClosures=[];if(!Array.isArray(db.weeklyPayments))db.weeklyPayments=[];if(!db.workClock||typeof db.workClock!=='object')db.workClock={sessions:[],active:null};if(!Array.isArray(db.workClock.sessions))db.workClock.sessions=[];if(!db.savings||typeof db.savings!=='object')db.savings={opening:200000,openingDate:'2026-10-14',transactions:[]};if(!Array.isArray(db.savings.transactions))db.savings.transactions=[];if(!db.settings||typeof db.settings!=="object")db.settings={};function load(){try{let x=JSON.parse(localStorage.getItem(KEY));if(!x||!kinds.every(k=>Array.isArray(x[k])))return defaults();return x}catch{return defaults()}}function save(){try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){alert('No se pudo guardar. Revisá el almacenamiento disponible del navegador.');return false}}function sum(items){return items.reduce((a,x)=>a+Number(x.amount||0),0)}const movements=()=>db.movements;const incoming=()=>sum(movements().filter(x=>x.type==='income'));const outgoing=()=>sum(movements().filter(x=>x.type==='expense'));const isFoodMovement=x=>x.type==='expense'&&(x.foodBudget==='yes'||(x.foodBudget===undefined&&x.area==='Personal'&&['Comida','Supermercado','Almacén','Almuerzo','Bebidas'].includes(x.category)));
 const foodReservedSpent=()=>sum(movements().filter(isFoodMovement));
 const balance=()=>incoming()-outgoing()+foodReservedSpent();
-const cashMovementBalance=()=>incoming()-outgoing();const workEntries=()=>movements().filter(x=>x.area==='Trabajo');const workNet=()=>sum(workEntries().filter(x=>x.type==='income'))-sum(workEntries().filter(x=>x.type==='expense'));function render(){document.getElementById('nav').innerHTML=tabs.map(([id,icon,name])=>`<button class="${tab===id?'active':''}" onclick="navigate('${id}')"><span>${icon}</span>${name}</button>`).join('');document.getElementById('app').innerHTML=({home:homeView,money:moneyView,work:workView,family:familyView,agenda:agendaView,more:moreView})[tab]()}function navigate(t){tab=t;render();window.scrollTo(0,0)}function stats(items){return `<div class="grid">${items.map(([label,value,cls])=>`<div class="card"><div class="sub">${label}</div><div class="stat ${cls||''}">${value}</div></div>`).join('')}</div>`}function header(t,action,kind){return `<div class="topline"><h2 class="sectiontitle">${t}</h2>${action?`<button class="btn tiny" onclick="openModal('${kind}')">＋ ${action}</button>`:''}</div>`}function list(items,kind,fn){return items.length?items.map(x=>`<div class="listitem"><div>${fn(x)}</div><button class="btn danger tiny" onclick="removeItem('${kind}','${x.id}')" aria-label="Eliminar">Eliminar</button></div>`).join(''):'<p class="empty">Todavía no hay registros.</p>'}function movementList(arr){return list([...arr].sort((a,b)=>b.date.localeCompare(a.date)), 'movements',x=>`<strong>${escapeHtml(x.description||x.category)} · <span class="${x.type==='income'?'green':'red'}">${x.type==='income'?'+':'−'}${money(x.amount)}</span></strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.area)} · ${escapeHtml(x.category)}</small>`)}function homeView(){let due=db.tasks.filter(x=>!x.done).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);return `<div class="hero"><div class="muted">Resultado acumulado sin descontar comida reservada</div><h2>${money(balance())}</h2><div class="notice">Indicador de ingresos menos gastos no reservados. La comida pagada con el presupuesto de la semana anterior se controla aparte; este importe NO es el saldo real de tus cuentas o efectivo.</div><div class="actions" style="margin-top:14px"><button class="btn" onclick="openModal('movements')">＋ Registrar movimiento</button><button class="btn secondary" onclick="openModal('tasks')">＋ Tarea</button></div></div>${foodBudgetView()}${savingsView()}${weeklyPaymentsView()}${weeklyClosureView()}${stats([['Ingresos',money(incoming()),'green'],['Gastos no reservados',money(outgoing()-foodReservedSpent()),'red'],['Trabajo neto',money(workNet())],['Tareas pendientes',db.tasks.filter(x=>!x.done).length]])}<div class="card"><h3>🔔 Avisos del vehículo</h3>${carAlerts().length?carAlerts().map(a=>`<p class="notice">${escapeHtml(a)}</p>`).join(''):'<p class="empty">No hay avisos urgentes. Revisá las fechas y el kilometraje en Trabajo.</p>'}</div><div class="card"><h3>🔔 Centro de recordatorios</h3>${reminderView()}</div><div class="card"><h3>📅 Próximos compromisos</h3>${due.length?due.map(x=>`<div class="listitem"><div><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)}</small></div><button class="btn secondary tiny" onclick="toggleTask('${x.id}')">Completar</button></div>`).join(''):'<p class="empty">No tenés tareas pendientes.</p>'}</div><div class="card"><h3>✦ Análisis automático básico</h3><p class="notice">${insight()}</p><small class="muted">Reglas locales, todavía no es un asistente conversacional con IA.</small></div>`}function insight(){if(!movements().length)return 'Empezá registrando tus ingresos y gastos. Así podremos calcular tu situación y detectar patrones.';if(balance()<0)return 'Tus gastos registrados superan tus ingresos. Revisá los movimientos y priorizá tus compromisos.';if(outgoing()>incoming()*.8)return 'Los gastos representan más del 80% de tus ingresos registrados. Conviene revisar tu margen disponible.';return 'Tus ingresos registrados superan los gastos. Revisá tus tareas y objetivos para planificar el dinero disponible.'}
+const cashMovementBalance=()=>incoming()-outgoing();const workEntries=()=>movements().filter(x=>x.area==='Trabajo');const workNet=()=>sum(workEntries().filter(x=>x.type==='income'))-sum(workEntries().filter(x=>x.type==='expense'));function render(){return render29()}function navigate(t){return navigate29(t)}function stats(items){return `<div class="grid">${items.map(([label,value,cls])=>`<div class="card"><div class="sub">${label}</div><div class="stat ${cls||''}">${value}</div></div>`).join('')}</div>`}function header(t,action,kind){return `<div class="topline"><h2 class="sectiontitle">${t}</h2>${action?`<button class="btn tiny" onclick="openModal('${kind}')">＋ ${action}</button>`:''}</div>`}function list(items,kind,fn){return items.length?items.map(x=>`<div class="listitem"><div>${fn(x)}</div><button class="btn danger tiny" onclick="removeItem('${kind}','${x.id}')" aria-label="Eliminar">Eliminar</button></div>`).join(''):'<p class="empty">Todavía no hay registros.</p>'}function movementList(arr){return list([...arr].sort((a,b)=>b.date.localeCompare(a.date)), 'movements',x=>`<strong>${escapeHtml(x.description||x.category)} · <span class="${x.type==='income'?'green':'red'}">${x.type==='income'?'+':'−'}${money(x.amount)}</span></strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.area)} · ${escapeHtml(x.category)}</small>`)}function homeView(){let due=db.tasks.filter(x=>!x.done).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);return `<div class="hero"><div class="muted">Resultado acumulado sin descontar comida reservada</div><h2>${money(balance())}</h2><div class="notice">Indicador de ingresos menos gastos no reservados. La comida pagada con el presupuesto de la semana anterior se controla aparte; este importe NO es el saldo real de tus cuentas o efectivo.</div><div class="actions" style="margin-top:14px"><button class="btn" onclick="openModal('movements')">＋ Registrar movimiento</button><button class="btn secondary" onclick="openModal('tasks')">＋ Tarea</button></div></div>${foodBudgetView()}${savingsView()}${weeklyPaymentsView()}${weeklyClosureView()}${stats([['Ingresos',money(incoming()),'green'],['Gastos no reservados',money(outgoing()-foodReservedSpent()),'red'],['Trabajo neto',money(workNet())],['Tareas pendientes',db.tasks.filter(x=>!x.done).length]])}<div class="card"><h3>🔔 Avisos del vehículo</h3>${carAlerts().length?carAlerts().map(a=>`<p class="notice">${escapeHtml(a)}</p>`).join(''):'<p class="empty">No hay avisos urgentes. Revisá las fechas y el kilometraje en Trabajo.</p>'}</div><div class="card"><h3>🔔 Centro de recordatorios</h3>${reminderView()}</div><div class="card"><h3>📅 Próximos compromisos</h3>${due.length?due.map(x=>`<div class="listitem"><div><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)}</small></div><button class="btn secondary tiny" onclick="toggleTask('${x.id}')">Completar</button></div>`).join(''):'<p class="empty">No tenés tareas pendientes.</p>'}</div><div class="card"><h3>✦ Análisis automático básico</h3><p class="notice">${insight()}</p><small class="muted">Reglas locales, todavía no es un asistente conversacional con IA.</small></div>`}function insight(){if(!movements().length)return 'Empezá registrando tus ingresos y gastos. Así podremos calcular tu situación y detectar patrones.';if(balance()<0)return 'Tus gastos registrados superan tus ingresos. Revisá los movimientos y priorizá tus compromisos.';if(outgoing()>incoming()*.8)return 'Los gastos representan más del 80% de tus ingresos registrados. Conviene revisar tu margen disponible.';return 'Tus ingresos registrados superan los gastos. Revisá tus tareas y objetivos para planificar el dinero disponible.'}
 
 function savingsProjectionView(){const start=weekStart(today()),work=db.movements.filter(x=>x.date&&weekStart(x.date)===start&&x.area==='Trabajo'),workNetWeek=sum(work.filter(x=>x.type==='income'))-sum(work.filter(x=>x.type==='expense'));const rent=Math.max(0,Number(db.settings.weeklyRent)||0),child=Math.max(0,Number(db.settings.weeklyChild)||100000),food=foodBudgetLimit();const obligations=db.movements.filter(x=>x.date&&weekStart(x.date)===start&&x.type==='expense'&&x.area!=='Trabajo'&&!foodBudgetEntries(start).some(f=>f.id===x.id));const other=sum(obligations);const potential=workNetWeek-rent-child-food-other;return `<div class="card"><div class="topline"><h3>💚 Ahorro potencial semanal</h3><button class="btn secondary tiny" onclick="editWeeklyChild()">⚙ Aporte familiar</button></div><p class="hint">Estimación basada en los ingresos y gastos laborales registrados esta semana. No representa dinero efectivamente ahorrado. El alquiler es una reserva, no un gasto duplicado.</p>${stats([['Neto laboral registrado',money(workNetWeek)],['Alquiler reservado',money(rent)],['Aporte hijo previsto',money(child)],['Comida presupuestada',money(food)],['Otros gastos no laborales',money(other)],['Ahorro potencial',money(potential),potential>=0?'green':'red']])}<p class="hint">Si registraste el alquiler o el aporte familiar como movimientos, ajustá las reservas para evitar contarlos dos veces. El ahorro efectivo debe registrarse aparte.</p></div>`}
 function editWeeklyChild(){const v=prompt('Aporte semanal previsto para tu hijo (ARS):',String(Number(db.settings.weeklyChild)||100000));if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0||!Number.isSafeInteger(n))return alert('Importe inválido');db.settings.weeklyChild=n;if(save())render()}
@@ -557,6 +626,197 @@ function reminderView(){const now=today();const pending=db.tasks.filter(x=>!x.do
 function notificationStatus(){if(!('Notification' in window))return 'Este navegador no ofrece notificaciones web aquí. Abrí la app desde el ícono de inicio del iPhone.';return Notification.permission==='granted'?'Permiso concedido. Podés probar una notificación.':Notification.permission==='denied'?'Permiso bloqueado. Revisá Ajustes del iPhone → Notificaciones → Mi Finanzas IA.':'Permiso pendiente. Tocá Activar permisos desde la aplicación instalada.'}
 async function enableNotifications(){if(!('Notification' in window)){alert(notificationStatus());return}try{const result=await Notification.requestPermission();alert(result==='granted'?'Permiso concedido. Ahora probá la notificación.':result==='denied'?'Las notificaciones quedaron bloqueadas. Podés revisar Ajustes del iPhone.':'El permiso no se concedió.');render()}catch(e){alert('No se pudo solicitar el permiso: '+e.message)}}
 async function testNotification(){if(!('Notification' in window)||Notification.permission!=='granted'){alert('Primero activá los permisos de notificación.');return}try{if(!('serviceWorker' in navigator))throw Error('El dispositivo no admite service workers.');const reg=await navigator.serviceWorker.ready;await reg.showNotification('Mi Finanzas IA · Prueba',{body:'¡Las notificaciones están habilitadas en tu iPhone! Esta es una prueba manual.',icon:'./icon.png',badge:'./icon.png',tag:'mfia-test-'+Date.now()});alert('Notificación de prueba enviada. Si no aparece, revisá los ajustes de notificaciones del iPhone.')}catch(e){alert('No se pudo mostrar la notificación: '+e.message)}}
+
+// Mi Finanzas IA 2.9 — navegación simplificada. Se conserva la clave de datos mfia-v1.
+let view29='home';
+let history29=[];
+let drawerLastFocus29=null;
+const ROOTS29={home:'Inicio',work:'Trabajo',money:'Finanzas'};
+const WORK_LINKS29=[
+  {id:'work_clock',icon:'⏱',title:'Mi reloj',note:'Iniciar, pausar y finalizar'},
+  {id:'work_shifts',icon:'📅',title:'Mis jornadas',note:'Registrar y consultar viajes'},
+  {id:'work_profit',icon:'📈',title:'Rentabilidad',note:'Ganancia por hora y kilómetro'},
+  {id:'work_car',icon:'🚗',title:'Mi vehículo',note:'Odómetro, service y revisiones'},
+  {id:'work_plan',icon:'🎯',title:'Plan semanal',note:'Metas, alquiler y reservas'},
+  {id:'work_closures',icon:'✅',title:'Cierre semanal',note:'Cerrar y consultar semanas'}
+];
+const MONEY_LINKS29=[
+  {id:'money_movements',icon:'⇄',title:'Movimientos',note:'Ingresos, gastos e historial'},
+  {id:'money_food',icon:'🥗',title:'Presupuesto de comida',note:'Fondo de esta semana'},
+  {id:'money_savings',icon:'🐷',title:'Mis ahorros',note:'Saldo, depósitos y retiros'},
+  {id:'money_commitments',icon:'🗓',title:'Compromisos y reservas',note:'Pendiente, reservado y pagado'},
+  {id:'money_projection',icon:'💰',title:'Disponible estimado',note:'Ver cómo se calcula'},
+  {id:'money_closures',icon:'✅',title:'Cierres semanales',note:'Historial y ahorro confirmado'}
+];
+const drawerGroups29=[
+  {label:'Pantallas',items:[['home','⌂','Inicio'],['work','🚗','Trabajo'],['money','＄','Finanzas'],['family','♡','Familia'],['agenda','▦','Agenda']]},
+  {label:'Accesos rápidos',items:[['action_expense','＋','Registrar gasto'],['work_clock','⏱','Reloj de jornada'],['action_shift','＋','Registrar jornada'],['work_car','🚗','Odómetro y service']]},
+  {label:'Trabajo',items:[['work_shifts','📅','Mis jornadas'],['work_profit','📈','Rentabilidad'],['work_plan','🎯','Plan semanal'],['work_closures','✅','Cierre semanal']]},
+  {label:'Finanzas',items:[['money_movements','⇄','Movimientos'],['money_food','🥗','Presupuesto de comida'],['money_savings','🐷','Mis ahorros'],['money_commitments','🗓','Compromisos y reservas'],['money_projection','💰','Disponible estimado'],['money_closures','✅','Cierres de finanzas']]},
+  {label:'Organización y herramientas',items:[['tools_goals','🎯','Mis objetivos'],['tools_legacy','🔧','Otros mantenimientos'],['tools_notifications','🔔','Notificaciones'],['tools_backups','💾','Copias de seguridad'],['tools_security','🔒','Privacidad y seguridad']]}
+];
+function normalize29(v){return String(v).toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function drawerItems29(){
+ const query=normalize29(document.getElementById('drawerSearch29')?.value||'');
+ const groups=drawerGroups29.map(g=>({...g,items:g.items.filter(x=>normalize29(x[2]).includes(query))})).filter(x=>x.items.length);
+ document.getElementById('drawerItems29').innerHTML=groups.length?groups.map(g=>`<div class="drawer-group"><div class="drawer-label">${g.label}</div>${g.items.map(([id,icon,title])=>`<button type="button" class="drawer-item" onclick="drawerSelect29('${id}')"><span class="drawer-emoji">${icon}</span><span>${escapeHtml(title)}</span><span aria-hidden="true">›</span></button>`).join('')}</div>`).join(''):'<p class="hint">No se encontró esa función.</p>';
+}
+function openDrawer29(){
+ drawerLastFocus29=document.activeElement;
+ const el=document.getElementById('appDrawer29');el.hidden=false;el.classList.add('open');
+ document.getElementById('drawerSearch29').value='';drawerItems29();
+ document.body.classList.add('drawer-open29');
+ document.getElementById('drawerSearch29').focus({preventScroll:true});
+}
+function closeDrawer29(){const el=document.getElementById('appDrawer29');el.classList.remove('open');el.hidden=true;document.body.classList.remove('drawer-open29');if(drawerLastFocus29?.isConnected)drawerLastFocus29.focus({preventScroll:true})}
+function drawerSelect29(id){closeDrawer29();if(id==='action_expense')return newExpense29();if(id==='action_shift')return openUber();if(['home','work','money'].includes(id))return navigate29(id);return goto29(id)}
+function newExpense29(){openModal('movements');document.getElementById('f_type').value='expense';document.getElementById('f_area').value='Personal';document.getElementById('f_category').value='Otros';document.getElementById('f_foodBudget').value='no'}
+function navigate29(t){
+ if(t==='menu')return openDrawer29();
+ if(!['home','work','money'].includes(t))return goto29(t);
+ view29=t;tab=t;history29=[];render();window.scrollTo(0,0);
+}
+function goto29(id){if(id===view29)return;history29.push({view:view29,y:window.scrollY});view29=id;render();window.scrollTo(0,0)}
+function goBack29(){const prev=history29.pop();if(prev){view29=prev.view;render();requestAnimationFrame(()=>window.scrollTo({top:prev.y,behavior:'instant'}));}else navigate29('home')}
+function activeTab29(){if(view29==='home')return 'home';if(view29==='work'||view29.startsWith('work_'))return 'work';if(view29==='money'||view29.startsWith('money_'))return 'money';return 'menu'}
+function viewTitle29(){const list=[...WORK_LINKS29,...MONEY_LINKS29];const x=list.find(p=>p.id===view29);if(x)return x.title;return {family:'Mi familia',agenda:'Mi agenda',tools_goals:'Mis objetivos',tools_legacy:'Otros mantenimientos',tools_notifications:'Notificaciones',tools_backups:'Copias de seguridad',tools_security:'Privacidad y seguridad'}[view29]||'Mi Finanzas IA'}
+function render29(){
+ const selected=activeTab29();
+ const navItems=[['home','⌂','Inicio'],['work','🚗','Trabajo'],['money','＄','Finanzas'],['menu','☰','Menú']];
+ document.getElementById('nav').innerHTML=navItems.map(([id,icon,name])=>`<button type="button" class="${id===selected?'active':''}" ${id===selected?'aria-current="page"':''} onclick="navigate29('${id}')"><span>${icon}</span>${name}</button>`).join('');
+ const pageContent=views29[view29]||home29;
+ const isRoot=['home','work','money'].includes(view29);
+ const back=!isRoot?`<div class="page-back29"><button type="button" class="btn secondary tiny" onclick="goBack29()">← Volver</button><span>${escapeHtml(viewTitle29())}</span></div>`:'';
+ document.getElementById('app').innerHTML=back+pageContent();
+}
+function linkGrid29(items){return `<div class="jump-grid29">${items.map(x=>`<button type="button" class="jump-card29" onclick="goto29('${x.id}')"><span class="jump-icon29">${x.icon}</span><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.note)}</small><span class="jump-arrow29" aria-hidden="true">›</span></button>`).join('')}</div>`}
+function currentWorkNet29(){const start=weekStart(today()),e=db.movements.filter(x=>x.date&&weekStart(x.date)===start&&x.area==='Trabajo');return sum(e.filter(x=>x.type==='income'))-sum(e.filter(x=>x.type==='expense'))}
+function reserveFlag29(kind,start){if(kind==='rent')return !!(db.settings.rentReserves&&db.settings.rentReserves[start]);return !!(db.settings.commitmentReserves29?.[start]?.[kind])}
+function commitmentState29(kind,start){
+ const data=financeCalc29(start);
+ const goal=kind==='rent'?data.rent:kind==='child'?data.child:data.nextFood;
+ const paid=kind==='rent'?data.paidRent:kind==='child'?data.paidChild:0;
+ const payment=(db.weeklyPayments||[]).some(p=>p.week===start&&p.kind===kind);
+ const reserved=reserveFlag29(kind,start);
+ return {goal,paid,reserved,payment,status:(paid>=goal&&goal>0)||payment?'paid':reserved?'reserved':paid>0?'partial':'pending'};
+}
+function financeCalc29(start=weekStart(today())){
+ const e=db.movements.filter(x=>x.date&&weekStart(x.date)===start);
+ const work=e.filter(x=>x.area==='Trabajo');
+ const workNet=sum(work.filter(x=>x.type==='income'))-sum(work.filter(x=>x.type==='expense'));
+ const otherIncome=sum(e.filter(x=>x.area!=='Trabajo'&&x.type==='income'));
+ const allExpenses=e.filter(x=>x.type==='expense');
+ const rentTag=x=>/alquiler|autonomy/i.test((x.category||'')+' '+(x.description||''))&&!x.carIncident;
+ const childTag=x=>/aporte.*hijo|transferencia familiar|cuota alimentaria/i.test((x.category||'')+' '+(x.description||''));
+ const paidRent=sum(allExpenses.filter(rentTag));
+ const paidChild=sum(allExpenses.filter(childTag));
+ const currentFoodSpent=sum(foodBudgetEntries(start));
+ const foodLimit=foodBudgetLimit();
+ const extraFood=Math.max(0,currentFoodSpent-foodLimit);
+ const otherSpent=sum(allExpenses.filter(x=>x.area!=='Trabajo'&&!isFoodMovement(x)));
+ const rent=Math.max(0,db.settings.weeklyRent===undefined?480000:Number(db.settings.weeklyRent)||0);
+ const child=Math.max(0,db.settings.weeklyChild===undefined?100000:Number(db.settings.weeklyChild)||0);
+ const nextFood=foodLimit;
+ const rentDue=Math.max(0,rent-paidRent),childDue=Math.max(0,child-paidChild);
+ const projected=workNet+otherIncome-otherSpent-rentDue-childDue-nextFood-extraFood;
+ return {start,workNet,otherIncome,otherSpent,rent,child,nextFood,rentDue,childDue,paidRent,paidChild,currentFoodSpent,foodLimit,extraFood,projected};
+}
+function formatSigned29(n){return (n<0?'−':'')+money(Math.abs(n))}
+function summaryCard29(label,amount,detail,extraClass=''){return `<div class="simple-stat29 ${extraClass}"><div class="simple-label29">${label}</div><div class="simple-number29">${amount}</div><div class="simple-detail29">${detail}</div></div>`}
+function statusName29(x){return x.status==='paid'?'✅ Pagado':x.status==='reserved'?'✅ Reservado':x.status==='partial'?'◐ Pago parcial':'⏳ Pendiente'}
+function home29(){
+ const d=financeCalc29(),due=db.tasks.filter(x=>!x.done&&x.date).sort((a,b)=>a.date.localeCompare(b.date));
+ const c=clockState(),running=!!c.active,ct=clockTotals(c);
+ const rentStatus=commitmentState29('rent',d.start);
+ const foodLeft=d.foodLimit-d.currentFoodSpent;
+ return `<div class="home-title29"><div><h2>Tu resumen semanal</h2><p class="hint">Lo importante, de un vistazo.</p></div><button type="button" class="btn secondary tiny" onclick="openDrawer29()">☰ Menú</button></div>
+ ${running?`<button type="button" class="clock-strip29 ${c.active.kind==='rest'?'paused':''}" onclick="goto29('work_clock')"><div><strong>${c.active.kind==='rest'?'☕ Jornada en descanso':'⏱ Jornada en curso'}</strong><small id="clockTotal29">Trabajo efectivo: ${durationLabel(ct.work)} · Descansos: ${durationLabel(ct.rest)}</small></div><span aria-hidden="true">›</span></button>`:''}
+ <div class="home-values29">${summaryCard29('🚗 Resultado operativo',formatSigned29(d.workNet),'Ingresos laborales menos gastos de trabajo. No es efectivo disponible.')}${summaryCard29('💰 Disponible estimado',formatSigned29(d.projected),'Después de compromisos y gastos no cubiertos. No es saldo bancario.',d.projected<0?'negative':'positive')}</div>
+ <div class="home-reserves29">
+  <button type="button" onclick="goto29('money_commitments')"><span>🚗 Autonomy</span><strong class="${rentStatus.status==='reserved'?'green':''}">${statusName29(rentStatus)}</strong><small>${money(d.rent)} · ${rentStatus.status==='reserved'?'Separado, aún no pagado':'Ver compromiso'}</small></button>
+  <button type="button" onclick="goto29('money_food')"><span>🥗 Comida de esta semana</span><strong class="${foodLeft>=0?'green':'red'}">${formatSigned29(foodLeft)}</strong><small>Presupuesto separado anteriormente</small></button>
+ </div>
+ <button type="button" class="goal-strip29" onclick="goto29('money_commitments')"><div><strong>🎯 Próximos compromisos</strong><small>Aporte familiar ${money(d.child)} + comida próxima semana ${money(d.nextFood)}</small></div><span aria-hidden="true">›</span></button>
+ <div class="home-actions29"><button class="btn" type="button" onclick="newExpense29()">＋ Registrar gasto</button><button class="btn secondary" type="button" onclick="goto29('work_shifts')">🚗 Mis jornadas</button></div>
+ ${carAlerts().length?`<button class="alerts-link29" onclick="goto29('work_car')">🔔 ${escapeHtml(carAlerts()[0])} <span>›</span></button>`:''}
+ ${due.length?`<button class="alerts-link29" onclick="goto29('agenda')">📅 ${escapeHtml(due[0].title)} · ${escapeHtml(dateLocal(due[0].date))} <span>›</span></button>`:''}
+ <p class="footnote29">Las cifras se basan en tus registros locales. Para ver el cálculo completo, tocá <button type="button" onclick="goto29('money_projection')">Disponible estimado ›</button></p>`;
+}
+function workHome29(){const d=financeCalc29();return `<div class="page-heading29"><h2>🚗 Trabajo</h2><p class="hint">Elegí la herramienta que necesitás.</p></div>${linkGrid29(WORK_LINKS29)}<div class="mini-summary29"><div><span>Neto operativo semanal</span><strong>${formatSigned29(d.workNet)}</strong></div><button class="btn secondary tiny" onclick="goto29('work_plan')">Ver plan semanal ›</button></div>`}
+function moneyHome29(){const d=financeCalc29();return `<div class="page-heading29"><h2>💰 Finanzas</h2><p class="hint">Cada herramienta tiene su propia pantalla.</p></div>${linkGrid29(MONEY_LINKS29)}<div class="mini-summary29"><div><span>Disponible después de compromisos</span><strong class="${d.projected<0?'red':'green'}">${formatSigned29(d.projected)}</strong></div><button class="btn secondary tiny" onclick="goto29('money_projection')">Ver cálculo ›</button></div>`}
+function workShifts29(){
+ const shifts=[...db.uberShifts].sort((a,b)=>b.date.localeCompare(a.date));
+ const linked=new Set(shifts.flatMap(x=>x.movementIds||[]));
+ const other=workEntries().filter(x=>!linked.has(x.id));
+ return `<div class="page-heading29"><h2>Mis jornadas</h2><p class="hint">Registro, edición y detalle de cada jornada.</p></div><button class="btn" onclick="openUber()">＋ Registrar jornada</button>
+ <div class="card"><h3>Historial de jornadas</h3>${shifts.length?shifts.map(x=>`<div class="listitem"><div><div class="shift-title">${escapeHtml(x.date)} · <span class="green">${money(Number(x.gross||0)-Number(x.fuel||0)-Number(x.tolls||0)-Number(x.other||0))} netos</span></div><div class="shift-meta">${money(x.gross)} recaudados · ${money(Number(x.fuel||0)+Number(x.tolls||0)+Number(x.other||0))} gastos</div><div class="shift-meta">${durationLabel(Math.round(x.hours*60))} · ${x.km} km</div></div><div class="shift-buttons"><button class="btn secondary tiny" onclick="viewUberDetail('${x.id}')">Ver detalle</button><button class="btn secondary tiny" onclick="editUber('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteUber('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no registraste jornadas.</p>'}</div>
+ <div class="card"><h3>Otros movimientos laborales</h3>${movementList(other)}</div>`;
+}
+function workPlan29(){return `<div class="page-heading29"><h2>🎯 Plan semanal</h2><p class="hint">Metas, compromisos y proyección.</p></div>${weeklyIntelligence29()}<button class="btn secondary" onclick="goto29('money_commitments')">Ver compromisos y reservas →</button>`}
+function currentStatus29(kind,d){const state=commitmentState29(kind,d.start);const paid=kind==='rent'?d.paidRent:kind==='child'?d.paidChild:0;let small=state.status==='reserved'?'Dinero separado, pendiente de pago':state.status==='paid'?'Compromiso marcado como pagado':paid>0?'Registrado: '+money(paid):'Falta separar: '+money(state.goal);return {state,small}}
+function toggleCommitmentReserve29(kind){
+ if(!['child','nextFood'].includes(kind))return;
+ const start=weekStart(today()),name=kind==='child'?'aporte familiar':'comida de la próxima semana';
+ if(!db.settings.commitmentReserves29)db.settings.commitmentReserves29={};
+ const old=!!db.settings.commitmentReserves29[start]?.[kind];
+ if(!confirm(old?'¿Quitar la reserva del '+name+'?':'¿Confirmás que ya separaste efectivamente el dinero para '+name+'? No registra un pago ni transfiere dinero.'))return;
+ const oldDb=JSON.stringify(db);
+ if(!db.settings.commitmentReserves29[start])db.settings.commitmentReserves29[start]={};
+ db.settings.commitmentReserves29[start][kind]=!old;
+ if(save())render();else db=JSON.parse(oldDb);
+}
+function commitmentRow29(kind,title,amount,d){
+ const s=currentStatus29(kind,d),isPaid=s.state.status==='paid',fn=kind==='rent'?`toggleRentReserve('${d.start}')`:`toggleCommitmentReserve29('${kind}')`;
+ return `<div class="commitment-row29"><div><strong>${title} · ${money(amount)}</strong><div class="${s.state.status==='reserved'?'green':s.state.status==='paid'?'green':'muted'}">${statusName29(s.state)}</div><small>${s.small}</small></div>${!isPaid?`<button type="button" class="btn secondary tiny" onclick="${fn}">${s.state.reserved?'Deshacer reserva':'Marcar reservado'}</button>`:''}</div>`;
+}
+function commitments29(){const d=financeCalc29();return `<div class="page-heading29"><h2>🗓 Compromisos y reservas</h2><p class="hint">Separar dinero no equivale a pagarlo. Las reservas no crean movimientos.</p></div><div class="card"><h3>Compromisos de la semana</h3>${commitmentRow29('rent','🚗 Alquiler Autonomy',d.rent,d)}${commitmentRow29('child','👨‍👦 Aporte familiar',d.child,d)}${commitmentRow29('nextFood','🥗 Comida próxima semana',d.nextFood,d)}<p class="hint">Los pagos confirmados se conservan en el historial inferior. Registrar un pago dos veces puede alterar la proyección; revisá sus movimientos.</p></div>${weeklyPaymentsView()}`}
+function weeklyIntelligence29(){
+ const d=financeCalc29(),weekShifts=db.uberShifts.filter(x=>x.date&&weekStart(x.date)===d.start);
+ const gross=weekShifts.reduce((a,x)=>a+Number(x.gross||0),0),goal=Math.max(0,Number(db.settings.weeklyGoal)||1200000);
+ const remain=Math.max(0,goal-gross),pct=goal?Math.min(100,100*gross/goal):0;
+ return `<div class="card"><div class="topline"><h3>🧭 Control semanal</h3><button class="btn secondary tiny" onclick="editUberSettings()">⚙ Metas y alquiler</button></div><p class="hint">Semana del ${dateLocal(d.start)}. Información estimada de tus registros.</p>${stats([['Recaudación bruta',money(gross),'green'],['Objetivo',money(goal)],['Falta recaudar',money(remain)],['Avance',pct.toFixed(1)+' %']])}<div class="progress"><div style="width:${pct}%"></div></div><div class="divider"></div>${stats([['Neto operativo',formatSigned29(d.workNet)],['Compromisos contemplados (incluso reservados)',money(d.rentDue+d.childDue+d.nextFood)],['Otros gastos externos',money(d.otherSpent)],['Disponible estimado',formatSigned29(d.projected),d.projected<0?'red':'green']])}<p class="hint">Esta proyección incluye el alquiler, el aporte y la comida de la próxima semana. El presupuesto de comida actual ya separado no se vuelve a descontar.</p><button class="btn secondary tiny" onclick="goto29('money_projection')">Ver cálculo sin duplicaciones →</button></div>`;
+}
+function projection29(){
+ const d=financeCalc29(),rows=[
+ ['Neto del trabajo',d.workNet],['Ingresos ajenos al trabajo',d.otherIncome],['Otros gastos personales y familiares',-d.otherSpent],
+ ['Alquiler aún no reflejado como gasto',-d.rentDue],['Aporte familiar aún no reflejado como gasto',-d.childDue],
+ ['Comida de la próxima semana',-d.nextFood],['Exceso sobre el fondo de comida actual',-d.extraFood]
+ ];
+ return `<div class="page-heading29"><h2>💰 Disponible estimado</h2><p class="hint">Lo que quedaría al cubrir todos los compromisos de la semana, sin contar dos veces reservas ni pagos.</p></div>
+ <div class="card"><div class="simple-label29">DISPONIBLE PROYECTADO</div><div class="simple-number29 ${d.projected<0?'red':'green'}">${formatSigned29(d.projected)}</div><p class="hint">${d.projected<0?'Todavía faltaría cubrir '+money(-d.projected)+' para completar los compromisos.':'Proyección positiva una vez cubiertas las obligaciones previstas.'} No representa el saldo real de cuentas o efectivo.</p></div>
+ <div class="card"><h3>¿Cómo se calcula?</h3>${rows.map(([label,n])=>`<div class="calc-line29"><span>${label}</span><strong class="${n<0?'red':''}">${n<0?'−':''}${money(Math.abs(n))}</strong></div>`).join('')}<div class="calc-line29 total"><span>Resultado</span><strong>${formatSigned29(d.projected)}</strong></div><p class="hint">Los pagos de alquiler y aporte ya registrados como gastos se contemplan en los movimientos; solo se resta su parte faltante. Marcar «Reservado» no descuenta otra vez. La comida actual usa su presupuesto ya separado: solo se descuenta lo que exceda ese fondo.</p></div>
+ <div class="card"><h3>Situación de tus compromisos</h3>${commitmentRow29('rent','🚗 Alquiler',d.rent,d)}${commitmentRow29('child','👨‍👦 Aporte',d.child,d)}${commitmentRow29('nextFood','🥗 Comida próxima semana',d.nextFood,d)}</div>`;
+}
+function moneyMovements29(){return `<div class="page-heading29"><h2>⇄ Movimientos</h2><p class="hint">Historial completo de ingresos y egresos.</p></div><button class="btn" onclick="openModal('movements')">＋ Nuevo movimiento</button>${stats([['Ingresos',money(incoming()),'green'],['Gastos registrados',money(outgoing()),'red'],['Resultado sin comida reservada',money(balance())]])}<div class="card"><h3>Todos los movimientos</h3>${movementList(movements())}</div>`}
+function goals29(){return `<div class="page-heading29"><h2>🎯 Mis objetivos</h2></div><div class="card">${header('Objetivos','Objetivo','goals')}${list(db.goals,'goals',x=>`<strong>${escapeHtml(x.title)}</strong><small>${money(x.saved)} de ${money(x.target)}</small><div class="progress"><div style="width:${Math.min(100,100*x.saved/x.target||0)}%"></div></div>`)}</div>`}
+function legacy29(){return `<div class="page-heading29"><h2>🔧 Otros mantenimientos</h2><p class="hint">Registros anteriores de mantenimiento.</p></div><div class="card">${header('Mantenimientos','Servicio','vehicle')}${list(db.vehicle,'vehicle',x=>`<strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.km||'—')} km · ${money(x.amount)}</small>`)}</div><button class="btn secondary" onclick="goto29('work_car')">Ir al control Autonomy →</button>`}
+function notifications29(){return `<div class="page-heading29"><h2>🔔 Notificaciones</h2></div><div class="card"><h3>Recordatorios</h3>${reminderView()}<p class="hint">Los avisos aparecen al abrir la aplicación. Las notificaciones push con la app cerrada todavía no están activadas.</p></div><div class="card"><h3>Notificaciones del iPhone · prueba</h3><p class="hint">Permisos y prueba manual mientras usás la app instalada.</p><p class="notice" id="pushStatus">${notificationStatus()}</p><div class="actions"><button class="btn secondary" onclick="enableNotifications()">Activar permisos</button><button class="btn secondary" onclick="testNotification()">Enviar prueba</button></div></div>`}
+function backups29(){return `<div class="page-heading29"><h2>💾 Copias de seguridad</h2></div><div class="card"><p class="notice">Antes de actualizar o importar, exportá un respaldo JSON. Los registros se guardan en este dispositivo; Safari y la app instalada pueden tener datos distintos.</p><p class="notice" id="backupStatus">${backupStatus()}</p><div class="actions"><button class="btn secondary" onclick="exportData()">Exportar copia JSON</button><button class="btn secondary" onclick="document.getElementById('importFile').click()">Importar copia JSON</button><button class="btn secondary" onclick="document.getElementById('verifyFile').click()">Verificar copia JSON</button></div><input class="hide" type="file" id="importFile" accept="application/json,.json" onchange="importData(this)"><input class="hide" type="file" id="verifyFile" accept="application/json,.json" onchange="verifyBackup(this)"><p class="notice" id="verifyStatus">La verificación no modifica tus registros actuales.</p></div>`}
+function security29(){return `<div class="page-heading29"><h2>🔒 Privacidad y seguridad</h2></div><div class="card"><p class="notice">Prototipo local: tus registros no se sincronizan entre Safari y la aplicación instalada, ni entre teléfonos.</p><p class="notice">No existe contraseña ni cifrado de los datos guardados en este navegador. Evitá almacenar contraseñas o números de cuenta.</p><button class="btn secondary" onclick="goto29('tools_backups')">Administrar respaldos →</button></div>`}
+const views29={
+ home:home29,work:workHome29,money:moneyHome29,
+ work_clock:clockView,work_shifts:workShifts29,work_profit:profitView,work_car:carView,work_plan:workPlan29,work_closures:weeklyClosureView,
+ money_movements:moneyMovements29,money_food:foodBudgetView,money_savings:savingsView,money_commitments:commitments29,money_projection:projection29,money_closures:weeklyClosureView,
+ family:familyView,agenda:agendaView,tools_goals:goals29,tools_legacy:legacy29,tools_notifications:notifications29,tools_backups:backups29,tools_security:security29
+};
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('appDrawer29').hidden){closeDrawer29()}});
+
+// Los cierres nuevos emplean el mismo cálculo de proyección que Inicio.
+// Los cierres históricos ya guardados se mantienen intactos.
+function closureData(start){
+ const m=financeCalc29(start);
+ return {start,workNet:m.workNet,rent:m.rent,child:m.child,foodLimit:m.foodLimit,foodSpent:m.currentFoodSpent,
+  other:m.otherSpent,paidRent:m.paidRent,paidChild:m.paidChild,additionalRent:m.rentDue,additionalChild:m.childDue,
+  foodReserve:m.nextFood,potential:m.projected};
+}
+function refreshClock29(){
+ const el=document.getElementById('clockTotal29');
+ if(!el)return;
+ const c=clockState();if(!c.active)return;
+ const t=clockTotals(c);el.textContent='Trabajo efectivo: '+durationLabel(t.work)+' · Descansos: '+durationLabel(t.rest);
+}
+setInterval(refreshClock29,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshClock29()});
 
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();
 </script></body></html>
