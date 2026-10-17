@@ -179,6 +179,7 @@ body.drawer-open29{overflow:hidden}
 
 </style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.9</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
 <div class="field"><label for="u_date">Fecha</label><input id="u_date" name="date" type="date" required></div>
+<div class="field"><label for="u_clockRecordId">Jornada finalizada del reloj (opcional)</label><select id="u_clockRecordId" name="clockRecordId"><option value="">Sin reloj · carga manual</option></select><small class="muted">Elegí el turno correcto si trabajaste más de una vez el mismo día.</small></div>
 <div class="field"><label for="u_hours">Horas trabajadas</label><input id="u_hours" name="hours" type="number" min="0" max="48" step="1" required placeholder="Ej. 10"></div>
 <div class="field"><label for="u_minutes">Minutos trabajados</label><input id="u_minutes" name="minutes" type="number" min="0" max="59" step="1" value="0" required></div>
 <div class="field"><label for="u_uberhours">Horas en viajes según Uber (opcional)</label><input id="u_uberhours" name="uberHours" type="number" min="0" max="48" step="1" placeholder="Ej. 7"></div>
@@ -267,25 +268,24 @@ try{
  alert('✅ Respaldo legible y con estructura válida.\n\n'+lines.join('\n')+'\n\nEsta comprobación no restaura ni modifica tus registros.');
 }catch(e){const msg='❌ No se pudo validar la copia: '+e.message;const el=document.getElementById('verifyStatus');if(el)el.textContent=msg;alert(msg)}finally{input.value=''}
 }
-async function importData(input){let file=input.files?.[0];if(!file)return;try{let parsed=JSON.parse(await file.text()),x=parsed.data;if(!x||!kinds.every(k=>Array.isArray(x[k])))throw Error('Formato no válido');if(!confirm('Esto reemplazará todos los registros actuales. ¿Continuar?'))return;db=x;if(!Array.isArray(db.uberShifts))db.uberShifts=[];if(!Array.isArray(db.weeklyClosures))db.weeklyClosures=[];if(!Array.isArray(db.weeklyPayments))db.weeklyPayments=[];if(!db.workClock||typeof db.workClock!=='object')db.workClock={sessions:[],active:null};if(!Array.isArray(db.workClock.sessions))db.workClock.sessions=[];if(!db.savings||typeof db.savings!=='object')db.savings={opening:200000,openingDate:'2026-10-14',transactions:[]};if(!Array.isArray(db.savings.transactions))db.savings.transactions=[];if(save()){render();alert('Copia importada correctamente')}}catch(e){alert('No se pudo importar: '+e.message)}finally{input.value=''}}
+async function importData(input){let file=input.files?.[0];if(!file)return;try{let parsed=JSON.parse(await file.text()),x=parsed.data;if(!x||!kinds.every(k=>Array.isArray(x[k])))throw Error('Formato no válido');if(!confirm('Esto reemplazará todos los registros actuales. ¿Continuar?'))return;db=x;if(!Array.isArray(db.uberShifts))db.uberShifts=[];if(!Array.isArray(db.weeklyClosures))db.weeklyClosures=[];if(!Array.isArray(db.weeklyPayments))db.weeklyPayments=[];if(!db.workClock||typeof db.workClock!=='object')db.workClock={sessions:[],active:null};if(!Array.isArray(db.workClock.sessions))db.workClock.sessions=[];if(!db.savings||typeof db.savings!=='object')db.savings={opening:200000,openingDate:'2026-10-14',transactions:[]};if(!Array.isArray(db.savings.transactions))db.savings.transactions=[];migrateClockShiftLinks();if(save()){render();alert('Copia importada correctamente')}}catch(e){alert('No se pudo importar: '+e.message)}finally{input.value=''}}
 function weekStart(date){const d=new Date(date+'T12:00:00');d.setDate(d.getDate()-(d.getDay()+6)%7);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
 function uberSettings(){return {weeklyGoal:Math.max(0,Number(db.settings.weeklyGoal)||0),weeklyRent:Math.max(0,Number(db.settings.weeklyRent)||0),weeklyOther:Math.max(0,Number(db.settings.weeklyOther)||0),startKm:Math.max(0,Number(db.settings.startKm)||0)}}
 function editUberSettings(){const x=uberSettings();document.getElementById('settingsGoal').value=x.weeklyGoal;document.getElementById('settingsRent').value=x.weeklyRent;document.getElementById('settingsOther').value=x.weeklyOther;document.getElementById('settingsKm').value=x.startKm||'';document.getElementById('uberSettingsModal').showModal()}
 document.getElementById('uberSettingsForm').addEventListener('submit',e=>{e.preventDefault();const x=Object.fromEntries(new FormData(e.currentTarget));for(const k of Object.keys(x)){x[k]=Number(x[k]||0);if(!Number.isFinite(x[k])||x[k]<0){alert('Ingresá valores válidos.');return}}const previous=JSON.stringify(db);Object.assign(db.settings,{weeklyGoal:x.weeklyGoal,weeklyRent:x.weeklyRent,weeklyOther:x.weeklyOther,startKm:x.startKm});if(save()){document.getElementById('uberSettingsModal').close();render()}else db=JSON.parse(previous)});
 
 function carState(){if(!db.car||typeof db.car!=='object')db.car={};if(!Array.isArray(db.car.services))db.car.services=[];if(!Array.isArray(db.car.inspections))db.car.inspections=[];return db.car}
+function orderedUberShifts(){
+ return (db.uberShifts||[]).map((x,i)=>({x,i})).sort((a,b)=>String(a.x.date||'').localeCompare(String(b.x.date||''))||a.i-b.i).map(z=>z.x);
+}
 function carKm(){
- const c=carState(),shifts=Array.isArray(db.uberShifts)?db.uberShifts:[];
- const baseline=Number(c.weekOdometerBaseline)||70071;
- const relevant=shifts.filter(x=>x.date>='2026-10-12').sort((a,b)=>a.date.localeCompare(b.date));
- const estimated=baseline+relevant.reduce((n,x)=>n+(Number(x.km)||0),0);
- const readings=relevant.filter(x=>Number(x.odometerEnd)>0);
- let calculated=estimated;
- if(readings.length){
-  const last=readings[readings.length-1];
-  calculated=Number(last.odometerEnd)+relevant.filter(x=>x.date>last.date).reduce((n,x)=>n+(Number(x.km)||0),0);
- }
- return Math.max(0,Number(c.odometer)||0,calculated);
+ const c=carState(),baseline=Number(c.weekOdometerBaseline)||70071;
+ const relevant=orderedUberShifts().filter(x=>x.date>='2026-10-12');
+ const lastReadingIndex=relevant.findLastIndex(x=>Number(x.odometerEnd)>0);
+ const estimated=lastReadingIndex<0
+  ?baseline+relevant.reduce((n,x)=>n+(Number(x.km)||0),0)
+  :Number(relevant[lastReadingIndex].odometerEnd)+relevant.slice(lastReadingIndex+1).reduce((n,x)=>n+(Number(x.km)||0),0);
+ return Math.max(0,Number(c.odometer)||0,estimated);
 }
 function dateLocal(v){if(!v)return 'Sin configurar';const [y,m,d]=v.split('-');return `${d}/${m}/${y}`}
 function plusDays(v,n){const d=new Date(v+'T12:00:00');d.setDate(d.getDate()+n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
@@ -303,13 +303,13 @@ function clockView(){
  const state=active?(active.kind==='rest'?'En descanso':'Trabajando'):'Sin iniciar';
  const history=(db.clockHistory||[]).slice().sort((a,b)=>String(b.end).localeCompare(String(a.end)));
  return `<div class="card"><div class="topline"><h3>⏱️ Reloj de jornada</h3><span class="pill">${state}</span></div>
- <p class="hint">El reloj usa la hora del iPhone. Podés cerrar la aplicación y volver después.</p>
+ <p class="hint">El reloj usa la hora del iPhone. Al finalizar una jornada, podés iniciar otra el mismo día. Cada turno queda separado; Descanso es solo para pausas dentro de una misma jornada.</p>
  ${stats([['Jornada total',durationLabel(t.work+t.rest)],['Trabajo efectivo',durationLabel(t.work)],['Descansos',durationLabel(t.rest)]])}
  <p class="hint">${c.startedAt?'Inicio: '+new Date(c.startedAt).toLocaleString('es-AR'):'Sin jornada en curso'}</p>
  <div class="actions">${!active?'<button class="btn" onclick="clockAction(\'start\')">▶ Iniciar jornada</button>':active.kind==='work'?'<button class="btn secondary" onclick="clockAction(\'pause\')">☕ Iniciar descanso</button>':'<button class="btn" onclick="clockAction(\'resume\')">▶ Reanudar</button>'}
  ${active?'<button class="btn danger" onclick="clockAction(\'finish\')">■ Finalizar jornada</button><button class="btn secondary" onclick="editClock()">✎ Corregir inicio</button>':''}</div>
  <h3 style="margin-top:22px">Historial del reloj</h3><p class="hint">Podés corregir o eliminar jornadas del reloj sin modificar ingresos ni gastos.</p>
- ${history.length?history.map(x=>`<div class="listitem"><div><strong>${escapeHtml(x.date)}</strong><small>Total ${durationLabel(x.total)} · Trabajo ${durationLabel(x.work)} · Pausas ${durationLabel(x.rest)}</small></div><div class="actions">${db.uberShifts.some(u=>u.date===x.date)?'<span class="pill">Ingresos cargados</span>':`<button class="btn tiny" onclick="openUber('${x.date}')">Cargar ingresos</button>`}<button class="btn secondary tiny" onclick="openClockEdit('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteClockRecord('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no hay jornadas finalizadas.</p>'}
+ ${history.length?history.map(x=>{const linked=db.uberShifts.find(u=>u.clockRecordId===x.id);return `<div class="listitem"><div><strong>${escapeHtml(dateLocal(x.date))} · ${clockRangeLabel(x)}</strong><small>Total ${durationLabel(x.total)} · Trabajo ${durationLabel(x.work)} · Pausas ${durationLabel(x.rest)}</small></div><div class="actions">${linked?`<button class="btn secondary tiny" onclick="editUber('${linked.id}')">✓ Editar ingresos</button>`:`<button class="btn tiny" onclick="openUberForClock('${x.id}')">Cargar ingresos</button>`}<button class="btn secondary tiny" onclick="openClockEdit('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteClockRecord('${x.id}')">Eliminar</button></div></div>`}).join(''):'<p class="empty">Todavía no hay jornadas finalizadas.</p>'}
  </div>`;
 }
 function clockAction(action){
@@ -346,10 +346,11 @@ function editClock(){
 }
 function deleteClockRecord(id){
  const r=(db.clockHistory||[]).find(x=>x.id===id);if(!r)return;
- const linked=db.uberShifts.some(x=>x.date===r.date);
- if(!confirm('¿Eliminar la jornada del reloj del '+r.date+'? '+(linked?'La jornada financiera de esa fecha se conservará sin cambios.':'Esta acción no afecta tus movimientos financieros.')))return;
+ const linked=db.uberShifts.find(x=>x.clockRecordId===r.id);
+ if(!confirm('¿Eliminar la jornada del reloj del '+dateLocal(r.date)+' ('+clockRangeLabel(r)+')? '+(linked?'La jornada financiera vinculada conservará sus ingresos, gastos y horas, pero quedará sin vínculo con el reloj.':'Esta acción no afecta tus movimientos financieros.')))return;
  const old=JSON.stringify(db);
  db.clockHistory=db.clockHistory.filter(x=>x.id!==id);
+ if(linked)linked.clockRecordId='';
  if(!save())db=JSON.parse(old);render();
 }
 function localInputDate(iso){
@@ -383,7 +384,9 @@ document.getElementById('clockEditForm').addEventListener('submit',e=>{
  if(boundaries.at(-1)-boundaries[0]>48*3600000)return alert('La jornada no puede superar 48 horas.');
  const old=JSON.stringify(db);
  r.sessions=original.map((p,i)=>({kind:p.kind,start:new Date(boundaries[i]).toISOString(),end:new Date(boundaries[i+1]).toISOString()}));
- r.start=r.sessions[0].start;r.end=r.sessions.at(-1).end;r.date=localDateOf(r.start);
+ r.start=r.sessions[0].start;r.end=r.sessions.at(-1).end;const newDate=localDateOf(r.start);
+ if(newDate!==r.date&&db.uberShifts.some(x=>x.clockRecordId===id)){db=JSON.parse(old);return alert('Esta jornada tiene ingresos vinculados. Conservá la fecha de inicio o desvinculá la jornada antes de moverla a otro día.');}
+ r.date=newDate;
  const t=clockTotals({sessions:r.sessions,active:null});r.work=t.work;r.rest=t.rest;r.total=t.work+t.rest;
  if(!save()){db=JSON.parse(old);return}
  document.getElementById('clockEditModal').close();render();
@@ -431,13 +434,13 @@ function profitView(){
    const hourly=x.hours>0?x.net/x.hours:null;
    const ratio=hourly===null||maxHourly===0?0:Math.max(0,Math.min(100,hourly/maxHourly*100));
    return `<div class="profit-row" role="button" tabindex="0" onclick="viewUberDetail('${x.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();viewUberDetail('${x.id}')}">
-     <strong>${escapeHtml(x.date)} · ${money(x.net)} netos</strong>
+     <strong>${escapeHtml(shiftLabel(x))} · ${money(x.net)} netos</strong>
      <small>${durationLabel(Math.round(x.hours*60))} · ${x.km.toLocaleString('es-AR',{maximumFractionDigits:1})} km · Bruto ${money(x.gross)} · Gastos ${money(x.expenses)}</small>
      <div class="profit-bar" aria-label="Rentabilidad relativa por hora"><div style="width:${ratio.toFixed(2)}%"></div></div>
      <small>Neto/h: ${hourly===null?'—':money(hourly)} · Neto/km: ${x.km>0?money(x.net/x.km):'—'}</small>
     </div>`;
   }).join('')}
-  ${best?`<p class="notice">Mayor rendimiento neto por hora: ${escapeHtml(best.date)} (${money(best.net/best.hours)}/h), entre las jornadas con horas registradas.</p>`:''}
+  ${best?`<p class="notice">Mayor rendimiento neto por hora: ${escapeHtml(shiftLabel(db.uberShifts.find(x=>x.id===best.id)))} (${money(best.net/best.hours)}/h), entre las jornadas con horas registradas.</p>`:''}
   `:`<p class="empty">Todavía no hay jornadas Uber en este período. Cuando cargues una, vas a ver tus indicadores acá.</p>`}
   <p class="hint">La ganancia neta operativa resta combustible, peajes y otros gastos de cada jornada. No descuenta alquiler semanal del auto, aporte familiar, comida, impuestos ni costos no registrados. Las transferencias a ahorros tampoco se descuentan acá. No sumes dos veces los peajes reembolsados por Uber.</p>
  </section>`;
@@ -512,34 +515,70 @@ return header('🚗 Mi trabajo')+clockView()+weeklyIntelligenceView()+`<div clas
 `<div class="card"><div class="topline"><h3>📊 Semana actual · desde ${start}</h3><button class="btn secondary tiny" onclick="editUberSettings()">⚙ Configurar</button></div><p class="hint">Semana de lunes a domingo. Objetivos y costos fijos son estimaciones: no generan gastos adicionales en Finanzas.</p>${stats([['Recaudado esta semana',money(weekGross),'green'],['Objetivo semanal',cfg.weeklyGoal?money(cfg.weeklyGoal):'Sin definir'],['Falta para objetivo',cfg.weeklyGoal?money(remaining):'—'],['Meta diaria restante',cfg.weeklyGoal?money(remaining/daysLeft):'—']])}${cfg.weeklyGoal?`<div class="progress"><div style="width:${Math.min(100,100*weekGross/cfg.weeklyGoal)}%"></div></div>`:''}<div class="divider"></div>${stats([['Neto operativo semanal',money(weekNet)],['Reserva alquiler + fijos',money(reserve),'red'],['Disponible estimado',money(available),available>=0?'green':'red'],['Horas / km',weekHours.toLocaleString('es-AR')+' h · '+weekKm.toLocaleString('es-AR')+' km']])}<p class="hint">Disponible estimado = recaudación semanal − gastos de jornadas − reserva semanal configurada. Si ya registraste el alquiler u otros fijos como gasto de una jornada, no vuelvas a incluirlos en la reserva.</p></div>`+
 profitView()+stats([['Uber recaudado',money(gross),'green'],['Costos Uber',money(cost),'red'],['Uber neto',money(gross-cost)],['Neto por hora',hours?money((gross-cost)/hours):'—']])+`<div class="card"><h3>Indicadores Uber</h3><div class="uber-summary"><div><span class="muted">Horas registradas</span><div class="stat">${hours.toLocaleString('es-AR',{maximumFractionDigits:1})} h</div></div><div><span class="muted">Kilómetros</span><div class="stat">${km.toLocaleString('es-AR',{maximumFractionDigits:1})} km</div></div><div><span class="muted">Neto por km</span><div class="stat">${km?money((gross-cost)/km):'—'}</div></div><div><span class="muted">Jornadas</span><div class="stat">${shifts.length}</div></div></div><p class="hint">Ganancia neta estimada = recaudación − combustible − peajes − otros gastos ingresados. No incluye depreciación, impuestos ni costos no registrados. Los costos fijos configurados se muestran aparte y no se restan de estos indicadores operativos.</p></div>`+
 carView()+
-`<div class="card"><h3>Historial de jornadas</h3>${shifts.length?shifts.map(x=>`<div class="listitem"><div><div class="shift-title">${escapeHtml(x.date)} · <span class="green">${money(x.gross-x.fuel-x.tolls-x.other)} netos</span></div><div class="shift-meta">${money(x.gross)} recaudados · ${money(x.fuel+x.tolls+x.other)} gastos</div><div class="shift-meta">${durationLabel(Math.round(x.hours*60))} · ${x.km} km${x.note?' · '+escapeHtml(x.note):''}</div></div><div class="shift-buttons"><button class="btn secondary tiny" onclick="viewUberDetail('${x.id}')">Ver detalle</button><button class="btn secondary tiny" onclick="editUber('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteUber('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no registraste jornadas Uber.</p>'}</div>`+
+`<div class="card"><h3>Historial de jornadas</h3>${shifts.length?shifts.map(x=>`<div class="listitem"><div><div class="shift-title">${escapeHtml(shiftLabel(x))} · <span class="green">${money(x.gross-x.fuel-x.tolls-x.other)} netos</span></div><div class="shift-meta">${money(x.gross)} recaudados · ${money(x.fuel+x.tolls+x.other)} gastos</div><div class="shift-meta">${durationLabel(Math.round(x.hours*60))} · ${x.km} km${x.note?' · '+escapeHtml(x.note):''}</div></div><div class="shift-buttons"><button class="btn secondary tiny" onclick="viewUberDetail('${x.id}')">Ver detalle</button><button class="btn secondary tiny" onclick="editUber('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteUber('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no registraste jornadas Uber.</p>'}</div>`+
 `<div class="card"><h3>Otros movimientos laborales</h3>${movementList(otherWork)}</div>`+
 `<div class="card"><h3>Resultado total del trabajo</h3>${stats([['Ingresos laborales',money(sum(workEntries().filter(x=>x.type==='income'))),'green'],['Gastos laborales',money(sum(workEntries().filter(x=>x.type==='expense'))),'red'],['Resultado registrado',money(workNet())]])}</div>`;
 }
 function localDateOf(iso){const d=new Date(iso);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function clockForDate(date){return (db.clockHistory||[]).filter(x=>x.date===date).sort((a,b)=>String(b.end).localeCompare(String(a.end)))[0]||null}
+function clockRangeLabel(record){
+ const fmt=v=>{const d=new Date(v);return Number.isFinite(d.getTime())?d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false}):'--:--'};
+ return fmt(record.start)+'–'+fmt(record.end);
+}
+function shiftLabel(x){
+ const same=orderedUberShifts().filter(s=>s.date===x.date);
+ const index=same.findIndex(s=>s.id===x.id)+1;
+ const clock=(db.clockHistory||[]).find(c=>c.id===x.clockRecordId);
+ return dateLocal(x.date)+(same.length>1?' · Jornada '+index:'')+(clock?' · '+clockRangeLabel(clock):'');
+}
+function migrateClockShiftLinks(){
+ // Únicamente enlaza datos antiguos si hay exactamente un turno del reloj y uno financiero ese día.
+ // Con dos turnos, no asigna uno por suposición.
+ let changed=false;
+ for(const x of db.uberShifts){
+  if(x.clockRecordId)continue;
+  const fs=db.uberShifts.filter(y=>y.date===x.date);
+  const cs=(db.clockHistory||[]).filter(c=>c.date===x.date);
+  if(fs.length===1&&cs.length===1&&!db.uberShifts.some(y=>y.clockRecordId===cs[0].id)){
+   x.clockRecordId=cs[0].id;changed=true;
+  }
+ }
+ return changed;
+}
+function clockChoices(date,selectedId='',editingId=''){
+ const records=(db.clockHistory||[]).filter(c=>c.date===date&&!db.uberShifts.some(x=>x.id!==editingId&&x.clockRecordId===c.id))
+  .sort((a,b)=>String(a.start).localeCompare(String(b.start)));
+ const select=document.getElementById('u_clockRecordId');
+ select.innerHTML='<option value="">Sin reloj · carga manual</option>'+records.map(c=>'<option value="'+escapeHtml(c.id)+'">'+escapeHtml(clockRangeLabel(c))+' · '+durationLabel(c.work)+' efectivos</option>').join('');
+ select.value=records.some(c=>c.id===selectedId)?selectedId:(records.length===1?records[0].id:'');
+ if(!records.length)document.getElementById('uberClockNotice').textContent='No hay jornadas del reloj disponibles para esta fecha. Cargá las horas manualmente.';
+ else if(records.length>1&&!select.value)document.getElementById('uberClockNotice').textContent='Hay varias jornadas ese día. Elegí el turno correcto o ingresá las horas manualmente.';
+ return select.value;
+}
 function autofillClockTime(){
- const date=document.getElementById('u_date').value,record=clockForDate(date),msg=document.getElementById('uberClockNotice');
+ const record=(db.clockHistory||[]).find(c=>c.id===document.getElementById('u_clockRecordId').value);
+ const msg=document.getElementById('uberClockNotice');
  if(record){
   const mins=Math.max(0,Number(record.work)||0);
   document.getElementById('u_hours').value=Math.floor(mins/60);
   document.getElementById('u_minutes').value=mins%60;
-  msg.textContent='✓ Horas precargadas desde el reloj: '+durationLabel(mins)+'. Podés corregirlas manualmente.';
+  msg.textContent='✓ Turno '+clockRangeLabel(record)+' · '+durationLabel(mins)+' de trabajo efectivo. Podés corregirlo.';
  }else{
-  document.getElementById('u_hours').value='';
-  document.getElementById('u_minutes').value='0';
-  msg.textContent='No hay una jornada finalizada en el reloj para esta fecha. Podés ingresar las horas manualmente.';
+  document.getElementById('u_hours').value='';document.getElementById('u_minutes').value='0';
+  msg.textContent='Sin vínculo con el reloj. Ingresá las horas manualmente; podés registrar otra jornada con la misma fecha.';
  }
 }
-
 function previousOdometer(date,editingId){
- const earlier=db.uberShifts.filter(x=>x.date<date&&x.id!==editingId).sort((a,b)=>b.date.localeCompare(a.date));
- if(earlier.length){const prev=earlier[0];if(Number(prev.odometerEnd)>0)return Number(prev.odometerEnd);
-  const first=weekStart('2026-10-12');
-  if(date>='2026-10-12'){const upto=db.uberShifts.filter(x=>x.date<date&&x.date>='2026-10-12'&&x.id!==editingId);return 70071+upto.reduce((a,x)=>a+(Number(x.km)||0),0)}
+ const shifts=orderedUberShifts(),original=editingId?db.uberShifts.find(x=>x.id===editingId):null;
+ const originalIndex=original?shifts.findIndex(x=>x.id===editingId):-1;
+ const earlier=shifts.filter((x,i)=>x.id!==editingId&&(x.date<date||(x.date===date&&(originalIndex<0||original.date!==date||i<originalIndex))));
+ const readingIndex=earlier.findLastIndex(x=>Number(x.odometerEnd)>0);
+ if(readingIndex>=0){return Number(earlier[readingIndex].odometerEnd)+earlier.slice(readingIndex+1).reduce((a,x)=>a+(Number(x.km)||0),0)}
+ if(date>='2026-10-12'&&earlier.some(x=>x.date>='2026-10-12')){
+  return (Number(carState().weekOdometerBaseline)||70071)+earlier.filter(x=>x.date>='2026-10-12').reduce((a,x)=>a+(Number(x.km)||0),0);
  }
  return Number(carState().odometer)||Number(db.settings.startKm)||0;
 }
+
 function updateOdometerEstimate(){
  const f=document.getElementById('uberForm'),date=f.elements.date.value,id=f.elements.editingId.value;
  const start=previousOdometer(date,id),end=Number(f.elements.odometerEnd.value);
@@ -548,14 +587,16 @@ function updateOdometerEstimate(){
  if(end>0&&start>0){const km=end-start;if(km>=0){f.elements.km.value=km;hint.textContent+=' Recorrido calculado: '+km.toLocaleString('es-AR')+' km.'}else hint.textContent+=' ⚠️ La lectura final es menor que la inicial.'}
 }
 document.getElementById('u_odometerEnd').addEventListener('input',updateOdometerEstimate);
-function openUber(date){
+function openUber(date,clockRecordId=''){
  const f=document.getElementById('uberForm');f.reset();
  document.getElementById('u_editingId').value='';
- document.getElementById('u_date').value=typeof date==='string'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(date)?date:today();
+ document.getElementById('u_date').value=typeof date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(date)?date:today();
  document.querySelector('#uberModal h3').textContent='🚗 Registrar jornada Uber';
  document.querySelector('#uberForm button[type="submit"]').textContent='Guardar jornada y movimientos';
- autofillClockTime();updateOdometerEstimate();document.getElementById('uberModal').showModal();
+ clockChoices(document.getElementById('u_date').value,clockRecordId);autofillClockTime();updateOdometerEstimate();document.getElementById('uberModal').showModal();
 }
+function openUberForClock(id){const c=(db.clockHistory||[]).find(x=>x.id===id);if(c)openUber(c.date,id)}
+document.getElementById('u_clockRecordId').addEventListener('change',()=>{autofillClockTime();updateOdometerEstimate()});
 let shiftDetailReturnY=0,shiftDetailTrigger=null;
 function closeShiftDetail(){const d=document.getElementById('shiftDetailModal');d.close();if(shiftDetailTrigger&&typeof shiftDetailTrigger.blur==='function')shiftDetailTrigger.blur();requestAnimationFrame(()=>window.scrollTo({top:shiftDetailReturnY,behavior:'instant'}));}
 document.getElementById('shiftDetailModal').addEventListener('close',()=>{if(shiftDetailTrigger&&typeof shiftDetailTrigger.blur==='function')shiftDetailTrigger.blur();requestAnimationFrame(()=>window.scrollTo({top:shiftDetailReturnY,behavior:'instant'}));});
@@ -564,7 +605,7 @@ function viewUberDetail(id){
  const x=db.uberShifts.find(r=>r.id===id);if(!x)return;
  const n=k=>Number(x[k])||0,net=n('gross')-n('fuel')-n('tolls')-n('other');
  const rows=[['Recaudación total',money(n('gross'))],['Uber',money(n('gross')-n('privateIncome'))],['Viajes particulares',money(n('privateIncome'))],['GNC / combustible',money(n('fuel'))],['Peajes',money(n('tolls'))],['Otros gastos',money(n('other'))],['Tiempo efectivo',durationLabel(Math.round(n('hours')*60))],['Kilómetros recorridos',n('km').toLocaleString('es-AR')+' km'],['Odómetro final',n('odometerEnd')?n('odometerEnd').toLocaleString('es-AR')+' km':'No registrado'],['Neto por hora',n('hours')?money(net/n('hours')):'—'],['Neto por km',n('km')?money(net/n('km')):'—']];
- document.getElementById('shiftDetailBody').innerHTML='<p class="hint">'+escapeHtml(dateLocal(x.date))+'</p><div class="card"><div class="sub">Ganancia neta operativa</div><div class="stat green" style="font-size:clamp(30px,8vw,48px)">'+money(net)+'</div></div><div class="grid">'+rows.map(([k,v])=>'<div class="card"><div class="sub">'+k+'</div><div class="stat" style="font-size:clamp(19px,5vw,28px)">'+v+'</div></div>').join('')+'</div>'+(x.note?'<p class="notice">'+escapeHtml(x.note)+'</p>':'');
+ document.getElementById('shiftDetailBody').innerHTML='<p class="hint">'+escapeHtml(shiftLabel(x))+'</p><div class="card"><div class="sub">Ganancia neta operativa</div><div class="stat green" style="font-size:clamp(30px,8vw,48px)">'+money(net)+'</div></div><div class="grid">'+rows.map(([k,v])=>'<div class="card"><div class="sub">'+k+'</div><div class="stat" style="font-size:clamp(19px,5vw,28px)">'+v+'</div></div>').join('')+'</div>'+(x.note?'<p class="notice">'+escapeHtml(x.note)+'</p>':'');
  document.getElementById('shiftDetailModal').showModal();
 }
 function editUber(id){
@@ -573,6 +614,7 @@ function editUber(id){
  document.getElementById('u_editingId').value=id;
  const fields={date:r.date,hours:Math.floor(r.hours||0),minutes:Math.round(((r.hours||0)%1)*60),uberHours:Math.floor(r.uberHours||0),uberMinutes:Math.round(((r.uberHours||0)%1)*60),km:r.km,odometerEnd:r.odometerEnd||'',gross:(r.gross||0)-(r.privateIncome||0),privateIncome:r.privateIncome||0,fuel:r.fuel||0,tolls:r.tolls||0,other:r.other||0,note:r.note||''};
  for(const [k,v] of Object.entries(fields)){const el=f.elements[k];if(el)el.value=v}
+ clockChoices(r.date,r.clockRecordId||'',r.id);
  document.querySelector('#uberModal h3').textContent='✎ Corregir jornada Uber';
  document.querySelector('#uberForm button[type="submit"]').textContent='Guardar correcciones';
  document.getElementById('uberClockNotice').textContent='Estás editando una jornada existente. Se actualizarán también sus movimientos vinculados, sin duplicarlos.';
@@ -580,8 +622,9 @@ function editUber(id){
 }
 document.getElementById('u_date').addEventListener('change',()=>{
  if(document.getElementById('u_editingId').value){
-  document.getElementById('uberClockNotice').textContent='Fecha modificada. Revisá las horas antes de guardar la corrección.';
- }else autofillClockTime();
+  clockChoices(document.getElementById('u_date').value,'',document.getElementById('u_editingId').value);
+  document.getElementById('uberClockNotice').textContent='Fecha modificada: comprobá el vínculo y las horas del turno antes de guardar.';
+ }else{clockChoices(document.getElementById('u_date').value);autofillClockTime()}
  updateOdometerEstimate();
 });
 document.getElementById('uberForm').addEventListener('submit',e=>{
@@ -594,26 +637,30 @@ document.getElementById('uberForm').addEventListener('submit',e=>{
  delete data.minutes;delete data.uberMinutes;
  if(data.odometerEnd>0){const start=previousOdometer(data.date,editingId);if(start>0&&data.odometerEnd<start)return alert('El odómetro final no puede ser menor que el inicial.');if(start>0&&Math.abs(data.km-(data.odometerEnd-start))>0.1&&!confirm('El kilometraje ingresado no coincide con la diferencia del odómetro. ¿Querés guardar el kilometraje manual?'))return;}
  if(data.hours<=0||data.hours>48||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(data.date))return alert('Revisá la fecha y las horas trabajadas.');
- if(db.uberShifts.some(x=>x.date===data.date&&x.id!==editingId))return alert('Ya existe una jornada financiera para esa fecha. No se guardó para evitar duplicaciones.');
+ if(data.clockRecordId){
+  const clock=(db.clockHistory||[]).find(x=>x.id===data.clockRecordId);
+  if(!clock||clock.date!==data.date)return alert('El turno seleccionado no corresponde a la fecha ingresada.');
+  if(db.uberShifts.some(x=>x.clockRecordId===data.clockRecordId&&x.id!==editingId))return alert('Ese turno del reloj ya tiene ingresos registrados. Elegí otro turno.');
+ }
  const old=JSON.stringify(db),id=editingId||uid();
  const existing=editingId?db.uberShifts.find(x=>x.id===editingId):null;
  if(editingId&&!existing)return alert('No se encontró la jornada que querés corregir.');
  if(existing){
   db.movements=db.movements.filter(x=>x.uberShiftId!==id);
-  db.uberShifts=db.uberShifts.filter(x=>x.id!==id);
  }
  const movementIds=[];
  const add=(type,amount,category)=>{
   if(amount<=0)return;
   const mid=uid();movementIds.push(mid);
-  db.movements.push({id:mid,date:data.date,type,amount,area:'Trabajo',category,description:'Uber · '+data.date,uberShiftId:id});
+  db.movements.push({id:mid,date:data.date,type,amount,area:'Trabajo',category,description:'Uber · '+data.date+' · '+id.slice(-5),uberShiftId:id});
  };
  add('income',data.gross-data.privateIncome,'Uber');
  add('income',data.privateIncome,'Viajes particulares');
  add('expense',data.fuel,'Combustible');
  add('expense',data.tolls,'Peajes');
  add('expense',data.other,'Otros');
- db.uberShifts.push({...data,id,movementIds});
+ const record={...data,id,movementIds,createdAt:existing?.createdAt||new Date().toISOString()};
+ if(existing)db.uberShifts[db.uberShifts.findIndex(x=>x.id===id)]=record;else db.uberShifts.push(record);
  if(!save()){db=JSON.parse(old);return}
  document.getElementById('uberModal').close();e.currentTarget.reset();render();
 });
@@ -749,7 +796,7 @@ function workShifts29(){
  const linked=new Set(shifts.flatMap(x=>x.movementIds||[]));
  const other=workEntries().filter(x=>!linked.has(x.id));
  return `<div class="page-heading29"><h2>Mis jornadas</h2><p class="hint">Registro, edición y detalle de cada jornada.</p></div><button class="btn" onclick="openUber()">＋ Registrar jornada</button>
- <div class="card"><h3>Historial de jornadas</h3>${shifts.length?shifts.map(x=>`<div class="listitem"><div><div class="shift-title">${escapeHtml(x.date)} · <span class="green">${money(Number(x.gross||0)-Number(x.fuel||0)-Number(x.tolls||0)-Number(x.other||0))} netos</span></div><div class="shift-meta">${money(x.gross)} recaudados · ${money(Number(x.fuel||0)+Number(x.tolls||0)+Number(x.other||0))} gastos</div><div class="shift-meta">${durationLabel(Math.round(x.hours*60))} · ${x.km} km</div></div><div class="shift-buttons"><button class="btn secondary tiny" onclick="viewUberDetail('${x.id}')">Ver detalle</button><button class="btn secondary tiny" onclick="editUber('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteUber('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no registraste jornadas.</p>'}</div>
+ <div class="card"><h3>Historial de jornadas</h3>${shifts.length?shifts.map(x=>`<div class="listitem"><div><div class="shift-title">${escapeHtml(shiftLabel(x))} · <span class="green">${money(Number(x.gross||0)-Number(x.fuel||0)-Number(x.tolls||0)-Number(x.other||0))} netos</span></div><div class="shift-meta">${money(x.gross)} recaudados · ${money(Number(x.fuel||0)+Number(x.tolls||0)+Number(x.other||0))} gastos</div><div class="shift-meta">${durationLabel(Math.round(x.hours*60))} · ${x.km} km</div></div><div class="shift-buttons"><button class="btn secondary tiny" onclick="viewUberDetail('${x.id}')">Ver detalle</button><button class="btn secondary tiny" onclick="editUber('${x.id}')">Editar</button><button class="btn danger tiny" onclick="deleteUber('${x.id}')">Eliminar</button></div></div>`).join(''):'<p class="empty">Todavía no registraste jornadas.</p>'}</div>
  <div class="card"><h3>Otros movimientos laborales</h3>${movementList(other)}</div>`;
 }
 function workPlan29(){return `<div class="page-heading29"><h2>🎯 Plan semanal</h2><p class="hint">Metas, compromisos y proyección.</p></div>${weeklyIntelligence29()}<button class="btn secondary" onclick="goto29('money_commitments')">Ver compromisos y reservas →</button>`}
@@ -818,5 +865,6 @@ function refreshClock29(){
 setInterval(refreshClock29,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshClock29()});
 
+if(migrateClockShiftLinks())save();
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();
 </script></body></html>
