@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a2b"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Mi Finanzas IA"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png"><title>Mi Finanzas IA · 2.9</title><style>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a2b"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Mi Finanzas IA"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png"><title>Mi Finanzas IA · 2.9.2</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#edf3fc;background:#0c1422}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}header{padding:22px 20px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:22px;font-weight:800}.sub{color:#9cacc5;font-size:12px}main{max-width:1050px;margin:auto;padding:0 16px 105px}.hero{background:linear-gradient(130deg,#1b354a,#172239);padding:20px;border-radius:22px;margin:12px 0 18px}.hero h2{margin:8px 0;font-size:30px}.muted{color:#a6b6ce}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{background:#18253a;border:1px solid #293a50;border-radius:17px;padding:16px;margin-bottom:12px}.card h3{margin:0 0 10px;font-size:16px}.stat{font-size:21px;font-weight:750;margin-top:8px;overflow-wrap:anywhere}.green{color:#79e4b4}.red{color:#ff9e9e}.pill{display:inline-block;border-radius:30px;padding:5px 10px;background:#254257;color:#9ae7cc;font-size:12px}.btn{border:0;border-radius:12px;padding:12px 15px;background:#64d6aa;color:#10251f;font-weight:750}.btn.secondary{background:#2a3a52;color:#ecf3fb}.btn.danger{background:#532d3c;color:#ffc2c2}.btn.tiny{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.listitem{padding:13px 0;border-bottom:1px solid #2b3b51;display:flex;justify-content:space-between;gap:10px;align-items:center}.listitem:last-child{border:0}.listitem strong{display:block}.listitem small{display:block;color:#a6b6ce;margin-top:5px}.empty{color:#aab9ce;padding:12px 0}.nav{position:fixed;bottom:0;left:0;right:0;background:#101b2c;border-top:1px solid #304056;display:flex;justify-content:space-around;padding:9px 3px calc(10px + env(safe-area-inset-bottom));z-index:10}.nav button{background:none;border:0;color:#a5b5cb;font-size:11px;min-width:54px;padding:5px}.nav button.active{color:#79e4b4;font-weight:800}.nav span{display:block;font-size:21px;margin-bottom:4px}.sectiontitle{margin:18px 0 12px;font-size:23px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field.full{grid-column:1/-1}label{color:#c3d0e2;font-size:13px}input,select,textarea{background:#0e1a2b;color:#fff;border:1px solid #3c5069;border-radius:10px;padding:12px;min-width:0;width:100%}textarea{resize:vertical}dialog{border:1px solid #41556c;border-radius:18px;background:#17263a;color:#fff;width:min(95vw,540px);max-height:85vh;overflow:auto;padding:20px}dialog::backdrop{background:#020813bb}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.notice{font-size:13px;color:#b8c9db;line-height:1.5}.progress{height:9px;background:#304056;border-radius:9px;overflow:hidden;margin-top:10px}.progress>div{background:#70dcb0;height:100%}.tag{font-size:11px;color:#a8c8d8}.hide{display:none!important}@media(min-width:720px){.grid{grid-template-columns:repeat(4,1fr)}.nav{position:static;max-width:1050px;margin:0 auto 20px;border:0;border-radius:14px}.nav button{font-size:13px}.nav span{font-size:17px;display:inline;margin-right:7px}main{padding-bottom:30px}}
 
 /* Mejoras 1.1 para iPhone */
@@ -194,7 +194,27 @@ body.drawer-open29{overflow:hidden}
 button.week-km29{display:block;width:100%;cursor:pointer;font:inherit}
 button.week-km29:focus-visible{outline:3px solid #88e3c1}
 .week-km-tools29{margin:5px 0 13px;display:flex;gap:8px;flex-wrap:wrap}
-</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.9.1</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
+
+/* 2.9.2: informe semanal pre-cierre e historial */
+.report-hero292{padding:19px;border-radius:18px;background:#1a3344;border:1px solid #365b65;margin:12px 0 17px}
+.report-hero292 small{color:#adc3d7}.report-hero292 .stat{font-size:clamp(28px,8vw,38px);margin-top:8px}
+.report-section292{margin-top:13px}.report-section292 h3{margin:0 0 14px}
+.report-kpis292{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.report-kpi292{background:#132238;border:1px solid #30435d;border-radius:12px;padding:12px;min-width:0}
+.report-kpi292 small{display:block;color:#aabbd1;margin-bottom:6px;line-height:1.35}
+.report-kpi292 strong{font-size:clamp(16px,5vw,22px);overflow-wrap:anywhere}
+.report-line292{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid #324257}
+.report-line292>span{min-width:0;color:#b7c8da;overflow-wrap:anywhere}
+.report-line292>strong{text-align:right;flex:0 0 auto}
+.report-shifts292{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+.report-shifts292 table{border-collapse:collapse;min-width:480px;width:100%;font-size:12px}
+.report-shifts292 th,.report-shifts292 td{padding:10px 7px;text-align:left;border-bottom:1px solid #35465e;white-space:nowrap}
+.report-shifts292 th{color:#c4d3e3}
+.report-warning292{border:1px solid #8c704b;background:#3a3024;border-radius:12px;padding:12px;margin:8px 0;color:#f0d6a7;font-size:13px;line-height:1.55}
+.report-actions292{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}
+.report-actions292 .btn{flex-grow:1}
+@media(max-width:440px){.report-shifts292{margin-left:-4px;margin-right:-4px}}
+</style></head><body><header><div><div class="brand">✦ Mi Finanzas IA</div><div class="sub">Tu centro de control personal · versión 2.9.2</div></div><span class="pill">Privado · Local</span></header><nav class="nav" id="nav"></nav><main id="app"></main><dialog id="uberModal"><div class="topline"><h3>🚗 Registrar jornada Uber</h3><button class="btn secondary tiny" type="button" onclick="document.getElementById('uberModal').close()">✕</button></div><p id="uberClockNotice" class="notice" aria-live="polite"></p><p class="hint">Una jornada crea los movimientos vinculados en Finanzas. No vuelvas a cargar esos importes manualmente.</p><form id="uberForm"><input type="hidden" name="editingId" id="u_editingId"><div class="formgrid">
 <div class="field"><label for="u_date">Fecha</label><input id="u_date" name="date" type="date" required></div>
 <div class="field"><label for="u_clockRecordId">Jornada finalizada del reloj (opcional)</label><select id="u_clockRecordId" name="clockRecordId"><option value="">Sin reloj · carga manual</option></select><small class="muted">Elegí el turno correcto si trabajaste más de una vez el mismo día.</small></div>
 <div class="field"><label for="u_hours">Horas trabajadas</label><input id="u_hours" name="hours" type="number" min="0" max="48" step="1" required placeholder="Ej. 10"></div>
@@ -254,23 +274,16 @@ function weeklyPaymentsView(){const current=weekStart(today());const prevDate=ne
 function payWeeklyObligation(start,kind){if(db.weeklyPayments.some(p=>p.week===start&&p.kind===kind))return alert('Ya está marcado como pagado.');const amount=paymentAmount(kind);const raw=prompt('Importe efectivamente pagado en pesos:',String(amount));if(raw===null)return;const n=Number(raw);if(!Number.isSafeInteger(n)||n<=0)return alert('Ingresá un importe válido.');const paidDate=prompt('Fecha del pago (AAAA-MM-DD):',today());if(paidDate===null)return;if(!/^\d{4}-\d{2}-\d{2}$/.test(paidDate)||isNaN(new Date(paidDate+'T12:00:00').getTime()))return alert('Fecha inválida.');if(!confirm('¿Confirmás el pago de '+money(n)+'?\n\nSe vincula a la semana de '+dateLocal(start)+'. No se agregará un gasto a Finanzas ni se moverá dinero bancario.'))return;const entry={id:uid(),week:start,kind,amount:n,paidDate};db.weeklyPayments.push(entry);if(!save())db.weeklyPayments.pop();else render();}
 function undoWeeklyPayment(id){const x=db.weeklyPayments.find(p=>p.id===id);if(!x||!confirm('¿Deshacer la confirmación de este pago?'))return;const prev=db.weeklyPayments;db.weeklyPayments=prev.filter(p=>p.id!==id);if(!save())db.weeklyPayments=prev;else render();}
 function weeklyClosureView(){
- const start=weekStart(today()),current=closureData(start),existing=db.weeklyClosures.find(x=>x.start===start);
- const records=[...db.weeklyClosures].sort((a,b)=>b.start.localeCompare(a.start));
- return `<div class="card"><div class="topline"><h3>💚 Cierre semanal manual</h3><button class="btn secondary tiny" onclick="openWeeklyClose()">${existing?'Ver cierre':'Cerrar semana'}</button></div><p class="hint">Semana de ${dateLocal(start)}. No se cierra sola. Revisá los movimientos antes de confirmar. El cálculo reserva el límite completo de comida y evita descontar dos veces pagos identificados de alquiler y aporte familiar.</p>${stats([['Neto laboral registrado',money(current.workNet)],['Ahorro potencial',money(current.potential),current.potential>=0?'green':'red']])}${existing?'<p class="notice">✅ Esta semana ya tiene un cierre guardado. Podés consultar su resumen en el historial.</p>':''}<div class="actions"><button class="btn secondary tiny" onclick="openWeeklyClose('previous')">Cerrar semana anterior</button></div><div class="divider"></div><h4>Historial de cierres</h4>${records.length?records.map(x=>`<div class="listitem"><div><strong>${dateLocal(x.start)} · ${money(x.potential)}</strong><small>Ahorrado realmente: ${money(x.savedActual)} · ${escapeHtml(x.notes||'Sin observaciones')}</small></div><button class="btn secondary tiny" onclick="showWeeklyClose('${x.id}')">Ver</button></div>`).join(''):'<p class="empty">Todavía no cerraste ninguna semana.</p>'}<p class="hint">El cierre es una fotografía de los registros de ese momento. Si corregís un movimiento después, el cierre guardado no cambia.</p></div>`;
+ const start=weekStart(today()),current=financeCalc29(start),existing=db.weeklyClosures.find(x=>x.start===start);
+ const records=[...db.weeklyClosures].sort((a,b)=>String(b.start).localeCompare(String(a.start)));
+ return `<div class="page-heading29"><h2>📊 Cierre e informes semanales</h2><p class="hint">Revisá un informe completo ANTES de confirmar. El cierre guarda una fotografía permanente de esa semana y no mueve dinero de tus cuentas.</p></div>
+ <div class="card"><h3>Semana desde ${dateLocal(start)}</h3>${stats([['Neto laboral',money(current.workNet)],['Ahorro estimado',formatSigned29(current.projected),current.projected>=0?'green':'red']])}
+ <div class="actions"><button type="button" class="btn" onclick="openWeeklyClose()">${existing?'Ver informe guardado':'📋 Revisar antes de cerrar'}</button><button type="button" class="btn secondary" onclick="openWeeklyClose('previous')">Semana anterior</button></div>
+ <p class="hint">Podés ver el informe antes de cerrarlo. Si falta alguna jornada, corregí los datos y volvé a revisar. Cada semana se puede cerrar una sola vez.</p></div>
+ <div class="card"><h3>Historial de cierres</h3>${records.length?records.map(x=>`<div class="listitem"><div><strong>Semana ${dateLocal(x.start)} · ${money(x.potential)}</strong><small>Ahorro realmente separado: ${money(x.savedActual)} · ${x.report292?'Informe completo':'Cierre anterior (resumen)'}${x.notes?' · '+escapeHtml(x.notes):''}</small></div><button type="button" class="btn secondary tiny" onclick="showWeeklyClose('${x.id}')">Ver informe</button></div>`).join(''):'<p class="empty">Todavía no cerraste ninguna semana.</p>'}</div>`;
 }
-function openWeeklyClose(period){
- const current=weekStart(today());const d=new Date(current+'T12:00:00');if(period==='previous')d.setDate(d.getDate()-7);const start=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');if(db.weeklyClosures.some(x=>x.start===start))return alert('Esta semana ya está cerrada. Consultá el historial.');
- const x=closureData(start);
- if(!confirm('¿Revisaste todos los ingresos y gastos de la semana desde '+dateLocal(start)+'?\n\nNeto laboral: '+money(x.workNet)+'\nAlquiler previsto: '+money(x.rent)+'\nAporte familiar previsto: '+money(x.child)+'\nComida presupuestada: '+money(x.foodLimit)+'\nOtros gastos: '+money(x.other)+'\n\nAhorro potencial: '+money(x.potential)+'\n\nEste cierre no mueve dinero del banco ni elimina registros. El ahorro real que confirmes se añadirá a Mis ahorros.'))return;
- const raw=prompt('¿Cuánto dinero separaste realmente para el ahorro EN ESTE CIERRE? Se sumará al fondo Mis ahorros. Si ya lo registraste allí manualmente, ingresá 0 para evitar duplicarlo.','0');if(raw===null)return;
- const savedActual=Number(raw);if(!Number.isSafeInteger(savedActual)||savedActual<0)return alert('Ingresá un importe válido mayor o igual a cero.');
- const notes=prompt('Observación opcional (por ejemplo: frasco Naranja X):','');if(notes===null)return;
- const item={...x,id:uid(),savedActual,notes:notes.slice(0,300),closedAt:new Date().toISOString()};
- db.weeklyClosures.push(item);
- if(savedActual>0){db.savings.transactions.push({id:uid(),date:today(),kind:'deposit',amount:savedActual,note:'Ahorro registrado en cierre semanal desde '+dateLocal(start),closureId:item.id});}
- if(save()){render();alert('Cierre semanal guardado.'+(savedActual>0?' Se sumaron '+money(savedActual)+' a Mis ahorros.':' No se registraron ahorros.')+' No se realizaron transferencias bancarias.')}else{db.weeklyClosures=db.weeklyClosures.filter(y=>y.id!==item.id);db.savings.transactions=db.savings.transactions.filter(y=>y.closureId!==item.id)};
-}
-function showWeeklyClose(id){const x=db.weeklyClosures.find(y=>y.id===id);if(!x)return;alert('Cierre desde '+dateLocal(x.start)+'\nNeto laboral: '+money(x.workNet)+'\nAlquiler previsto: '+money(x.rent)+'\nAporte familiar: '+money(x.child)+'\nPresupuesto comida: '+money(x.foodLimit)+'\nOtros gastos: '+money(x.other)+'\nAhorro potencial: '+money(x.potential)+'\nAhorro realmente transferido: '+money(x.savedActual)+'\nObservaciones: '+(x.notes||'—')+'\n\nRegistro histórico, sin transferencia bancaria.');}
+
+/* Continúan las vistas anteriores */
 function moneyView(){return header('Mis finanzas','Movimiento','movements')+foodBudgetView()+savingsView()+weeklyPaymentsView()+weeklyClosureView()+stats([['Ingresos',money(incoming()),'green'],['Gastos',money(outgoing()),'red'],['Resultado sin comida reservada',money(balance())],['Movimientos incluyendo comida',money(cashMovementBalance())]])+`<div class="card"><h3>Historial de movimientos</h3>${movementList(movements())}</div>`}function oldWorkView(){let w=workEntries(),fuel=w.filter(x=>x.category==='Combustible');return header('Mi trabajo','Movimiento','movements')+stats([['Ingresos trabajo',money(sum(w.filter(x=>x.type==='income'))),'green'],['Gastos trabajo',money(sum(w.filter(x=>x.type==='expense'))),'red'],['Ganancia neta',money(workNet())],['Combustible',money(sum(fuel))]])+`<div class="card"><h3>Movimientos del trabajo</h3><p class="notice">Al registrar un movimiento, elegí el área Trabajo. Se reflejará automáticamente también en Finanzas.</p>${movementList(w)}</div>`}function familyView(){let a=movements().filter(x=>x.area==='Familia');return header('Mi familia','Movimiento','movements')+stats([['Gastos familiares',money(sum(a.filter(x=>x.type==='expense'))),'red'],['Movimientos',a.length]])+`<div class="card"><h3>Historial familiar</h3>${movementList(a)}</div>`}function agendaView(){return header('Mi agenda','Tarea','tasks')+stats([['Pendientes',db.tasks.filter(x=>!x.done).length],['Completadas',db.tasks.filter(x=>x.done).length]])+`<div class="card"><h3>🚗 Próximas revisiones</h3><p class="notice">${carState().nextInspection?'Próxima revisión Autonomy: '+dateLocal(carState().nextInspection):'Configurá la revisión en Trabajo.'}</p>${carAlerts().map(a=>`<p class="notice">${escapeHtml(a)}</p>`).join('')}</div><div class="card"><h3>Mis tareas y vencimientos</h3>${db.tasks.length?[...db.tasks].sort((a,b)=>a.date.localeCompare(b.date)).map(x=>`<div class="listitem"><div><strong style="${x.done?'text-decoration:line-through;opacity:.6':''}">${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.category)}</small></div><div class="actions"><button class="btn secondary tiny" onclick="toggleTask('${x.id}')">${x.done?'Reabrir':'Hecha'}</button><button class="btn danger tiny" onclick="removeItem('tasks','${x.id}')">✕</button></div></div>`).join(''):'<p class="empty">Sin tareas registradas.</p>'}</div>`}function moreView(){return header('Más herramientas')+`<div class="card">${header('🎯 Mis objetivos','Objetivo','goals')}${list(db.goals,'goals',x=>`<strong>${escapeHtml(x.title)}</strong><small>${money(x.saved)} de ${money(x.target)}</small><div class="progress"><div style="width:${Math.min(100,100*x.saved/x.target||0)}%"></div></div>`)}</div><div class="card">${header('🔧 Mantenimiento del vehículo','Servicio','vehicle')}${list(db.vehicle,'vehicle',x=>`<strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.date)} · ${escapeHtml(x.km||'—')} km · ${money(x.amount)}</small>`)}</div><div class="card"><h3>🔔 Recordatorios y respaldos</h3>${reminderView()}<p class="hint">Los avisos aparecen al abrir la aplicación. Las notificaciones push con la app cerrada todavía no están activadas.</p></div><div class="card"><h3>📲 Notificaciones del iPhone · prueba</h3><p class="hint">Esta prueba permite comprobar los permisos y mostrar una notificación mientras usás la app instalada. No activa todavía alertas automáticas con la app cerrada.</p><p class="notice" id="pushStatus">${notificationStatus()}</p><div class="actions"><button class="btn secondary" onclick="enableNotifications()">Activar permisos</button><button class="btn secondary" onclick="testNotification()">Enviar notificación de prueba</button></div></div><div class="card"><h3>💾 Tus datos</h3><p class="notice">Antes de actualizar o importar, exportá un respaldo. Los registros se guardan en este navegador y dispositivo. No hay sincronización automática. Exportá copias con frecuencia.</p><p class="notice" id="backupStatus">${backupStatus()}</p><div class="actions"><button class="btn secondary" onclick="exportData()">Exportar copia JSON</button><button class="btn secondary" onclick="document.getElementById('importFile').click()">Importar copia JSON</button><button class="btn secondary" onclick="document.getElementById('verifyFile').click()">Verificar copia JSON</button></div><input class="hide" type="file" id="importFile" accept="application/json,.json" onchange="importData(this)"><input class="hide" type="file" id="verifyFile" accept="application/json,.json" onchange="verifyBackup(this)"><p class="notice" id="verifyStatus">La verificación revisa el archivo sin reemplazar tus datos.</p></div><div class="card"><h3>🔒 Estado de seguridad</h3><p class="notice">Prototipo de uso personal: sin contraseña ni cifrado de datos en el navegador. No cargues números de cuenta, contraseñas ni información financiera sensible. No publiques datos reales en un dispositivo compartido.</p></div>`}const fields={movements:[['date','Fecha','date'],['type','Tipo','select','income:Ingreso|expense:Gasto'],['amount','Importe en ARS','number'],['area','Área','select','Personal:Personal|Trabajo:Trabajo|Familia:Familia|Otros ingresos:Otros ingresos'],['category','Categoría','select','Uber:Uber|Combustible:Combustible|Peajes:Peajes|Mantenimiento:Mantenimiento|Comida:Comida|Hogar:Hogar|Transferencia familiar:Transferencia familiar|Salud:Salud|Servicios:Servicios|Agencia:Agencia|Otros:Otros'],['description','Descripción','text'],['foodBudget','¿Descontar del presupuesto de comida?','select','no:No|yes:Sí']],tasks:[['title','Tarea o compromiso','text'],['date','Fecha','date'],['category','Tipo','select','Personal:Personal|Familia:Familia|Trabajo:Trabajo|Pago:Pago|Otro:Otro']],goals:[['title','Objetivo','text'],['target','Meta en ARS','number'],['saved','Ahorrado en ARS','number']],vehicle:[['title','Servicio o mantenimiento','text'],['date','Fecha','date'],['km','Kilometraje','number'],['amount','Costo en ARS','number']]};let currentKind='movements';function openModal(kind){currentKind=kind;document.getElementById('modalTitle').textContent=({movements:'Nuevo movimiento',tasks:'Nueva tarea',goals:'Nuevo objetivo',vehicle:'Nuevo mantenimiento'})[kind];document.getElementById('entryForm').innerHTML=`<div class="formgrid">${fields[kind].map(([id,label,type,opts])=>`<div class="field ${id==='description'||id==='title'?'full':''}"><label for="f_${id}">${label}</label>${type==='select'?`<select id="f_${id}" name="${id}">${opts.split('|').map(p=>{let [v,l]=p.split(':');return `<option value="${v}">${l}</option>`}).join('')}</select>`:`<input id="f_${id}" name="${id}" type="${type}" ${type==='number'?'min="0" step="any"':''} ${type==='date'?`value="${today()}"`:''} ${['title','amount','target'].includes(id)?'required':''}>`}</div>`).join('')}</div><button type="submit" class="btn" style="width:100%">Guardar</button>`;if(kind==='movements'){const cat=document.getElementById('f_category'),flag=document.getElementById('f_foodBudget'),typ=document.getElementById('f_type');const sync=()=>{flag.value=typ.value==='expense'&&['Comida','Supermercado','Almacén','Almuerzo','Bebidas'].includes(cat.value)?'yes':'no'};cat.addEventListener('change',sync);typ.addEventListener('change',sync);sync()}document.getElementById('modal').showModal()}function closeModal(){document.getElementById('modal').close()}document.getElementById('entryForm').addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.currentTarget));for(let k of ['amount','target','saved','km'])if(k in data)data[k]=Number(data[k]||0);if(('amount'in data&&(!Number.isFinite(data.amount)||data.amount<0))||('target'in data&&data.target<=0)){alert('Revisá el importe o la meta.');return}if(currentKind==='movements'&&data.type!=='expense')data.foodBudget='no';data.id=uid();if(currentKind==='tasks')data.done=false;db[currentKind].push(data);if(save()){closeModal();render()}});function removeItem(kind,id){if(kind==='movements'&&db.movements.some(x=>x.id===id&&x.uberShiftId)){alert('Este movimiento pertenece a una jornada Uber. Eliminá la jornada desde Trabajo para mantener los cálculos correctos.');return}if(!confirm('¿Eliminar este registro?'))return;db[kind]=db[kind].filter(x=>x.id!==id);save();render()}function toggleTask(id){let t=db.tasks.find(x=>x.id===id);if(t){t.done=!t.done;save();render()}}function exportData(){const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mi-finanzas-ia-respaldo-'+today()+'.json';a.click();try{localStorage.setItem('mfia-last-backup',new Date().toISOString())}catch{}setTimeout(()=>URL.revokeObjectURL(url),1500);render()}async function verifyBackup(input){
 const file=input.files?.[0];if(!file)return;
 try{
@@ -471,7 +484,8 @@ function profitSetPeriod(period){
 function profitView(){
  const all=Array.isArray(db.uberShifts)?db.uberShifts:[];
  const first=weekStart(today());
- const selected=all.filter(x=>profitPeriod==='all'||weekStart(x.date)===first).sort((a,b)=>b.date.localeCompare(a.date));
+ const ordered=orderedUberShifts(),indexes=new Map(ordered.map((x,i)=>[x.id,i]));
+ const selected=all.filter(x=>profitPeriod==='all'||weekStart(x.date)===first).sort((a,b)=>b.date.localeCompare(a.date)||(indexes.get(b.id)??0)-(indexes.get(a.id)??0));
  const n=x=>Number(x)||0;
  const data=selected.map(x=>{
   const gross=n(x.gross),expenses=n(x.fuel)+n(x.tolls)+n(x.other);
@@ -785,7 +799,7 @@ function openDrawer29(){
  const el=document.getElementById('appDrawer29');el.hidden=false;el.classList.add('open');
  document.getElementById('drawerSearch29').value='';drawerItems29();
  document.body.classList.add('drawer-open29');
- document.getElementById('drawerSearch29').focus({preventScroll:true});
+ // El buscador se enfoca solo cuando el usuario lo toca: no abrir teclado al abrir el menú.
 }
 function closeDrawer29(){const el=document.getElementById('appDrawer29');el.classList.remove('open');el.hidden=true;document.body.classList.remove('drawer-open29');if(drawerLastFocus29?.isConnected)drawerLastFocus29.focus({preventScroll:true})}
 function drawerSelect29(id){closeDrawer29();if(id==='action_expense')return newExpense29();if(id==='action_shift')return openUber();if(['home','work','money'].includes(id))return navigate29(id);return goto29(id)}
@@ -798,7 +812,7 @@ function navigate29(t){
 function goto29(id){if(id===view29)return;history29.push({view:view29,y:window.scrollY});view29=id;render();window.scrollTo(0,0)}
 function goBack29(){const prev=history29.pop();if(prev){view29=prev.view;render();requestAnimationFrame(()=>window.scrollTo({top:prev.y,behavior:'instant'}));}else navigate29('home')}
 function activeTab29(){if(view29==='home')return 'home';if(view29==='work'||view29.startsWith('work_'))return 'work';if(view29==='money'||view29.startsWith('money_'))return 'money';return 'menu'}
-function viewTitle29(){const list=[...WORK_LINKS29,...MONEY_LINKS29];const x=list.find(p=>p.id===view29);if(x)return x.title;return {family:'Mi familia',agenda:'Mi agenda',tools_goals:'Mis objetivos',tools_legacy:'Otros mantenimientos',tools_notifications:'Notificaciones',tools_backups:'Copias de seguridad',tools_security:'Privacidad y seguridad'}[view29]||'Mi Finanzas IA'}
+function viewTitle29(){const list=[...WORK_LINKS29,...MONEY_LINKS29];const x=list.find(p=>p.id===view29);if(x)return x.title;return {family:'Mi familia',agenda:'Mi agenda',tools_goals:'Mis objetivos',tools_legacy:'Otros mantenimientos',tools_notifications:'Notificaciones',tools_backups:'Copias de seguridad',tools_security:'Privacidad y seguridad',work_closure_preview:'Revisión antes del cierre',work_closure_detail:'Informe semanal guardado'}[view29]||'Mi Finanzas IA'}
 function render29(){
  const selected=activeTab29();
  const navItems=[['home','⌂','Inicio'],['work','🚗','Trabajo'],['money','＄','Finanzas'],['menu','☰','Menú']];
@@ -865,7 +879,8 @@ function home29(){
 function workHome29(){const d=financeCalc29();return `<div class="page-heading29"><h2>🚗 Trabajo</h2><p class="hint">Elegí la herramienta que necesitás.</p></div>${linkGrid29(WORK_LINKS29)}<div class="mini-summary29"><div><span>Neto operativo semanal</span><strong>${formatSigned29(d.workNet)}</strong></div><button class="btn secondary tiny" onclick="goto29('work_plan')">Ver plan semanal ›</button></div>`}
 function moneyHome29(){const d=financeCalc29();return `<div class="page-heading29"><h2>💰 Finanzas</h2><p class="hint">Cada herramienta tiene su propia pantalla.</p></div>${linkGrid29(MONEY_LINKS29)}<div class="mini-summary29"><div><span>Ahorro estimado después de compromisos</span><strong class="${d.projected<0?'red':'green'}">${formatSigned29(d.projected)}</strong></div><button class="btn secondary tiny" onclick="goto29('money_projection')">Ver cálculo ›</button></div>`}
 function workShifts29(){
- const shifts=[...db.uberShifts].sort((a,b)=>b.date.localeCompare(a.date));
+ const ordered=orderedUberShifts(),indexes=new Map(ordered.map((x,i)=>[x.id,i]));
+ const shifts=[...db.uberShifts].sort((a,b)=>b.date.localeCompare(a.date)||(indexes.get(b.id)??0)-(indexes.get(a.id)??0));
  const linked=new Set(shifts.flatMap(x=>x.movementIds||[]));
  const other=workEntries().filter(x=>!linked.has(x.id));
  return `<div class="page-heading29"><h2>Mis jornadas</h2><p class="hint">Registro, edición y detalle de cada jornada.</p></div><button class="btn" onclick="openUber()">＋ Registrar jornada</button>
@@ -916,6 +931,7 @@ function security29(){return `<div class="page-heading29"><h2>🔒 Privacidad y 
 const views29={
  home:home29,work:workHome29,money:moneyHome29,
  work_clock:clockView,work_shifts:workShifts29,work_profit:profitView,work_car:carView,work_plan:workPlan29,work_closures:weeklyClosureView,
+ work_closure_preview:showReportPreview292,work_closure_detail:showStoredReport292,
  money_movements:moneyMovements29,money_food:foodBudgetView,money_savings:savingsView,money_commitments:commitments29,money_projection:projection29,money_closures:weeklyClosureView,
  family:familyView,agenda:agendaView,tools_goals:goals29,tools_legacy:legacy29,tools_notifications:notifications29,tools_backups:backups29,tools_security:security29
 };
@@ -929,6 +945,159 @@ function closureData(start){
   other:m.otherSpent,paidRent:m.paidRent,paidChild:m.paidChild,additionalRent:m.rentDue,additionalChild:m.childDue,
   foodReserve:m.nextFood,potential:m.projected};
 }
+
+// 2.9.2 - Informe semanal. No altera los registros contables; solo lee movimientos y guarda una fotografía del cierre.
+let weeklyReportStart292=weekStart(today()),weeklySelectedClose292=null;
+function weeklyReport292(start){
+ const finance=financeCalc29(start);
+ const weekShifts=orderedUberShifts().filter(x=>x.date&&weekStart(x.date)===start);
+ const work=db.movements.filter(x=>x.date&&weekStart(x.date)===start&&x.area==='Trabajo');
+ const expenses=work.filter(x=>x.type==='expense');
+ const incomes=work.filter(x=>x.type==='income');
+ const workGross=sum(incomes),workExpenses=sum(expenses);
+ const fuel=sum(expenses.filter(x=>x.category==='Combustible'));
+ const tolls=sum(expenses.filter(x=>x.category==='Peajes'));
+ const otherWorkExpenses=workExpenses-fuel-tolls;
+ const privateIncome=weekShifts.reduce((n,x)=>n+(Number(x.privateIncome)||0),0);
+ const shiftGross=weekShifts.reduce((n,x)=>n+(Number(x.gross)||0),0);
+ const km=weeklyKmData29(start);
+ const hours=weekShifts.reduce((n,x)=>n+(Number(x.hours)||0),0);
+ const workMinutes=Math.round(hours*60);
+ const days=[...new Set(weekShifts.map(x=>x.date))].sort();
+ const clockRecords=new Map((db.clockHistory||[]).map(c=>[c.id,c]));
+ const linkedClocks=new Set(weekShifts.map(x=>x.clockRecordId).filter(Boolean));
+ const restMinutes=[...linkedClocks].reduce((n,id)=>n+(Number(clockRecords.get(id)?.rest)||0),0);
+ const shiftRows=weekShifts.map(x=>{
+  const c=clockRecords.get(x.clockRecordId),costs=(Number(x.fuel)||0)+(Number(x.tolls)||0)+(Number(x.other)||0);
+  return {id:x.id,date:x.date,label:shiftLabel(x),gross:Number(x.gross)||0,expenses:costs,
+   net:(Number(x.gross)||0)-costs,hours:Number(x.hours)||0,km:Number(x.km)||0,
+   clock:c?clockRangeLabel(c):'',rest:c?Number(c.rest)||0:null};
+ });
+ const daily=days.map(date=>{
+  const ss=shiftRows.filter(x=>x.date===date);
+  return {date,count:ss.length,gross:ss.reduce((n,x)=>n+x.gross,0),net:ss.reduce((n,x)=>n+x.net,0),hours:ss.reduce((n,x)=>n+x.hours,0),km:ss.reduce((n,x)=>n+x.km,0)};
+ });
+ const statuses=['rent','child','nextFood'].map(kind=>{
+  const state=commitmentState29(kind,start);
+  return {kind,label:kind==='rent'?'Alquiler Autonomy':kind==='child'?'Aporte familiar':'Comida próxima semana',goal:state.goal,paid:state.paid,
+    reserved:state.reserved,status:state.status,payment:state.payment};
+ });
+ const warnings=[];
+ if(!weekShifts.length)warnings.push('No hay jornadas financieras cargadas en esta semana.');
+ const unfinished=(db.workClock?.active)&&db.workClock?.startedAt&&weekStart(localDateOf(db.workClock.startedAt))===start;
+ if(unfinished)warnings.push('Hay una jornada del reloj en curso correspondiente a esta semana. Finalizala y cargá sus ingresos antes de cerrar.');
+ const pendingClock=(db.clockHistory||[]).filter(c=>c.date&&weekStart(c.date)===start&&!linkedClocks.has(c.id));
+ if(pendingClock.length)warnings.push('Hay '+pendingClock.length+' turno(s) finalizado(s) del reloj sin vínculo con una jornada de ingresos. Revisá si faltan registros.');
+ if(km.mode!=='odometer')warnings.push('Kilómetros estimados desde jornadas: falta una lectura inicial y/o final completa del odómetro para esta semana.');
+ else warnings.push('El kilometraje semanal es estimado según la última lectura, no una medición en tiempo real. Revisá que incluya los viajes fuera de Uber.');
+ if(km.used>km.limit)warnings.push('Superaste el límite semanal de 2.000 km en '+kmNumber29(km.used-km.limit)+' km.');
+ if(!Number.isFinite(finance.projected))warnings.push('No se pudo obtener el ahorro estimado. Verificá los importes.');
+ const periodEnd=plusDays(start,6);
+ return {version:1,start,end:periodEnd,createdAt:new Date().toISOString(),
+  gross:workGross,operatingCosts:workExpenses,fuel,tolls,otherWorkExpenses,privateIncome,shiftGross,
+  otherWorkIncome:Math.max(0,workGross-shiftGross),net:finance.workNet,otherIncome:finance.otherIncome,
+  otherSpent:finance.otherSpent,foodSpent:finance.currentFoodSpent,foodLimit:finance.foodLimit,
+  extraFood:finance.extraFood,rent:finance.rent,child:finance.child,nextFood:finance.nextFood,
+  paidRent:finance.paidRent,paidChild:finance.paidChild,rentDue:finance.rentDue,childDue:finance.childDue,
+  projected:finance.projected,daysWorked:days.length,shifts:weekShifts.length,hours,workMinutes,restMinutes,
+  netPerHour:hours>0?finance.workNet/hours:null,netPerKm:km.used>0?finance.workNet/km.used:null,
+  grossPerHour:hours>0?workGross/hours:null,margin:workGross>0?100*finance.workNet/workGross:null,
+  fuelPct:workGross>0?100*fuel/workGross:null,avgNetDay:days.length?finance.workNet/days.length:null,
+  km:{limit:km.limit,initial:km.initial,readingEnd:km.readingEnd,logged:km.logged,used:km.used,remaining:km.remaining,mode:km.mode},
+  statuses,daily,shiftRows,warnings};
+}
+function pctLabel292(n){return n===null||!Number.isFinite(n)?'—':n.toLocaleString('es-AR',{maximumFractionDigits:1})+' %'}
+function metric292(label,value){return `<div class="report-kpi292"><small>${escapeHtml(label)}</small><strong>${value}</strong></div>`}
+function line292(label,value){return `<div class="report-line292"><span>${escapeHtml(label)}</span><strong>${value}</strong></div>`}
+function reportContent292(r,saved=false,closure=null){
+ const warningMsgs=Array.isArray(r.warnings)?r.warnings:[];
+ const statuses=r.statuses||[];
+ const statusText=s=>s.status==='paid'?'Pagado / confirmado':s.status==='reserved'?'Reservado, no pagado':s.status==='partial'?'Pago parcial':'Pendiente';
+ const rows=r.shiftRows||[],daily=r.daily||[],k=r.km||{};
+ const previous=db.weeklyClosures.find(c=>c.start===plusDays(r.start,-7))?.report292;
+ const best=rows.filter(x=>x.hours>0).sort((a,b)=>(b.net/b.hours)-(a.net/a.hours))[0];
+ return `<div class="report-hero292"><small>${saved?'✅ Cierre semanal guardado':'📋 Vista previa · todavía no se guardó el cierre'}</small><h2 style="margin:8px 0">Semana ${dateLocal(r.start)} al ${dateLocal(r.end||plusDays(r.start,6))}</h2><div class="sub">🐷 Ahorro estimado de la semana</div><div class="stat ${r.projected>=0?'green':'red'}">${formatSigned29(r.projected)}</div><p class="hint">${r.projected>=0?'Dinero que potencialmente podrías ahorrar después de los compromisos.':'Todavía falta generar dinero para cubrir todos los compromisos.'} No es dinero ya depositado.</p>${saved?`<div class="report-line292"><span>Ahorro efectivamente separado</span><strong class="green">${money(Number(closure?.savedActual)||0)}</strong></div><div class="report-line292"><span>Diferencia entre estimado y real</span><strong>${formatSigned29((Number(r.projected)||0)-(Number(closure?.savedActual)||0))}</strong></div>`:''}</div>
+ <div class="card report-section292"><h3>💰 Resultado económico</h3><div class="report-kpis292">
+ ${metric292('Recaudación laboral total',money(r.gross))}${metric292('Gastos de trabajo',money(r.operatingCosts))}
+ ${metric292('Ganancia neta operativa',money(r.net))}${metric292('Ahorro estimado',formatSigned29(r.projected))}</div>
+ ${line292('Viajes particulares incluidos en jornadas',money(r.privateIncome))}
+ ${line292('GNC / combustible',money(r.fuel))}${line292('Peajes',money(r.tolls))}${line292('Otros gastos del trabajo',money(r.otherWorkExpenses))}
+ ${line292('Otros ingresos no laborales',money(r.otherIncome))}${line292('Otros gastos personales y familiares',money(r.otherSpent))}
+ ${line292('Comida consumida del presupuesto separado',money(r.foodSpent))}${line292('Exceso de comida sobre el presupuesto',money(r.extraFood))}
+ <p class="hint">Los ingresos de viajes particulares y los gastos laborales están incluidos en la recaudación y el neto: no se suman ni restan nuevamente.</p></div>
+ <div class="card report-section292"><h3>📅 Compromisos semanales</h3>${statuses.length?statuses.map(s=>line292(s.label,money(s.goal)+' · '+statusText(s))).join(''):line292('Alquiler previsto',money(r.rent))+line292('Aporte familiar previsto',money(r.child))+line292('Comida próxima semana',money(r.nextFood))}
+ <p class="hint">El alquiler reservado sigue pendiente de pago. Las marcas de Pagado no mueven dinero bancario. El ahorro estimado contempla las obligaciones sin volver a restar reservas ya contempladas.</p></div>
+ <div class="card report-section292"><h3>⏱ Productividad y rentabilidad</h3><div class="report-kpis292">
+ ${metric292('Días trabajados',String(r.daysWorked))}${metric292('Jornadas registradas',String(r.shifts))}
+ ${metric292('Horas efectivas de jornadas',durationLabel(r.workMinutes))}${metric292('Descansos vinculados al reloj',durationLabel(r.restMinutes))}
+ ${metric292('Neto por hora',r.netPerHour===null?'—':money(r.netPerHour))}${metric292('Neto por km total estimado',r.netPerKm===null?'—':money(r.netPerKm))}
+ ${metric292('Promedio neto por día trabajado',r.avgNetDay===null?'—':money(r.avgNetDay))}${metric292('Margen operativo',pctLabel292(r.margin))}
+ ${metric292('Combustible / recaudación',pctLabel292(r.fuelPct))}${metric292('Bruto por hora',r.grossPerHour===null?'—':money(r.grossPerHour))}</div>
+ ${best?`<p class="notice">Mayor neto por hora: ${escapeHtml(best.label)} (${money(best.net/best.hours)}/h).</p>`:''}<p class="hint">Las horas son las registradas en jornadas con ingresos. Los descansos se cuentan solo cuando están asociados a esas jornadas. Los días trabajados pueden contener varios turnos.</p></div>
+ <div class="card report-section292"><h3>🚗 Kilometraje semanal</h3><div class="report-kpis292">
+ ${metric292('Límite',kmNumber29(k.limit||2000)+' km')}${metric292('Recorridos estimados',kmNumber29(k.used||0)+' km')}
+ ${metric292(k.remaining<0?'Exceso':'Kilómetros restantes',kmNumber29(Math.abs(k.remaining||0))+' km')}${metric292('Kilómetros de jornadas',kmNumber29(k.logged||0)+' km')}
+ </div>${line292('Odómetro de inicio',k.initial===null?'Sin configurar':kmNumber29(k.initial)+' km')}
+ ${line292('Última lectura utilizada',k.readingEnd===null?'Sin lectura':kmNumber29(k.readingEnd)+' km')}
+ <p class="hint">Conteo ${k.mode==='odometer'?'basado en lecturas y jornadas':'parcial basado en registros'}. Debés revisar lecturas y recorridos fuera de las jornadas antes de confirmar.</p></div>
+ ${previous?`<div class="card report-section292"><h3>📈 Comparación con la semana anterior</h3>${line292('Variación de ganancia operativa',formatSigned29(r.net-previous.net))}${line292('Variación de jornadas',String(r.shifts-previous.shifts))}${line292('Variación de horas',durationLabel(Math.abs(r.workMinutes-previous.workMinutes))+(r.workMinutes>=previous.workMinutes?' más':' menos'))}${line292('Variación de kilómetros',kmNumber29(k.used-previous.km.used)+' km')}<p class="hint">Comparación con el cierre de ${dateLocal(previous.start)}. Se utilizan fotografías históricas guardadas, no registros recalculados.</p></div>`:''}
+ <div class="card report-section292"><h3>📆 Resumen por día</h3>${daily.length?daily.map(x=>line292(dateLocal(x.date)+' · '+x.count+' jornada(s)',money(x.net)+' · '+durationLabel(Math.round(x.hours*60))+' · '+kmNumber29(x.km)+' km')).join(''):'<p class="empty">No hay jornadas cargadas.</p>'}
+ <p class="hint">El neto diario refleja las jornadas financieras; los otros movimientos de Trabajo pueden estar registrados por separado.</p></div>
+ <div class="card report-section292"><h3>🗂 Detalle de jornadas</h3>${rows.length?`<div class="report-shifts292"><table><thead><tr><th>Jornada</th><th>Bruto</th><th>Gastos</th><th>Neto</th><th>Horas</th><th>Km</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${escapeHtml(x.label)}</td><td>${money(x.gross)}</td><td>${money(x.expenses)}</td><td>${money(x.net)}</td><td>${durationLabel(Math.round(x.hours*60))}</td><td>${kmNumber29(x.km)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="empty">Todavía no hay jornadas financieras.</p>'}</div>
+ ${warningMsgs.length?`<div class="card report-section292"><h3>⚠️ Verificaciones antes del cierre</h3>${warningMsgs.map(x=>`<p class="report-warning292">${escapeHtml(x)}</p>`).join('')}</div>`:''}
+ ${saved?`<div class="card"><h3>📝 Observaciones del cierre</h3><p class="notice">${escapeHtml(closure?.notes||'Sin observaciones')}</p><p class="hint">Cierre registrado: ${escapeHtml(closure?.closedAt?new Date(closure.closedAt).toLocaleString('es-AR'):'Sin fecha')}. Fotografía histórica: los cambios posteriores no modificarán este informe.</p></div>`:''}`;
+}
+function showReportPreview292(){const existing=db.weeklyClosures.find(x=>x.start===weeklyReportStart292);if(existing)return `<div class="card"><h3>✅ Semana ya cerrada</h3><p class="notice">Este período ya tiene un informe guardado. No se puede crear un segundo cierre.</p><button class="btn" type="button" onclick="showWeeklyClose('${existing.id}')">Ver cierre guardado</button></div>`;
+ const report=weeklyReport292(weeklyReportStart292);
+ return `<div class="page-heading29"><h2>📋 Revisá tu semana</h2><p class="hint">Todavía NO estás cerrando. Primero comprobá horas, gastos, jornadas y kilometraje.</p></div>
+ ${reportContent292(report)}
+ <div class="report-actions292"><button type="button" class="btn secondary" onclick="goBack29()">← Corregir datos</button><button type="button" class="btn secondary" onclick="printWeeklyReport292(true)">🖨 Imprimir / PDF preliminar</button><button type="button" class="btn" onclick="completeWeeklyClose292()">✅ Confirmar cierre semanal</button></div>`;
+}
+function showStoredReport292(){const c=db.weeklyClosures.find(x=>x.id===weeklySelectedClose292);if(!c)return '<p class="notice">Cierre no encontrado.</p>';
+ if(!c.report292)return `<div class="page-heading29"><h2>🗓 Cierre anterior · ${dateLocal(c.start)}</h2></div><div class="card"><p class="notice">Este cierre fue creado con una versión anterior. No contiene un informe detallado guardado; sus importes históricos se conservan.</p>${line292('Neto laboral',money(c.workNet))}${line292('Ahorro potencial',formatSigned29(c.potential))}${line292('Ahorro real',money(c.savedActual))}${line292('Alquiler previsto',money(c.rent))}${line292('Aporte previsto',money(c.child))}${line292('Comida prevista',money(c.foodLimit))}<p class="notice">${escapeHtml(c.notes||'Sin observaciones')}</p></div>`;
+ return `<div class="page-heading29"><h2>📊 Informe semanal guardado</h2><p class="hint">Este resultado no cambia aunque edites jornadas después.</p></div>${reportContent292(c.report292,true,c)}<div class="report-actions292"><button type="button" class="btn secondary" onclick="printWeeklyReport292(false)">🖨 Imprimir / Guardar PDF</button><button type="button" class="btn" onclick="goBack29()">← Volver al historial</button></div>`;
+}
+function openWeeklyClose(period){
+ const current=weekStart(today());const start=period==='previous'?plusDays(current,-7):current;
+ const existing=db.weeklyClosures.find(x=>x.start===start);
+ if(existing)return showWeeklyClose(existing.id);
+ weeklyReportStart292=start;goto29('work_closure_preview');
+}
+function showWeeklyClose(id){if(!db.weeklyClosures.some(x=>x.id===id))return;weeklySelectedClose292=id;goto29('work_closure_detail')}
+function completeWeeklyClose292(){
+ const start=weeklyReportStart292;
+ if(db.weeklyClosures.some(x=>x.start===start))return alert('La semana ya tiene un cierre guardado. Consultá el historial.');
+ const r=weeklyReport292(start);
+ const confirmText=`¿Confirmás el cierre de la semana ${dateLocal(start)} al ${dateLocal(r.end)}?\n\n`+
+ `Jornadas: ${r.shifts}, en ${r.daysWorked} día(s)\nNeto laboral: ${money(r.net)}\nKilómetros: ${kmNumber29(r.km.used)} de ${kmNumber29(r.km.limit)}\nAhorro estimado: ${formatSigned29(r.projected)}\n\nEl informe quedará guardado como una fotografía histórica. No podrás recalcular este cierre desde la app.`;
+ if(!confirm(confirmText))return;
+ const raw=prompt('¿Cuánto dinero separaste REALMENTE para ahorrar EN ESTE CIERRE?\n\nSe sumará a Mis ahorros. Si ya registraste ese depósito manualmente, ingresá 0 para no duplicar.','0');
+ if(raw===null)return;
+ const savedActual=Number(raw);
+ if(!Number.isSafeInteger(savedActual)||savedActual<0)return alert('Ingresá un importe entero válido mayor o igual a cero.');
+ const notes=prompt('Observaciones opcionales para este cierre:','');if(notes===null)return;
+ if(!confirm('Última confirmación: ¿guardar el cierre con ahorro real de '+money(savedActual)+'?\n\nEsto no mueve dinero en Naranja X ni en un banco.'))return;
+ const previous=JSON.stringify(db);
+ const x={...closureData(start),id:uid(),savedActual,notes:notes.slice(0,300),closedAt:new Date().toISOString(),report292:r};
+ db.weeklyClosures.push(x);
+ if(savedActual>0)db.savings.transactions.push({id:uid(),date:today(),kind:'deposit',amount:savedActual,note:'Ahorro del cierre '+dateLocal(start),closureId:x.id});
+ if(!save()){db=JSON.parse(previous);return}
+ weeklySelectedClose292=x.id;view29='work_closure_detail';render();window.scrollTo(0,0);
+ alert('✅ Cierre guardado con informe completo. Ahorro real registrado: '+money(savedActual)+'. No se hicieron transferencias bancarias.');
+}
+function printWeeklyReport292(preview){
+ const existing=preview?null:db.weeklyClosures.find(x=>x.id===weeklySelectedClose292);
+ const report=preview?weeklyReport292(weeklyReportStart292):existing?.report292;
+ if(!report)return alert('No existe un informe completo para imprimir.');
+ const popup=window.open('','_blank');
+ if(!popup)return alert('Safari bloqueó la ventana del informe. Abrí la aplicación en Safari y permití ventanas emergentes para imprimir.');
+ const safeTitle='Informe Mi Finanzas IA · '+dateLocal(report.start);
+ const inner=reportContent292(report,!preview,existing);
+ const cssPrint=`*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#14253a;line-height:1.45;margin:26px auto;max-width:860px;padding:0 20px;background:#fff}h1{font-size:22px}h2{font-size:20px}h3{font-size:16px}.card,.report-hero292{border:1px solid #cad6e3;border-radius:10px;padding:14px;margin:12px 0;break-inside:avoid}.report-kpis292{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.report-kpi292{border:1px solid #e0e7ed;border-radius:6px;padding:8px}.report-kpi292 small{display:block;color:#52657a}.report-kpi292 strong{font-size:19px}.report-line292{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #dce4eb;padding:6px 0}.report-line292 strong{text-align:right}.report-shifts292 table{width:100%;border-collapse:collapse;font-size:11px}.report-shifts292 td,.report-shifts292 th{border-bottom:1px solid #dce4eb;padding:6px;text-align:left}.report-warning292{border-left:3px solid #b47c3e;padding:6px 10px;background:#fff8e9}.stat{font-size:26px;font-weight:bold}.hint,.sub,small{color:#536477}.report-actions292{display:none}.report-section292{break-inside:auto}.report-kpi292{break-inside:avoid}@page{size:A4;margin:14mm}`;
+ popup.document.open();popup.document.write('<!doctype html><html lang="es"><head><meta charset="utf-8"><title>'+escapeHtml(safeTitle)+'</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>'+cssPrint+'</style></head><body><h1>✦ Mi Finanzas IA · '+(preview?'Vista previa':'Informe de cierre')+'</h1>'+inner+'<p><small>Informe generado en este dispositivo. Las cifras se basan en registros ingresados manualmente; no son saldos bancarios verificados.</small></p></body></html>');popup.document.close();
+ popup.focus();setTimeout(()=>popup.print(),350);
+}
+
 function refreshClock29(){
  const el=document.getElementById('clockTotal29');
  if(!el)return;
